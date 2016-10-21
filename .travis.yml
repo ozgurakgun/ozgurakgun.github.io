@@ -1,0 +1,36 @@
+
+# travis phases and our setup
+# before_install
+# install
+# before_script
+# script                            -- ./build.sh
+# after_success
+# after_failure
+# OPTIONAL before_deploy
+# OPTIONAL deploy
+# OPTIONAL after_deploy
+# after_script
+
+sudo: false
+
+language: ruby
+
+rvm:
+  - 2.2.5
+
+install:
+  - gem install jekyll html-proofer
+  
+script:
+  - jekyll build
+  - htmlproofer _site --disable-external
+
+after_success:
+  - make freeze
+  - cp cabal.config cabal.config-${GHC_VERSION}
+  - git diff cabal.config-${GHC_VERSION}
+
+
+env:
+  global:
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # speeds up installation of html-proofer
