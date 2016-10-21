@@ -1,7 +1,7 @@
 ---
-layout: page
-title: About
-permalink: /about
+layout: default
+title: Home
+permalink: /
 ---
 
 Hi!
