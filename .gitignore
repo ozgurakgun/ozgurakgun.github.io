@@ -1,3 +1,4 @@
 _site
 .sass-cache
 _sass/bootstrap-sass
+.jekyll-metadata
