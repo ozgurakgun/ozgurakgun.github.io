@@ -1,2 +1,2 @@
-include = "{$include,.gitignore,.travis,yml}"
+include = "{$include,.gitignore,.travis.yml}"
 exclude = '{$exclude,_site,_sass/bootstrap-sass}'
