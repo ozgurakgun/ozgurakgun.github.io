@@ -15,9 +15,11 @@ permalink: /
 
 I am Özgür Akgün. You have reached my personal website.
 
-I am a Research Fellow at the School of Computer Science, University of St Andrews.
+I am a Research Fellow at the
+[School of Computer Science](http://www.cs.st-andrews.ac.uk),
+[University of St Andrews](http://www.st-andrews.ac.uk).
 
-Feel free to explore these pages.
+You are very welcome to explore these pages.
 Have a look at
 my [publications](/publications),
 [open source software](/software), and
