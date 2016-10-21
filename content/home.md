@@ -104,7 +104,7 @@ You can also [contact me](/contact) if you like.
         Jefferson</a>. We also have strong collaborations with <a
         href="http://www-users.cs.york.ac.uk/~frisch">Alan Frisch</a>
         from University of York and <a
-        href="http://homes.ieu.edu.tr/bhnich">Brahim Hnich</a> from
+        href="https://scholar.google.co.uk/citations?user=2oRyj9QAAAAJ&hl=en">Brahim Hnich</a> from
         Izmir University of Economics. My studies were generously
         funded by The <a href="http://www.sicsa.ac.uk"
         rel="nofollow">Scottish Informatics and Computer Science
@@ -114,9 +114,9 @@ You can also [contact me](/contact) if you like.
         Prior to my studies in University of St. Andrews, I attended
         <a href="http://www.ieu.edu.tr/en">Izmir University of
         Economics</a> to receive 2 B.Sc. degrees: <a
-        href="http://cs.ieu.edu.tr/bm_hakkinda.php">Computer
+        href="http://ce.ieu.edu.tr/en">Computer
         Enginnering</a> and <a
-        href="http://cs.ieu.edu.tr/esm_hakkinda.php">Industrial
+        href="http://ie.ieu.edu.tr/en">Industrial
         Systems Engineering</a>. There, I have done courses on <abbr
         title="Artificial Intelligence">AI</abbr>, <abbr
         title="Operations Research">OR</abbr> and Heuristics amongst
