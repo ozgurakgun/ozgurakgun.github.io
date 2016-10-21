@@ -19,5 +19,5 @@ Etc..
 
 My GitHub username is: [ozgurakgun](http://github.com/ozgurakgun).
 There is also
-[CSPLib]((http://github.com/csplib/csplib),
-[DLRep]((http://github.com/dlrep/dlrep).
+[CSPLib](http://github.com/csplib/csplib),
+[DLRep](http://github.com/dlrep/dlrep).
