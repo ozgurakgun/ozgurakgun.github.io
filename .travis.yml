@@ -23,7 +23,7 @@ install:
   
 script:
   - bundle exec jekyll build
-  - htmlproofer _site --assume-extension
+  - htmlproofer _site --disable-external --assume-extension
 
 env:
   global:
