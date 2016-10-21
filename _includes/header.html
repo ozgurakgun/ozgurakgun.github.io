@@ -1,6 +1,22 @@
-<aside>
-    <div class="container">
-        <nav>
+<nav class = "navbar navbar-default" role = "navigation">
+    <div class="container-fluid">
+        <!-- <ul class = "nav navbar-nav"> -->
+        <ul class = "nav nav-tabs">
+            {% assign sorted_pages = (site.pages | where: 'layout', 'page' | sort: 'order') %}
+            {% for p in sorted_pages %}
+                {% if page.title == p.title %}
+                    <li class="active"><a href="{{ p.url | prepend: site.baseurl }}">{{ p.title }}</a></li>
+                {% else %}
+                    <li><a href="{{ p.url | prepend: site.baseurl }}">{{ p.title }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</nav>
+
+<!-- <nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
             <ul>
                 {% assign sorted_pages = (site.pages | where: 'layout', 'page' | sort: 'order') %}
                 {% for page in sorted_pages %}
@@ -9,10 +25,11 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-        </nav>
+        </div>
     </div>
-</aside>
+</nav> -->
 
-<header>
+
+<!-- <header>
     <h1><a href="{{ site.baseurl }}">{{ site.title }}</a></h1>
-</header>
+</header> -->
