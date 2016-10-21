@@ -23,7 +23,7 @@ install:
   
 script:
   - bundle exec jekyll build
-  - bundle exec htmlproofer _site --disable-external --assume-extension
+  - bundle exec htmlproofer _site --assume-extension --check-html --url-ignore "/scholar.google.co.uk/"
 
 env:
   global:
