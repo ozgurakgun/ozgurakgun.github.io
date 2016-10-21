@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 gem "jekyll", "3.2.1"
 gem "html-proofer"
+gem "nokogiri", "1.6.7.2"
 
 
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
