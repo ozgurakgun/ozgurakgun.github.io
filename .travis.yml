@@ -16,14 +16,14 @@ sudo: false
 language: ruby
 
 rvm:
-  - 2.2.5
+  - 2.3.1
 
 install:
   - bundle install
   
 script:
   - bundle exec jekyll build
-  - htmlproofer _site --disable-external --assume-extension
+  - bundle exec htmlproofer _site --disable-external --assume-extension
 
 env:
   global:
