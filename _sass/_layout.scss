@@ -40,8 +40,8 @@ header {
     background: $header;
     padding: 0px 15px;
     text-align: center;
-    margin: 50px 0 0;
-    height: 50vh;
+    margin: 0;
+    height: 10vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,7 +63,7 @@ time {
 
 aside {
     position: fixed;
-    top: 0;
+    top: 10vh;
     left: 0;
     background: #fff;
     width: 100%;
