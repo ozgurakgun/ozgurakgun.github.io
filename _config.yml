@@ -12,6 +12,8 @@ github_username:  ozgurakgun
 markdown: kramdown
 kramdown:
   input: GFM
+sass:
+  style: :compressed
 
 
 
