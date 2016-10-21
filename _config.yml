@@ -12,7 +12,6 @@ github_username:  ozgurakgun
 markdown: kramdown
 kramdown:
   input: GFM
-include: ['_pages']
 
 
 
