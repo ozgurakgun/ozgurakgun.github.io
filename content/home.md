@@ -5,11 +5,26 @@ title: Home
 permalink: /
 ---
 
-Hi!
+<div class="jumbotron" markdown="1">
 
-I am Özgür Akgün, and you've reached my personal homepage.
+# Welcome!
+
+I am Özgür Akgün. You have reached my personal website.
 
 I am a Research Fellow at the School of Computer Science, University of St Andrews.
+
+Feel free to explore these pages.
+Have a look at
+my [publications](/publications),
+[open source software](/software), and
+recent [activities](/activities).
+You can also [contact me](/contact) if you like.
+
+</div>
+
+
+Hi!
+
 
 
 Contact
