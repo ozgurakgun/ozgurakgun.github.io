@@ -5,7 +5,11 @@ title: Home
 permalink: /
 ---
 
-<div class="jumbotron" markdown="1">
+<div class="jumbotron container-fluid">
+
+<div class="row" style="display:flex; align-items:center;">
+
+<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" markdown="1">
 
 # Welcome!
 
@@ -17,8 +21,16 @@ Feel free to explore these pages.
 Have a look at
 my [publications](/publications),
 [open source software](/software), and
-recent [activities](/activities).
+recent [activities](/activities).  
 You can also [contact me](/contact) if you like.
+
+</div>
+
+<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 pull-right">
+    <img src="content/burn.jpg" class="img-responsive img-rounded pull-right" alt="Özgür sitting on a chair">
+</div>
+
+</div>
 
 </div>
 
