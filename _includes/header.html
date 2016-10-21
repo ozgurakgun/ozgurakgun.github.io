@@ -2,7 +2,8 @@
     <div class="container">
         <nav>
             <ul>
-                {% for page in site.pages %}
+                {% assign sorted_pages = (site.pages | where: 'layout', 'page' | sort: 'order') %}
+                {% for page in sorted_pages %}
                     {% if page.title and page.title != "404: Page not found" %}
                         <li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
                     {% endif %}

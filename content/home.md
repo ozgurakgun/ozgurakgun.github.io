@@ -1,5 +1,6 @@
 ---
-layout: default
+layout: page
+order: 1
 title: Home
 permalink: /
 ---
