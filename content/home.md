@@ -20,10 +20,10 @@ I am a Research Fellow at the
 [University of St Andrews](http://www.st-andrews.ac.uk).
 
 You are very welcome to explore these pages.
-Have a look at
-my [publications](/publications),
-[open source software](/software), and
-recent [activities](/activities).  
+Have a look at my
+[research interests and publications](/research),
+[software development experience](/software), and
+[recent activities](/activities).  
 You can also [contact me](/contact) if you like.
 
 </div>

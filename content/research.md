@@ -1,8 +1,8 @@
 ---
 layout: page
 order: 2
-title: Publications
-permalink: /publications
+title: Research Interests and Publications
+permalink: /research
 ---
 
 Here shall be a list of my publications. 
