@@ -22,6 +22,7 @@ I may use tags. Let's brainstorm a bit.
 - Research/Talk
 - Research/Demonstration
 - Research/Attending Conferences
+- Funding
 - Software
 - ...
 
