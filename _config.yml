@@ -1,13 +1,28 @@
 
-# personal info
-title: Özgür Akgün
+# general
+title: Özgür Akgün's Personal Webpage
 email: ozgurakgun@gmail.com
-description: Özgür Akgün's personal homepage.
+description: This is Özgür Akgün's Personal Webpage.
 baseurl: ""
 url: "http://ozgurakgun.github.io"
 twitter_username: ozgurakgun
-github_username: ozgurakgun
+github_username:  ozgurakgun
 
-# Build settings
+# build settings
 markdown: kramdown
-theme: minima
+kramdown:
+  input: GFM
+include:
+  - _pages
+
+
+
+
+
+
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
