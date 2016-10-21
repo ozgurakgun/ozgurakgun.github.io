@@ -4,10 +4,15 @@
         <ul class = "nav nav-tabs">
             {% assign sorted_pages = (site.pages | where: 'layout', 'page' | sort: 'order') %}
             {% for p in sorted_pages %}
-                {% if page.title == p.title %}
-                    <li class="active"><a href="{{ p.url | prepend: site.baseurl }}">{{ p.title }}</a></li>
+                {% if p.menutitle %}
+                    {% assign usetitle = p.menutitle %}
                 {% else %}
-                    <li><a href="{{ p.url | prepend: site.baseurl }}">{{ p.title }}</a></li>
+                    {% assign usetitle = p.title %}
+                {% endif %}
+                {% if page.title == p.title %}
+                    <li class="active"><a href="{{ p.url | prepend: site.baseurl }}">{{ usetitle }}</a></li>
+                {% else %}
+                    <li><a href="{{ p.url | prepend: site.baseurl }}">{{ usetitle }}</a></li>
                 {% endif %}
             {% endfor %}
         </ul>

@@ -2,6 +2,7 @@
 layout: page
 order: 3
 title: Software Development
+menutitle: Software
 permalink: /software
 ---
 
