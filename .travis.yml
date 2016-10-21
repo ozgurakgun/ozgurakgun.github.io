@@ -19,17 +19,11 @@ rvm:
   - 2.2.5
 
 install:
-  - gem install jekyll html-proofer
+  - bundle install
   
 script:
-  - jekyll build
+  - bundle exec jekyll build
   - htmlproofer _site --disable-external
-
-after_success:
-  - make freeze
-  - cp cabal.config cabal.config-${GHC_VERSION}
-  - git diff cabal.config-${GHC_VERSION}
-
 
 env:
   global:
