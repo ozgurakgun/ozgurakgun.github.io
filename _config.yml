@@ -15,10 +15,24 @@ kramdown:
 sass:
   style: :compressed
 
+tag_page_layout: tag_page
+tag_page_dir: tag
+tag_permalink_style: pretty
 
+collections:
+- activities
 
+collections:
+  activities:
+    output: true
+    permalink: /activity/:path/
 
-
+defaults:
+  - scope:
+      path: ""
+      type: activities
+    values:
+      layout: activity
 
 
 # Site settings

@@ -1,0 +1,16 @@
+---
+layout: default
+---
+
+<h2>Date: {{ page.date | date: "%-d %B %Y"  }}</h2>
+
+<h2>Tags</h2>
+
+<ul>
+{% for tag in page.tags %}
+  <li><a href="{{ tag.url }}">{{ tag }}</a></li>
+{% endfor %}
+</ul>
+
+
+{{ content }}

@@ -16,15 +16,19 @@ I may use tags. Let's brainstorm a bit.
 - Service/Chair
 - Service/Organiser
 - Research
-- Research/Attending Meetings
 - Research/Visiting Scholar
 - Research/Publication
 - Research/Talk
 - Research/Demonstration
-- Research/Attending Conferences
+- Research/Attending Conference
 - Funding
 - Software
 - ...
 
 Stay tuned.
 
+<ul>
+{% for act in site.activities %}
+  <li> <a href="{{ act.url | prepend: site.baseurl }}"> link </a> {{ act.content }} </li>
+{% endfor %}
+</ul>
