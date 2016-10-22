@@ -2,7 +2,7 @@
 layout: page
 order: 2
 title: Research Interests and Publications
-menutitle: Research & Publications
+menutitle: Research
 permalink: /research
 ---
 

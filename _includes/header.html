@@ -1,7 +1,7 @@
-<nav class = "navbar navbar-default" role = "navigation">
-    <div class="container-fluid">
-        <!-- <ul class = "nav navbar-nav"> -->
-        <ul class = "nav nav-tabs">
+<div class="container">
+<div class="masthead">
+    <nav>
+        <ul class="nav nav-justified">
             {% assign sorted_pages = (site.pages | where: 'layout', 'page' | sort: 'order') %}
             {% for p in sorted_pages %}
                 {% if p.menutitle %}
@@ -16,25 +16,6 @@
                 {% endif %}
             {% endfor %}
         </ul>
-    </div>
-</nav>
-
-<!-- <nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <ul>
-                {% assign sorted_pages = (site.pages | where: 'layout', 'page' | sort: 'order') %}
-                {% for page in sorted_pages %}
-                    {% if page.title and page.title != "404: Page not found" %}
-                        <li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-</nav> -->
-
-
-<!-- <header>
-    <h1><a href="{{ site.baseurl }}">{{ site.title }}</a></h1>
-</header> -->
+    </nav>
+</div>
+</div>
