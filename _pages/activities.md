@@ -33,7 +33,7 @@ Stay tuned.
 <div class="panel-heading">
 <a href="{{ act.url | prepend: site.baseurl }}"> {{ act.date | date: "%-d %B %Y" }} - {{ act.title }} </a>
 </div>
-<div class="panel-body">
+<div class="panel-body" markdown="1">
 {{ act.content }}
 </div>
 </div>
