@@ -13,6 +13,7 @@ markdown: kramdown
 kramdown:
   input: GFM
 sass:
+  sass_dir: __internal/sass
   style: :compressed
 
 collections:
