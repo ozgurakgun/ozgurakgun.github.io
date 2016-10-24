@@ -38,3 +38,13 @@ Stay tuned.
 </div>
 {% endfor %}
 
+
+
+<ul>
+{% for post in site.activities %}
+  <li>
+    {{ post.date | date: "%-d %B %Y" }}: <a href="{{ post.url }}">{{ post.title }}</a>
+  </li>
+{% endfor %}
+</ul>
+
