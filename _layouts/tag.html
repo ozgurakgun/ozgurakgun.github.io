@@ -2,12 +2,12 @@
 layout: default
 ---
 
-<h1>This is the page for tag: {{ page.tag }}</h1>
+<h1>This is the page for tag: {{ page.face }}</h1>
 
 <h2>{{ page.tag }}</h2>
 
 <ul>
-{% for post in site.activities %}
+{% for post in site.collection_activities %}
 {% if post.tags contains page.tag %}
   <li>
     {{ post.date | date: "%B %d, %Y" }}: <a href="{{ post.url }}">{{ post.title }}</a>
