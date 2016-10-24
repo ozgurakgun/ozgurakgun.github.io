@@ -27,8 +27,16 @@ I may use tags. Let's brainstorm a bit.
 
 Stay tuned.
 
-<ul>
-{% for act in site.activities %}
-  <li> <a href="{{ act.url | prepend: site.baseurl }}"> link </a> {{ act.content }} </li>
+{% for act in site.collection_activities %}
+  
+<div class="panel panel-default">
+<div class="panel-heading">
+<a href="{{ act.url | prepend: site.baseurl }}"> {{ act.date | date: "%-d %B %Y" }} - {{ act.title }} </a>
+</div>
+<div class="panel-body">
+{{ act.content }}
+</div>
+</div>
+
 {% endfor %}
-</ul>
+

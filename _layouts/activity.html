@@ -2,15 +2,19 @@
 layout: default
 ---
 
-<h2>Date: {{ page.date | date: "%-d %B %Y"  }}</h2>
-
-<h2>Tags</h2>
-
+<div class="panel panel-default">
+<div class="panel-heading">
+Activity: <a href="{{ page.url | prepend: site.baseurl }}"> {{ page.date | date: "%-d %B %Y" }} - {{ page.title }} </a>
+</div>
+<div class="panel-body">
+{{ page.content }}
+</div>
+<div class="panel-footer">
+<h3>Tags</h3>
 <ul>
 {% for tag in page.tags %}
-  <li><a href="{{ site.utl }}/tags/{{ tag }}">{{ tag }}</a></li>
+  <li><a href="{{ site.utl }}/tags/{{ tag }}">{{ tag.face }}</a></li>
 {% endfor %}
 </ul>
-
-
-{{ content }}
+</div>
+</div>

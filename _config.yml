@@ -19,15 +19,12 @@ collections:
 - activities
 
 collections:
-  activities:
+  collection_activities:
     output: true
     permalink: /activity/:path/
 
 defaults:
-  - scope:
-      path: ""
-      type: activities
-    values:
+  - values:
       layout: activity
 
 
