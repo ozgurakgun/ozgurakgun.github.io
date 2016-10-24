@@ -6,9 +6,24 @@
 
 @import "bootstrap";
 
+
 @media (min-width: 480px) {
     .nav-cleverstack > li {
         display: table-cell;
         width: 1%;
+    }
+}
+
+
+@media (min-width:1px) and (max-width: 999px) {
+    #ozgur_burn_img {
+        width: 50%;
+        max-width: 320px;
+    }
+}
+
+@media (min-width: 1000px) {
+    #ozgur_burn_img {
+        width: 320px;
     }
 }

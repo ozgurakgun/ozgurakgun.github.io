@@ -5,7 +5,7 @@ title: Home
 permalink: /
 ---
 
-<div class="jumbotron container-fluid">
+<div class="jumbotron">
 
 <div class="row" style="display:flex; align-items:center;">
 
@@ -28,9 +28,10 @@ You can also [contact me](/contact) if you like.
 
 </div>
 
-<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 pull-right">
+<div id="ozgur_burn_img" class="pull-right">
     <img src="{{ "/assets/burn.jpg" | prepend: site.baseurl }}"
-         class="img-responsive img-rounded pull-right"
+         class="img-responsive img-rounded"
+         style="width:100%;"
          alt="Özgür sitting on a chair">
 </div>
 
