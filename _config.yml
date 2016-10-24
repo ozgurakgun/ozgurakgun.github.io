@@ -9,6 +9,7 @@ twitter_username: ozgurakgun
 github_username: ozgurakgun
 
 # build settings
+layouts_dir: __internal/layouts
 markdown: kramdown
 kramdown:
   input: GFM

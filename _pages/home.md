@@ -29,7 +29,9 @@ You can also [contact me](/contact) if you like.
 </div>
 
 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 pull-right">
-    <img src="burn.jpg" class="img-responsive img-rounded pull-right" alt="Özgür sitting on a chair">
+    <img src="{{ "/assets/burn.jpg" | prepend: site.baseurl }}"
+         class="img-responsive img-rounded pull-right"
+         alt="Özgür sitting on a chair">
 </div>
 
 </div>
