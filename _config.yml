@@ -6,7 +6,7 @@ description: This is Özgür Akgün's Personal Website.
 baseurl: ""
 url: "http://ozgurakgun.github.io"
 twitter_username: ozgurakgun
-github_username:  ozgurakgun
+github_username: ozgurakgun
 
 # build settings
 markdown: kramdown
@@ -16,16 +16,37 @@ sass:
   style: :compressed
 
 collections:
+- pages
 - activities
+- tags
 
 collections:
-  collection_activities:
+  pages:
     output: true
-    permalink: /activity/:path/
+    permalink: /:path
+  activities:
+    output: true
+    permalink: /activity/:path
+  tags:
+    output: true
+    permalink: /tag/:path
 
 defaults:
-  - values:
+  - scope:
+      type: pages
+    values:
+      layout: page
+  - scope:
+      type: activities
+    values:
       layout: activity
+  - scope:
+      type: tags
+    values:
+      layout: tag
+
+
+
 
 
 # Site settings
