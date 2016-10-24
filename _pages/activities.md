@@ -27,8 +27,7 @@ I may use tags. Let's brainstorm a bit.
 
 Stay tuned.
 
-{% for act in site.activities %}
-  
+{% for act in site.activities reversed %}
 <div class="panel panel-default">
 <div class="panel-heading">
 <a href="{{ act.url | prepend: site.baseurl }}"> {{ act.date | date: "%-d %B %Y" }} - {{ act.title }} </a>
@@ -37,6 +36,5 @@ Stay tuned.
 {{ act.content }}
 </div>
 </div>
-
 {% endfor %}
 
