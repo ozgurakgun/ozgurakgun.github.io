@@ -27,7 +27,7 @@ I may use tags. Let's brainstorm a bit.
 
 Stay tuned.
 
-{% for act in site.collection_activities %}
+{% for act in site.activities %}
   
 <div class="panel panel-default">
 <div class="panel-heading">
