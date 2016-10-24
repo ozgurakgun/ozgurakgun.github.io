@@ -11,16 +11,16 @@ I may use tags. Let's brainstorm a bit.
 
 - Teaching
 - Service
-- Service/Reviewer
-- Service/PC member
-- Service/Chair
-- Service/Organiser
+- Service-Reviewer
+- Service-ProgramCommittee
+- Service-Chair
+- Service-Organiser
 - Research
-- Research/Visiting Scholar
-- Research/Publication
-- Research/Talk
-- Research/Demonstration
-- Research/Attending Conference
+- Research-Visit
+- Research-Publication
+- Research-Talk
+- Research-Demonstration
+- Research-Conference
 - Funding
 - Software
 - ...
