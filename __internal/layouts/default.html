@@ -35,7 +35,7 @@
     <div class="container" style="margin-top:20px;">
     <div class="well well-sm">
         <nav id="navigation">
-            <ul class="nav nav-pills nav-justified">
+            <ul class="nav nav-pills nav-justified nav-cleverstack">
                 {% assign sorted_pages = (site.pages | where: 'layout', 'page' | sort: 'order') %}
                 {% for p in sorted_pages %}
                     {% if p.menutitle %}
