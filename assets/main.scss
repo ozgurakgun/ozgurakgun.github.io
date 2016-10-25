@@ -15,7 +15,26 @@
 }
 
 
-@media (min-width:1px) and (max-width: 999px) {
+@media (min-width: 481px) {
+    .wide_version {
+        display: visible
+    }
+    .narrow_version {
+        display: none;
+    }
+}
+
+@media (min-width: 1px) and (max-width: 480px) {
+    .wide_version {
+        display: none;
+    }
+    .narrow_version {
+        display: visible;
+    }
+}
+
+
+@media (min-width: 1px) and (max-width: 999px) {
     #ozgur_burn_img {
         width: 50%;
         max-width: 320px;

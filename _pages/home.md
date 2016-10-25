@@ -7,6 +7,9 @@ permalink: /
 
 <div class="jumbotron">
 
+
+<div class="wide_version">
+
 <div class="row" style="display:flex; align-items:center;">
 
 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" markdown="1">
@@ -26,7 +29,7 @@ Have a look at my
 [recent activities](/activities).  
 You can also [contact me](/contact) if you like.
 
-</div>
+</div> <!-- col -->
 
 <div id="ozgur_burn_img" class="pull-right">
     <img src="{{ "/assets/burn.jpg" | prepend: site.baseurl }}"
@@ -35,7 +38,35 @@ You can also [contact me](/contact) if you like.
          alt="Özgür sitting on a chair">
 </div>
 
-</div>
+</div> <!-- row -->
+
+</div> <!-- wide_version -->
+
+
+<div class="container narrow_version" markdown="1">
+
+# Welcome!
+
+I am Özgür Akgün. You have reached my personal website.
+
+<img src="{{ "/assets/burn.jpg" | prepend: site.baseurl }}"
+     class="img-responsive img-rounded center-block"
+     style="width:70%;"
+     alt="Özgür sitting on a chair">
+
+I am a Research Fellow at the
+[School of Computer Science](http://www.cs.st-andrews.ac.uk),
+[University of St Andrews](http://www.st-andrews.ac.uk).
+
+You are very welcome to explore these pages.
+Have a look at my
+[research interests and publications](/research),
+[software development experience](/software), and
+[recent activities](/activities).  
+You can also [contact me](/contact) if you like.
+
+</div> <!-- narrow_version -->
+
 
 </div>
 
