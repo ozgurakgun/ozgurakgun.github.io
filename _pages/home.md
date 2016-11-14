@@ -221,6 +221,5 @@ Please don't hesitate to [contact me](/contact) if you cannot find something you
             Abstract for EURO-OR can be found here: http://www.euro-2009.de/final_programme.pdf
         </li>
     </lu> -->
-</div>
 
 
