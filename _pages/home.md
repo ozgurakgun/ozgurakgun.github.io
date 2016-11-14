@@ -74,11 +74,13 @@ You can also [contact me](/contact) if you like.
 
 ### Old Content
 
+<div class="alert alert-info" role="alert" markdown="1">
 I am currently working on preparing a new personal web site.
 But as you can guess this is taking a while...
 
 The following is some old content copy/pasted from my old and very basic personal web site.
 Please don't hesitate to [contact me](/contact) if you cannot find something you are looking for here.
+</div>
 
 <div id="content">
     <h1> Hi! </h1>
