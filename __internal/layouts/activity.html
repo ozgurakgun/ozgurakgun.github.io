@@ -12,8 +12,8 @@ Activity: <a href="{{ page.url | prepend: site.baseurl }}"> {{ page.date | date:
 <div class="panel-footer">
 <h3>Tags</h3>
 <ul>
-{% for tag in page.tags %}
-  <li><a href="{{ site.baseurl }}/tag/{{ tag }}">{{ tag }}</a></li>
+{% for item in page.tags %}
+<li><a href="{{ item.url | prepend: site.baseurl }}">{{ item.face }}</a></li>
 {% endfor %}
 </ul>
 </div>
