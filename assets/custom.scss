@@ -33,16 +33,20 @@
 
 
 @media (min-width: 1px) and (max-width: 999px) {
-    #ozgur_profile_img {
+    #ozgur_profile_img_div {
         width: 50%;
         max-width: 320px;
     }
 }
 
 @media (min-width: 1000px) {
-    #ozgur_profile_img {
+    #ozgur_profile_img_div {
         width: 320px;
     }
+}
+
+.ozgur_profile_img {
+    display: none;
 }
 
 

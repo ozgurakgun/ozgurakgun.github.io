@@ -30,11 +30,11 @@ You can also [contact me](/contact) if you like.
 
 </div> <!-- col -->
 
-<div id="ozgur_profile_img" class="pull-right">
-    <img src="{{ "/assets/burn.jpg" | prepend: site.baseurl }}"
-         class="img-responsive img-rounded"
+<div id="ozgur_profile_img_div" class="pull-right">
+    <img src="/assets/burn.jpg"
+         class="ozgur_profile_img img-responsive img-rounded"
          style="width:100%;"
-         alt="Özgür sitting on a chair">
+         alt="A handsome looking photo of Özgür">
 </div>
 
 </div> <!-- row -->
@@ -48,10 +48,10 @@ You can also [contact me](/contact) if you like.
 
 I am Özgür Akgün. You have reached my personal website.
 
-<img src="{{ "/assets/burn.jpg" | prepend: site.baseurl }}"
-     class="img-responsive img-rounded center-block"
+<img src="/assets/burn.jpg"
+     class="ozgur_profile_img img-responsive img-rounded center-block"
      style="width:70%;"
-     alt="Özgür sitting on a chair">
+     alt="A handsome looking photo of Özgür">
 
 I am a Research Fellow at the
 [School of Computer Science](http://www.cs.st-andrews.ac.uk),
@@ -223,4 +223,16 @@ Please don't hesitate to [contact me](/contact) if you cannot find something you
         </li>
     </lu> -->
 
+
+<script type="text/javascript">
+    $(function() {
+        var h = new Date().getHours()
+        if (h % 2 == 0) {
+            $(".ozgur_profile_img").attr("src", "/assets/lanark.jpg")
+        } else {
+            $(".ozgur_profile_img").attr("src", "/assets/burn.jpg")
+        }
+        $(".ozgur_profile_img").show()
+    });
+</script>
 
