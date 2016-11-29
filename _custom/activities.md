@@ -17,7 +17,7 @@ I attach tags to individual activity entries. The following is a list of all suc
 
 The following is a list of all activity entries.
 
-{% for post in site.activities %}
+{% for post in site.activities reversed %}
 - {{ post.date | date: "%-d %B %Y" }}: <a href="{{ post.url }}">{{ post.title }}</a>
 {% endfor %}
 
