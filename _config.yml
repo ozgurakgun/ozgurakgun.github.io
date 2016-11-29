@@ -13,9 +13,6 @@ layouts_dir: __internal/layouts
 markdown: kramdown
 kramdown:
   input: GFM
-sass:
-  sass_dir: __internal/sass
-  style: :compressed
 
 exclude:
 - README.md
@@ -49,13 +46,3 @@ defaults:
       type: tags
     values:
       layout: tag
-
-
-
-
-
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
