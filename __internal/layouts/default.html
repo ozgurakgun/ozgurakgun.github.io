@@ -54,17 +54,17 @@
     <div class="well well-sm">
         <nav id="navigation">
             <ul class="nav nav-pills nav-justified nav-cleverstack">
-                {% assign sorted_pages = (site.pages | where: 'layout', 'page' | sort: 'order') %}
-                {% for p in sorted_pages %}
-                    {% if p.menutitle %}
-                        {% assign usetitle = p.menutitle %}
+                {% assign sorted_items = (site.custom | where: 'layout', 'custom' | sort: 'order') %}
+                {% for item in sorted_items %}
+                    {% if item.menutitle %}
+                        {% assign usetitle = item.menutitle %}
                     {% else %}
-                        {% assign usetitle = p.title %}
+                        {% assign usetitle = item.title %}
                     {% endif %}
-                    {% if page.title == p.title %}
-                        <li class="active"><a href="{{ p.url | prepend: site.baseurl }}">{{ usetitle }}</a></li>
+                    {% if page.title == item.title %}
+                        <li class="active"><a href="{{ item.url | prepend: site.baseurl }}">{{ usetitle }}</a></li>
                     {% else %}
-                        <li><a href="{{ p.url | prepend: site.baseurl }}">{{ usetitle }}</a></li>
+                        <li><a href="{{ item.url | prepend: site.baseurl }}">{{ usetitle }}</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>

@@ -18,12 +18,12 @@ exclude:
 - README.md
 
 collections:
-- pages
+- custom
 - activities
 - tags
 
 collections:
-  pages:
+  custom:
     output: true
     permalink: /:path
   activities:
@@ -35,9 +35,9 @@ collections:
 
 defaults:
   - scope:
-      type: pages
+      type: custom
     values:
-      layout: page
+      layout: custom
   - scope:
       type: activities
     values:

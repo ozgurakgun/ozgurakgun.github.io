@@ -1,5 +1,4 @@
 ---
-layout: page
 order: 5
 title: Contact
 permalink: /contact
