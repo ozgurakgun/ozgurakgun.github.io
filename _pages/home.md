@@ -31,7 +31,7 @@ You can also [contact me](/contact) if you like.
 
 </div> <!-- col -->
 
-<div id="ozgur_burn_img" class="pull-right">
+<div id="ozgur_profile_img" class="pull-right">
     <img src="{{ "/assets/burn.jpg" | prepend: site.baseurl }}"
          class="img-responsive img-rounded"
          style="width:100%;"
