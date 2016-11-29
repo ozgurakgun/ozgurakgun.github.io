@@ -10,10 +10,12 @@ I intend to add my important past activities here as well, but it will probably 
 
 I attach tags to individual activity entries. The following is a list of all such tags.
 
+<ul>
 {% assign items_sorted = site.tags | sort: 'tag' %}
 {% for item in items_sorted %}
-- [{{ item.face }}]({{ item.url | prepend: site.baseurl }})
+<li><a href="{{ item.url | prepend: site.baseurl }}">{{ item.face }}</a></li>
 {% endfor %}
+</ul>
 
 The following is a list of all activity entries.
 
