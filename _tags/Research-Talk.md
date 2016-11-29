@@ -1,4 +1,4 @@
 ---
 tag: Research-Talk
-face: "Research Talk"
+face: "Research ≫ Talk"
 ---

@@ -1,4 +1,4 @@
 ---
 tag: Research-Conference
-face: Conference
+face: "Research ≫ Conference"
 ---

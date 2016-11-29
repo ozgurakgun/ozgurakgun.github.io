@@ -1,4 +1,4 @@
 ---
 tag: Service-Organiser
-face: "Service/Organiser"
+face: "Service ≫ Organiser"
 ---

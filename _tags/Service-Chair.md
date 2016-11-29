@@ -1,4 +1,4 @@
 ---
 tag: Service-Chair
-face: "Service/Chair"
+face: "Service ≫ Chair"
 ---

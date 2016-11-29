@@ -1,4 +1,4 @@
 ---
 tag: Research-Publication
-face: Publication
+face: "Research ≫ Publication"
 ---

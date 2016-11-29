@@ -1,4 +1,4 @@
 ---
 tag: Service-ProgramCommittee
-face: "Service/Program Committee Member"
+face: "Service ≫ Program Committee Member"
 ---
