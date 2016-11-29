@@ -12,8 +12,11 @@ Activity: <a href="{{ page.url | prepend: site.baseurl }}"> {{ page.date | date:
 <div class="panel-footer">
 <h3>Tags</h3>
 <ul>
-{% for item in page.tags %}
+{% assign items_sorted = site.tags | sort: 'tag' %}
+{% for item in items_sorted %}
+{% if page.tags contains item.tag %}
 <li><a href="{{ item.url | prepend: site.baseurl }}">{{ item.face }}</a></li>
+{% endif %}
 {% endfor %}
 </ul>
 </div>
