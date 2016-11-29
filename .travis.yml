@@ -21,9 +21,9 @@ rvm:
 install:
   - bundle install
   
-script:
-  - bundle exec jekyll build
-  - bundle exec htmlproofer _site --assume-extension --check-html --url-ignore "/scholar.google.co.uk/"
+script: |
+    bundle exec jekyll build &&
+    bundle exec htmlproofer _site --assume-extension --check-html --disable-external
 
 env:
   global:
