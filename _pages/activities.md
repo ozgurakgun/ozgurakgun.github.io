@@ -5,46 +5,20 @@ title: Activities
 permalink: /activities
 ---
 
-Here shall be the many activities I take part in.
+I have recently started making a small note for my work related activities.
 
-I may use tags. Let's brainstorm a bit.
+I intend to add my important past activities here as well, but it will probably take time.
 
-- Teaching
-- Service
-- Service-Reviewer
-- Service-ProgramCommittee
-- Service-Chair
-- Service-Organiser
-- Research
-- Research-Visit
-- Research-Publication
-- Research-Talk
-- Research-Demonstration
-- Research-Conference
-- Funding
-- Software
-- ...
+I attach tags to individual activity entries. The following is a list of all such tags.
 
-Stay tuned.
-
-{% for act in site.activities reversed %}
-<div class="panel panel-default">
-<div class="panel-heading">
-<a href="{{ act.url | prepend: site.baseurl }}"> {{ act.date | date: "%-d %B %Y" }} - {{ act.title }} </a>
-</div>
-<div class="panel-body" markdown="1">
-{{ act.content }}
-</div>
-</div>
+{% assign items_sorted = site.tags | sort: 'tag' %}
+{% for item in items_sorted %}
+- [{{ item.face }}]({{ item.url | prepend: site.baseurl }})
 {% endfor %}
 
+The following is a list of all activity entries.
 
-
-<ul>
 {% for post in site.activities %}
-  <li>
-    {{ post.date | date: "%-d %B %Y" }}: <a href="{{ post.url }}">{{ post.title }}</a>
-  </li>
+- {{ post.date | date: "%-d %B %Y" }}: <a href="{{ post.url }}">{{ post.title }}</a>
 {% endfor %}
-</ul>
 
