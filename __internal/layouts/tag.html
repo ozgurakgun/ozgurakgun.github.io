@@ -6,12 +6,11 @@ layout: default
 
 <h2>{{ page.face }}</h2>
 
-<ul>
-{% for post in site.activities %}
+<dl class="dl-horizontal">
+{% for post in site.activities reversed %}
 {% if post.tags contains page.tag %}
-  <li>
-    {{ post.date | date: "%-d %B %Y" }}: <a href="{{ post.url }}">{{ post.title }}</a>
-  </li>
+<dt>{{ post.date | date: "%-d %B %Y" }}</dt>
+<dd><a href="{{ post.url }}">{{ post.title }}</a></dd>
 {% endif %}
 {% endfor %}
-</ul>
+</dl>
