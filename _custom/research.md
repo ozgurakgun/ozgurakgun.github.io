@@ -5,8 +5,11 @@ menutitle: Research
 permalink: /research
 ---
 
-Here shall be a list of my publications. 
+Please see my profiles on
+[Orcid](http://orcid.org/0000-0001-9519-938X) and
+[Google Scholar](https://scholar.google.co.uk/citations?user=heG7k-gAAAAJ&hl=en) for my latest publications.
 
-Without a doubt it will include a link to my [Google Scholar](https://scholar.google.co.uk/citations?user=heG7k-gAAAAJ&hl=en) profile as well.
+I also try to maintain a list here, but the profiles linked above may be more up to date.
 
-Stay tuned.
+{% include bib.html %}
+
