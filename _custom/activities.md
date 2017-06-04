@@ -4,20 +4,19 @@ title: Activities
 permalink: /activities
 ---
 
-I have recently started making a small note for my work related activities.
+Note: I have recently started making a small note for each of my work related activities.
+This list is not exhaustive and specifically it does not cover anything before late 2016.
 
-I intend to add my important past activities here as well, but it will probably take time.
+<!-- I intend to add my important past activities here as well, but it will probably take time. -->
 
-I attach tags to individual activity entries. The following is a list of all such tags.
-
-<ul>
+<!-- <ul>
 {% assign items_sorted = site.tags | sort: 'tag' %}
 {% for item in items_sorted %}
 <li><a href="{{ item.url | prepend: site.baseurl }}">{{ item.face }}</a></li>
 {% endfor %}
-</ul>
+</ul> -->
 
-The following is a list of all activity entries.
+The following is a list of all entries.
 
 <dl class="dl-horizontal">
 {% for post in site.activities reversed %}
