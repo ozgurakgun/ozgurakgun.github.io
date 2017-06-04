@@ -2,8 +2,8 @@ require 'bibtex'
 
 bibs = BibTeX.open('bib/pure.bib').to_citeproc
 
-knownFields = [ "author", "title", "container-title", "issued",                         # used
-                "id", "page", "issue", "publisher", "type", "volume", "genre",          # ignored
+knownFields = [ "author", "title", "container-title", "issued", "publisher",      # used
+                "id", "page", "issue", "type", "volume", "genre",                 # ignored
                 "ISBN", "issn", "note", "DOI", "collection-title", "editor",
                 "publisher-place", "keywords", "month_numeric"
               ]
@@ -14,9 +14,9 @@ print '<dl class="dl-horizontal">'
 
 for bib in bibs do
 
-  unless bib.key?('container-title') then
-    next
-  end
+  # unless bib.key?('container-title') then
+  #   next
+  # end
 
   year = bib['issued']['date-parts'][0][0]
   if printed[year] then
@@ -51,7 +51,13 @@ for bib in bibs do
                      .gsub("Christopher Anthony Jefferson", "Chris Jefferson")
 
   print "\n<br>"
-  print "#{bib['container-title']}"
+  if bib.key?('container-title') and bib.key?('publisher') then
+    print "#{bib['container-title']}, #{bib['publisher']}"
+  elsif bib.key?('container-title') then
+    print "#{bib['container-title']}"
+  elsif bib.key?('publisher') then
+    print "#{bib['publisher']}"
+  end
   print "</dd>"
   print "\n\n"
 
