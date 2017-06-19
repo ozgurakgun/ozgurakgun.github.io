@@ -23,7 +23,7 @@ I am a Research Fellow at the
 
 You are very welcome to explore these pages.
 Have a look at my
-[research interests and publications](/research),
+[latest publications](/publications),
 [software development experience](/software), and
 [recent activities](/activities).  
 You can also [contact me](/contact) if you like.
