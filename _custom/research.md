@@ -1,8 +1,8 @@
 ---
 order: 2
-title: Research Interests and Publications
-menutitle: Research
-permalink: /research
+title: Publications
+menutitle: Publications
+permalink: /publications
 ---
 
 Please see my profiles on
