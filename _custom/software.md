@@ -5,19 +5,13 @@ menutitle: Software
 permalink: /software
 ---
 
-I am involved in the development of some open source software.
+I am experienced in programming languages Haskell, Python, C++, C#, Java and web technologies (Javascript, CSS, HTML).
 
-(I will tidy this up later, but listing things briefly so I don't forget for now.)
+I am involved in the development of open source software.
 
-Most significant is [Conjure](http://www.github.com/conjure-cp).
+- I am the main developer of [Conjure](http://www.github.com/conjure-cp), the automated constraint modelling tool.
+- I contribute to the development of [Savile Row](http://savilerow.cs.st-andrews.ac.uk) -- more often indirectly by making Peter Nightingale do a lot of (very cool!) work.
+- I am a contributor to the awesome dependently typed programming language [Idris](http://github.com/idris-lang/Idris-dev).
+- I am one of the editors-in-chief of [CSPLib](http://github.com/csplib/csplib).
+- I am the developer of and a contributor to [DLRep](http://github.com/dlrep/dlrep).
 
-I contributed (a small bit, but I'd love to do more, not enough time!) to the compiler of the awesome dependently typed programming language [Idris](http://github.com/idris-lang/Idris-dev).
-
-I contribute to [Savile Row](http://savilerow.cs.st-andrews.ac.uk) -- admittedly more often indirectly via making Peter Nightingale do a lot of (very cool!) work.
-
-Etc..
-
-My GitHub username is: [ozgurakgun](http://github.com/ozgurakgun).
-There is also
-[CSPLib](http://github.com/csplib/csplib),
-[DLRep](http://github.com/dlrep/dlrep).
