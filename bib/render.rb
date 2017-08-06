@@ -42,6 +42,7 @@ for bib in bibs do
                      .gsub("}", "")
                      .gsub("Özgür Akgün", "<u>Özgür Akgün</u>")
                      .gsub("Peter William Nightingale", "Peter Nightingale")
+                     .gsub("James Patrick Wetter", "James Wetter")
                      .gsub("Ian James Miguel", "Ian Miguel")
                      .gsub("Long Thanh Thai", "Long Thai")
                      .gsub("Adam David Barker", "Adam Barker")
