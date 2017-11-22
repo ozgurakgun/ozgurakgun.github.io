@@ -23,7 +23,7 @@ permalink: /contact
         <th>
             Phone
         </th>
-        <td>+44 1334 463257</td>
+        <td>+44 1334 463072</td>
     </tr>
     <tr>
         <th style="text-align:center">
@@ -34,7 +34,7 @@ permalink: /contact
         </th>
         <td>
             School of Computer Science<br>
-            Jack Cole Building, Room 0.29<br>
+            Jack Cole Building, Room 1.10<br>
             North Haugh, St Andrews, Fife<br>
             KY16 9SX,<br>
             Scotland, United Kingdom
