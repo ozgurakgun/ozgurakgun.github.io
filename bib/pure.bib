@@ -59,21 +59,24 @@
 
 @article{1a41bce3240a48d8a8c1b977f34215ea,
   title     = "Cloud Benchmarking for Maximising Performance of Scientific Applications",
+  abstract  = "How can applications be deployed on the cloud to achieve maximum performance? This question is challenging to address with the availability of a wide variety of cloud Virtual Machines (VMs) with different performance capabilities. The research reported in this paper addresses the above question by proposing a six step benchmarking methodology in which a user provides a set of weights that indicate how important memory, local communication, computation and storage related operations are to an application. The user can either provide a set of four abstract weights or eight fine grain weights based on the knowledge of the application. The weights along with benchmarking data collected from the cloud are used to generate a set of two rankings - one based only on the performance of the VMs and the other takes both performance and costs into account. The rankings are validated on three case study applications using two validation techniques. The case studies on a set of experimental VMs highlight that maximum performance can be achieved by the three top ranked VMs and maximum performance in a cost-effective manner is achieved by at least one of the top three ranked VMs produced by the methodology.",
   keywords  = "Cloud benchmarking, Cloud performance, Benchmarking methodology, Cloud ranking",
   author    = "Blesson Varghese and Ozgur Akgun and Miguel, {Ian James} and Thai, {Long Thanh} and Barker, {Adam David}",
   note      = "This research was pursued under the EPSRC grant, EP/K015745/1, a Royal Society Industry Fellowship and an AWS Education Research grant.",
   year      = "2016",
   month     = "8",
   doi       = "10.1109/TCC.2016.2603476",
-  volume    = "Early Access",
+  volume    = "PP",
   journal   = "IEEE Transactions on Cloud Computing",
   issn      = "2168-7161",
   publisher = "IEEE",
+  number    = "99",
 }
 
 
 @inbook{03feab994c4544a49e1387c269b809e0,
   title     = "Exploiting Short Supports for Improved Encoding of Arbitrary Constraints into SAT",
+  abstract  = "Encoding to SAT and applying a highly efficient modern SAT solver is an increasingly popular method of solving finite-domain constraint problems. In this paper we study encodings of arbitrary constraints where unit propagation on the encoding provides strong reasoning. Specifically, unit propagation on the encoding simulates generalised arc consistency on the original constraint. To create compact and efficient encodings we use the concept of short support. Short support has been successfully applied to create efficient propagation algorithms for arbitrary constraints. A short support of a constraint is similar to a satisfying tuple however a short support is not required to assign every variable in scope. Some variables are left free to take any value. In some cases a short support representation is smaller than the table of satisfying tuples by an exponential factor. We present two encodings based on short supports and evaluate them on a set of benchmark problems, demonstrating a substantial improvement over the state of the art.",
   author    = "Özgür Akgün and Gent, {Ian Philip} and Jefferson, {Christopher Anthony} and Miguel, {Ian James} and Nightingale, {Peter William}",
   year      = "2016",
   doi       = "10.1007/978-3-319-44953-1_1",
@@ -89,6 +92,7 @@
 
 @inbook{3881455b36054960a6bae0910108ab95,
   title     = "Cloud-based e-Infrastructure for scheduling astronomical observations",
+  abstract  = "Gravitational microlensing exploits a transient phenomenon where an observed star is brightened due to deflection of its light by the gravity of an intervening foreground star. It is conjectured that this technique can be used to measurethe abundance of planets throughout the Milky Way. In order to undertake efficient gravitational microlensing an observation schedule must be constructed such that various targets are observed while undergoing a microlensing event. In this paper, we propose a cloud-based e-Infrastructure that currently supportsfour methods to compute candidate schedules via the application of local search and probabilistic meta-heuristics. We then validate the feasibility of the e-Infrastructure by evaluating the methods on historic data. The experiments demonstrate that the use of on-demand cloud resources for the e-Infrastructure can allow better schedules to be found more rapidly.",
   author    = "Wetter, {James Patrick} and Ozgur Akgun and Barker, {Adam David} and Martin Dominik and Miguel, {Ian James} and Blesson Varghese",
   note      = "This research was pursued under the EPSRC grant ‘Working Together: Constraint Programming and Cloud Computing’ (EP/K015745/1) and an Amazon Web Services (AWS) Education Research Grant.",
   year      = "2015",
@@ -103,6 +107,7 @@
 
 @inbook{9dd26cea0c54476f8d0418df430909da,
   title     = "Automatically Generating Streamlined Constraint Models with Essence and Conjure",
+  abstract  = "Streamlined constraint reasoning is the addition of uninferred constraints to a constraint model to reduce the search space, while retaining at least one solution. Previously, effective streamlined models have been constructed by hand, requiring an expert to examine closely solutions to small instances of a problem class and identify regularities. We present a system that automatically generates many conjectured regularities for a given Essence specification of a problem class by examining the domains of decision variables present in the problem specification. These conjectures are evaluated independently and in conjunction with one another on a set of instances from the specified class via an automated modelling tool-chain comprising of Conjure, Savile Row and Minion. Once the system has identified effective conjectures they are used to generate streamlined models that allow instances of much larger scale to be solved. Our results demonstrate good models can be identified for problems in combinatorial design, Ramsey theory, graph theory and group theory - often resulting in order of magnitude speed-ups.",
   author    = "James Wetter and Ozgur Akgun and Ian Miguel",
   year      = "2015",
   month     = "8",
@@ -120,6 +125,7 @@
 
 @inbook{0e8ec1d427b148acb1f0d20b9ef51659,
   title     = "Cloud Benchmarking for Performance",
+  abstract  = "How can applications be deployed on the cloud to achieve maximum performance? This question has become significant and challenging with the availability of a wide variety of Virtual Machines (VMs) with different performance capabilities in the cloud. The above question is addressed by proposing a six step benchmarking methodology in which a user provides a set of four weights that indicate how important each of the following groups: memory, processor, computation and storage are to the application that needs to be executed on the cloud. The weights along with cloud benchmarking data are used to generate a ranking of VMs that can maximise performance of the application. The rankings are validated through an empirical analysis using two case study applications; the first is a financial risk application and the second is a molecular dynamics simulation, which are both representative of workloads that can benefit from execution on the cloud. Both case studies validate the feasibility of the methodology and highlight that maximum performance can be achieved on the cloud by selecting the top ranked VMs produced by the methodology.",
   author    = "Blesson Varghese and Ozgur Akgun and Ian Miguel and Long Thai and Adam Barker",
   note      = "Date of Acceptance: 20/09/2014",
   year      = "2014",
@@ -134,6 +140,7 @@
 
 @inbook{09b16cf13ed94fb1b2fed6296b5a75d1,
   title     = "Optimal Deployment of Geographically Distributed Workflow Engines on the Cloud",
+  abstract  = "When orchestrating Web service workflows, the geographical placement of the orchestration engine(s) can greatly affect workflow performance. Data may have to be transferred across long geographical distances, which in turn increases execution time and degrades the overall performance of a workflow. In this paper, we present a framework that, given a DAG-based workflow specification, computes the op- timal Amazon EC2 cloud regions to deploy the orchestration engines and execute a workflow. The framework incorporates a constraint model that solves the workflow deployment problem, which is generated using an automated constraint modelling system. The feasibility of the framework is evaluated by executing different sample workflows representative of sci- entific workloads. The experimental results indicate that the framework reduces the workflow execution time and provides a speed up of 1.3x-2.5x over centralised approaches.",
   keywords  = "Workflow engine, Optimal deployment, Cloud computing, Workflow execution",
   author    = "Long Thai and Adam Barker and Blesson Varghese and Ozgur Akgun and Ian Miguel",
   note      = "This research was pursued under the EPSRC ‘Working Together: Constraint Programming and Cloud Computing’ grant, a Royal Society Industry Fellowship ‘Bringing Science to the Cloud’, and an Amazon Web Services Education Research Grant. Date of Acceptance: 02/09/2014",
@@ -149,6 +156,7 @@
 
 @inbook{4d61e32b389247fe849054856b224aa1,
   title     = "Automatically Improving Constraint Models in Savile Row through Associative-Commutative Common Subexpression Elimination",
+  abstract  = "When solving a problem using constraint programming, constraint modelling is widely acknowledged as an important and difficult task. Even a constraint modelling expert may explore many models and spend considerable time modelling a single problem. Therefore any automated assistance in the area of constraint modelling is valuable. Common sub-expression elimination (CSE) is a type of constraint reformulation that has proved to be useful on a range of problems. In this paper we demonstrate the value of an extension of CSE called Associative-Commutative CSE (AC-CSE). This technique exploits the properties of associativity and commutativity of binary operators, for example in sum constraints. We present a new algorithm, X-CSE, that is able to choose from a larger palette of common subexpressions than previous approaches. We demonstrate substantial gains in performance using X-CSE. For example on BIBD we observed speed increases of more than 20 times compared to a standard model and that using X-CSE outperforms a sophisticated model from the literature. For Killer Sudoku we found that X-CSE can render some apparently difficult instances almost trivial to solve, and we observe speed increases up to 350 times. For BIBD and Killer Sudoku the common subexpressions are not present in the initial model: an important part of our methodology is reformulations at the preprocessing stage, to create the common subexpressions for X-CSE to exploit. In summary we show that X-CSE, combined with preprocessing and other reformulations, is a powerful technique for automated modelling of problems containing associative and commutative constraints.",
   keywords  = "Symmetry, Breaking, System",
   author    = "Peter Nightingale and Ozgur Akgun and Gent, {Ian P.} and Christopher Jefferson and Ian Miguel",
   note      = "We would like to thank the Royal Society for funding through Dr Jefferson’s URF, and the EPSRC for funding this work through grant EP/H004092/1.",
@@ -167,6 +175,7 @@
 
 @inbook{dd9347655a2d45f2bef81ebcb8778daa,
   title     = "Breaking Conditional Symmetry in Automated Constraint Modelling with Conjure",
+  abstract  = "Many constraint problems contain symmetry, which can lead to redundant search. If a partial assignment is shown to be invalid, we are wasting time if we ever consider a symmetric equivalent of it. A particularly important class of symmetries are those introduced by the constraint modelling process: model symmetries. We present a systematic method by which the automated constraint modelling tool CONJURE can break conditional symmetry as it enters a model during refinement. Our method extends, and is compatible with, our previous work on automated symmetry breaking in CONJURE. The result is the automatic and complete removal of model symmetries for the entire problem class represented by the input specification. This applies to arbitrarily nested conditional symmetries and represents a significant step forward for automated constraint modelling.",
   author    = "Özgür Akgün and Ian Gent and Chris Jefferson and Ian Miguel and Peter Nightingale",
   note      = "This work was supported by UK EPSRC EP/K015745/1. Jefferson is supported by a Royal Society University Research Fellowship.",
   year      = "2014",
@@ -184,6 +193,7 @@
 
 @book{0ef98e79e0bd426eb92227f281f4ee4e,
   title     = "Extensible Automated Constraint Modelling via Refinement of Abstract Problem Specifications",
+  abstract  = "Constraint Programming (CP) is a powerful technique for solving large-scale combinatorial (optimisation) problems. Constraint solving a given problem proceeds in two phases: modelling and solving. Effective modelling has an huge impact on the performance of the solving process. This thesis presents a framework in which the users are not required to make modelling decisions, concrete CP models are automatically generated from a high level problem specification. In this framework, modelling decisions are encoded as generic rewrite rules applicable to many different problems. First, modelling decisions are divided into two broad categories. This categorisation guides the automation of each kind of modelling decision and also leads us to the architecture of the automated modelling tool. Second, a domain-specific declarative rewrite rule language is introduced. Thanks to the rule language, automated modelling transformations and the core system are decoupled. The rule language greatly increases the extensibility and maintainability of the rewrite rules database. The database of rules represents the modelling knowledge acquired after analysis of expert models. This database must be easily extensible to best benefit from the active research on constraint modelling. Third, the automated modelling system Conjure is implemented as a realisation of these ideas; having an implementation enables empirical testing of the quality of generated models. The ease with which rewrite rules can be encoded to produce good models is shown. Furthermore, thanks to the generality of the system, one needs to add a very small number of rules to encode many transformations. Finally, the work is evaluated by comparing the generated models to expert models found in the literature for a wide variety of benchmark problems. This evaluation confirms the hypothesis that expert models can be automatically generated starting from high level problem specifications. An method of automatically identifying good models is also presented. In summary, this thesis presents a framework to enable the automatic generation of efficient constraint models from problem specifications. It provides a pleasant environment for both problem owners and modelling experts. Problem owners are presented with a fully automated constraint solution process, once they have a precise description of their problem. Modelling experts can now encode their precious modelling expertise as rewrite rules instead of merely modelling a single problem; resulting in reusable constraint modelling knowledge.",
   author    = "Ozgur Akgun",
   year      = "2014",
   publisher = "University of St Andrews",
@@ -200,6 +210,7 @@
 
 @inbook{dfc0e4b721844d9d801fb27c264086ff,
   title     = "Automated Modelling and Model Selection in Constraint Programming",
+  abstract  = "In attacking the modelling bottleneck, we present current achievements in automated model generation and selection in constraint programming (CP). We also discuss promising future directions in automated model selection, which we believe are of key importance in enabling successful automated modelling in CP.",
   author    = "Ozgur Akgun and Frisch, {Alan M} and Jefferson, {Christopher Anthony} and Miguel, {Ian James}",
   year      = "2013",
   booktitle = "COSpeL: The first Workshop on Domain Specific Languages in Combinatorial Optimization",
@@ -208,14 +219,17 @@
 
 @inbook{066dfdbd563a40c68df2eaae83a342cd,
   title     = "Automated Symmetry Breaking and Model Selection in Conjure",
+  abstract  = "Constraint modelling is widely recognised as a key bottleneck in applying constraint solving to a problem of interest. The Conjure automated constraint modelling system addresses this problem by automatically refining constraint models from problem specifications written in the Essence language. Essence provides familiar mathematical concepts like sets, functions and relations nested to any depth. To date, Conjure has been able to produce a set of alternative model kernels (i.e. without advanced features such as symmetry breaking or implied constraints) for a given specification. The first contribution of this paper is a method by which Conjure can break symmetry in a model as it is introduced by the modelling process. This works at the problem class level, rather than just individual instances, and does not require an expensive detection step after the model has been formulated. This allows Conjure to produce a higher quality set of models. A further limitation of Conjure has been the lack of a mechanism to select among the models it produces. The second contribution of this paper is to present two such mechanisms, allowing effective models to be chosen automatically.",
   author    = "Ozgur Akgun and Frisch, {Alan M} and Gent, {Ian Philip} and Hussain, {Bilal Syed} and Jefferson, {Christopher Anthony} and Lars Kotthoff and Miguel, {Ian James} and Nightingale, {Peter William}",
   year      = "2013",
+  doi       = "10.1007/978-3-642-40627-0_11",
   booktitle = "CP 2013 - Principles and Practice of Constraint Programming, 19th International Conference",
 }
 
 
 @inbook{ed9a3c921f40425b964217636a5af521,
   title     = "Extensible Automated Constraint Modelling",
+  abstract  = "In constraint solving, a critical bottleneck is the formulation of an effective constraint model of a given problem. The CONJURE system described in this paper, a substantial step forward over prototype versions of CONJURE previously reported, makes a valuable contribution to the automation of constraint modelling by automatically producing constraint models from their specifications in the abstract constraint specification language ESSENCE. A set of rules is used to refine an abstract specification into a concrete constraint model. We demonstrate that this set of rules is readily extensible to increase the space of possible constraint models CONJURE can produce. Our empirical results confirm that CONJURE can reproduce successfully the kernels of the constraint models of 32 benchmark problems found in the literature.",
   author    = "Ozgur Akgun and Miguel, {Ian James} and Jefferson, {Christopher Anthony} and Frisch, {Alan M.} and Brahim Hnich",
   year      = "2011",
   isbn      = "978-157735508-3",
@@ -236,6 +250,7 @@
 
 @inbook{aee46a0c83b14b25b687813677855191,
   title     = "Conjure Revisited: Towards Automated Constraint Modelling",
+  abstract  = "Automating the constraint modelling process is one of thekey challenges facing the constraints field, and one of the principal obstaclespreventing widespread adoption of constraint solving. This paperfocuses on the refinement-based approach to automated modelling, wherea user specifies a problem in an abstract constraint specification languageand it is then automatically refined into a constraint model. In particular,we revisit the Conjure system that first appeared in prototype formin 2005 and present a new implementation with a much greater coverageof the specification language Essence",
   author    = "Özgür Akgün and Frisch, {Alan M} and Brahim Hnich and Jefferson, {Christopher Anthony} and Miguel, {Ian James}",
   year      = "2010",
   booktitle = "ModRef 2010 - The 9th International Workshop on Constraint Modelling and Reformulation",
@@ -244,6 +259,7 @@
 
 @inbook{586c88ee08c1404391bc48c26d66e523,
   title     = "Refining Portfolios of Constraint Models with Conjure",
+  abstract  = "Modelling is one of the key challenges in Constraint Programming(CP). There are many ways in which to model a given problem.The model chosen has a substantial effect on the solving efficiency. Itis difficult to know what the best model is. To overcome this problem wetake a portfolio approach: Given a high level specification of a combinatorialproblem, we employ non-deterministic rewrite techniques to obtaina portfolio of constraint models. The specification language (Essence)does not require humans to make modelling decisions; therefore it helpsus remove the modelling bottleneck.",
   author    = "Ozgur Akgun",
   year      = "2010",
   pages     = "1--6",
