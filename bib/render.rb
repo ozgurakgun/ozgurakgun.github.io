@@ -52,15 +52,27 @@ for bib in bibs do
                      .gsub("Thomas Stanley Dalton", "Tom Dalton")
                      .gsub("Christopher John Lloyd Dibben", "Chris Dibben")
                      .gsub("Christopher Anthony Jefferson", "Chris Jefferson")
+                     .gsub("Ian P. Gent", "Ian Gent")
+                     .gsub("Ian Philip Gent", "Ian Gent")
 
   print "\n<br>"
-  if bib.key?('container-title') and bib.key?('publisher') then
-    print "#{bib['container-title']}, #{bib['publisher']}"
-  elsif bib.key?('container-title') then
-    print "#{bib['container-title']}"
-  elsif bib.key?('publisher') then
-    print "#{bib['publisher']}"
+  parts = []
+  if bib.key?('container-title') then
+    parts.push(bib['container-title'])
   end
+  if bib.key?('publisher') then
+    parts.push(bib['publisher'])
+  end
+  print parts.join(", ")
+
+  if bib.key?('DOI') then
+    print "\n<br>"
+    print "<a href=\"https://dx.doi.org/#{bib['DOI']}\">DOI: #{bib['DOI']}</a>"
+  elsif bib.key?('URL') then
+    print "\n<br>"
+    print "<a href=\"#{bib['URL']}\">URL: #{bib['URL']}</a>"
+  end  
+  
   print "</dd>"
   print "\n\n"
 
