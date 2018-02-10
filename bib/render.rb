@@ -11,6 +11,7 @@ knownFields = [ "author", "title", "container-title", "issued", "publisher",    
 printed = []
 
 print '<dl class="dl-horizontal">'
+print "\n\n"
 
 for bib in bibs do
 
@@ -28,6 +29,7 @@ for bib in bibs do
     print "<dt>#{year}</dt>"
     printed[year] = true
   end
+  print "\n"
 
   print "<dd>"
   print "<b>#{bib['title']}</b>"
