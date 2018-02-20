@@ -5,7 +5,8 @@ permalink: /activities
 ---
 
 Note: I have recently started making a small note for each of my work related activities.
-This list is not exhaustive and specifically it does not cover anything before late 2016.
+
+This list is not exhaustive and specifically it covers almost nothing from before late 2016.
 
 <!-- I intend to add my important past activities here as well, but it will probably take time. -->
 
