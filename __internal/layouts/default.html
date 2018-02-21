@@ -61,7 +61,7 @@
     <div class="well well-sm">
         <nav id="navigation">
             <ul class="nav nav-pills nav-justified nav-cleverstack">
-                {% assign sorted_items = (site.custom | where: 'layout', 'custom' | sort: 'order') %}
+                {% assign sorted_items = site.custom | where: 'layout', 'custom' | sort: 'order' %}
                 {% for item in sorted_items %}
                     {% if item.menutitle %}
                         {% assign usetitle = item.menutitle %}

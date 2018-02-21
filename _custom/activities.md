@@ -21,7 +21,7 @@ The following is a list of all entries.
 
 
 <div class="wide_version">
-    {% assign printed = [] %}
+    {% assign printed = nil %}
     <table class="table">
     {% for post in site.activities reversed %}
         {% assign thisYear = post.date | date: "%Y" %}
@@ -40,7 +40,7 @@ The following is a list of all entries.
 </div>
 
 <div class="narrow_version">
-    {% assign printed = [] %}
+    {% assign printed = nil %}
     <table class="table">
     {% for post in site.activities reversed %}
         {% assign thisYear = post.date | date: "%Y" %}
