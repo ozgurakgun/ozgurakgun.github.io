@@ -25,7 +25,7 @@ for bib in bibs do
     print "<dt></dt>"
   else
     print "<p></p>"
-    print "<p></p>"
+    print "<hr>"
     print "<dt>#{year}</dt>"
     printed[year] = true
   end

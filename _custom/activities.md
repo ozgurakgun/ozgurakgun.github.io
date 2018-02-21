@@ -19,10 +19,43 @@ This list is not exhaustive and specifically it covers almost nothing from befor
 
 The following is a list of all entries.
 
-<dl class="dl-horizontal">
-{% for post in site.activities reversed %}
-<dt>{{ post.date | date: "%-d %B %Y" }}</dt>
-<dd><a href="{{ post.url }}">{{ post.title }}</a></dd>
-{% endfor %}
-</dl>
 
+<div class="wide_version">
+    {% assign printed = [] %}
+    <table class="table">
+    {% for post in site.activities reversed %}
+        {% assign thisYear = post.date | date: "%Y" %}
+        {% unless printed contains thisYear %}
+            <tr style="border:none">
+                <th style="border:bottom; text-align:center" colspan="2">{{ thisYear }}</th>
+            </tr>
+        {% endunless %}
+        {% assign printed = printed | append: thisYear %}
+        <tr style="border:none">
+            <th style="border:none; text-align:right; white-space:nowrap">{{ post.date | date: "%-d %B %Y" }}</th>
+            <td style="border:none"><a href="{{ post.url }}">{{ post.title }}</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+
+<div class="narrow_version">
+    {% assign printed = [] %}
+    <table class="table">
+    {% for post in site.activities reversed %}
+        {% assign thisYear = post.date | date: "%Y" %}
+        {% unless printed contains thisYear %}
+            <tr style="border:none">
+                <th style="border:bottom; text-align:center" colspan="2">{{ thisYear }}</th>
+            </tr>
+        {% endunless %}
+        {% assign printed = printed | append: thisYear %}
+        <tr style="border:none">
+            <th style="border:none; text-align:left; white-space:nowrap">{{ post.date | date: "%-d %B %Y" }}</th>
+        </tr>
+        <tr>
+            <td style="border:none"><a href="{{ post.url }}">{{ post.title }}</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
