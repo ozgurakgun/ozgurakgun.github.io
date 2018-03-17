@@ -67,7 +67,7 @@ for bib in bibs do
 
   if bib.key?('DOI') then
     print "\n<br>"
-    print "<a href=\"https://dx.doi.org/#{bib['DOI']}\">DOI: #{bib['DOI']}</a>"
+    print "<a href=\"https://doi.org/#{bib['DOI']}\">DOI: #{bib['DOI']}</a>"
   elsif bib.key?('URL') then
     print "\n<br>"
     print "<a href=\"#{bib['URL']}\">URL: #{bib['URL']}</a>"
