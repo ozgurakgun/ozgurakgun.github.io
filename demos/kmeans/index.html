@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!--
+        This disables zooming on mobile. Replace with the following to enable it again.
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title> CS1003 k-means demo </title>
+
+    <!-- import bootstrap -->
+    <link
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <!-- empty favicon -->
+    <link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII=" rel="icon" type="image/x-icon">
+
+    <script>
+
+        // to play with this demo, use the following functions
+        // - initialCentroids           -- randomly place k centroids
+        // - assignToCentroids          -- assign each data point to its nearest centroid
+        // - updateCentroids            -- update the centroids to the average f all points in this cluster
+        // - kmeans                     -- combined
+        // - redraw                     -- redraw the grid
+
+
+
+        // number of clusters
+        var k = 3
+
+        var showCentroids = true
+
+        var centroids_x = []
+        var centroids_y = []
+
+        // the grid is 100x100 "boxes"
+        var gridSize = 100
+
+        // each box is 10x10 pixels
+        var boxSize = 10
+
+        var grid = []
+
+        var colours = ["black", "red", "blue", "green", "orange", "yellow", "aqua", "fuchsia", "lime", "maroon", "purple", "teal"]
+
+        var canvas = null;
+        var ctx = null;
+
+        function __drawCircle(ctx, colour, x, y, r) {
+            ctx.beginPath()
+            ctx.arc(x, y, r, 0, Math.PI * 2, true);
+            ctx.fillStyle = colour
+            ctx.fill()
+        }
+
+        function redraw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (i = 0; i < gridSize; i++) {
+                for (j = 0; j < gridSize; j++) {
+                    if (grid[i][j] >= 0) {
+                        ctx.fillStyle = colours[grid[i][j]];
+                        ctx.fillRect( i * boxSize
+                                    , j * boxSize
+                                    , boxSize
+                                    , boxSize
+                                    );
+                    }
+                }
+            }
+            if (showCentroids) {
+                for (i = 1; i <= k; i++) {
+                    __drawCircle( ctx
+                                , colours[i]
+                                , centroids_x[i] * boxSize
+                                , centroids_y[i] * boxSize
+                                , boxSize
+                                );
+                }                
+            }
+        }
+
+        function initialCentroids() {
+            centroids_x = []
+            centroids_y = []
+            for (i = 1; i <= k; i++) {
+                centroids_x[i] = Math.round(Math.random() * gridSize)
+                centroids_y[i] = Math.round(Math.random() * gridSize)
+            }
+            // console.log(centroids_x)
+            // console.log(centroids_y)
+            redraw()
+        }
+
+        function closestCentroid(x, y) {
+            found = null
+            minDist = 10000000
+            for (c = 1; c <= k; c++) {
+                dist = Math.sqrt(Math.pow(x - centroids_x[c], 2) + Math.pow(y - centroids_y[c], 2))
+                // console.log(c, dist)
+                if (dist <= minDist) {
+                    minDist = dist
+                    found = c
+                }
+            }
+            return found
+        }
+
+        function assignToCentroids() {
+            for (i = 0; i < gridSize; i++) {
+                for (j = 0; j < gridSize; j++) {
+                    if (grid[i][j] >= 0) {
+                        c = closestCentroid(i, j)
+                        // console.log(i, j, grid[i][j], c)
+                        grid[i][j] = c
+                    }
+                }
+            }
+            redraw()
+        }
+
+        function updateCentroids() {
+            sums_x = []
+            sums_y = []
+            counts = []
+
+            for (c = 1; c <= k; c++) {
+                sums_x[c] = 0
+                sums_y[c] = 0
+                counts[c] = 0
+            }
+
+            for (i = 0; i < gridSize; i++) {
+                for (j = 0; j < gridSize; j++) {
+                    c = grid[i][j]
+                    if (c >= 1) {
+                        sums_x[c] += i
+                        sums_y[c] += j
+                        counts[c] += 1
+                    }
+                }
+            }
+
+            for (c = 1; c <= k; c++) {
+                new_x = Math.round(sums_x[c] / counts[c])
+                new_y = Math.round(sums_y[c] / counts[c])
+                if (isNaN(new_x) || isNaN(new_y)) {
+                    // console.log(c, centroids_x[c], centroids_y[c], sums_x[c], sums_y[c], counts[c], "NaN")
+                } else {
+                    centroids_x[c] = new_x
+                    centroids_y[c] = new_y
+                    // console.log(c, centroids_x[c], centroids_y[c], sums_x[c], sums_y[c], counts[c])
+                }
+            }
+
+            redraw()
+        }
+
+        function kmeans() {
+            initialCentroids()
+            do {
+                prevgrid = JSON.stringify(grid)
+                assignToCentroids()
+                updateCentroids()
+            } while (prevgrid != JSON.stringify(grid));
+        }
+
+        window.onload = function() {
+            
+            canvas = document.getElementById("c");
+            ctx = canvas.getContext("2d");
+
+            for (i = 0; i < gridSize; i++) {
+                var row = [];
+                for (j = 0; j < gridSize; j++) {
+                    row[j] = -1;
+                }
+                grid[i] = row;
+            }
+
+            canvas.addEventListener('click', function(event) {
+                var x = event.offsetX;
+                var y = event.offsetY;
+
+                grid[Math.floor(x / boxSize)][Math.floor(y / boxSize)] = 0
+
+                // initialCentroids()
+                redraw()
+
+
+
+                // console.log(event.offsetX, event.offsetY);
+
+            });
+
+            canvas.addEventListener('dblclick', function(event) {
+                var x = event.offsetX;
+                var y = event.offsetY;
+
+                x = Math.floor(x / boxSize)
+                y = Math.floor(y / boxSize)
+
+                for (i = -10; i <= 10; i++) {
+                    for (j = -10; j <= 10; j++) {
+                        if (Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2)) <= 5) {
+                            if (Math.random() < 0.3) {
+                                grid[x+i][y+j] = 0
+                            }                            
+                        }
+                    }
+                }
+
+
+                // initialCentroids()
+                redraw()
+                
+
+
+                // console.log(event.offsetX, event.offsetY);
+
+            });
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+<br>
+<br>
+
+<div class="container">
+    <canvas id="c" width="1000px" height="1000px" style="border:1px solid #000000;"> </canvas>
+</div>
+
+</body>
+
+</html>
+
+
+
+
+
+
