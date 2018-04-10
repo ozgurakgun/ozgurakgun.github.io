@@ -87,7 +87,7 @@
                                 , centroids_y[i] * boxSize
                                 , boxSize
                                 );
-                }                
+                }
             }
         }
 
@@ -177,7 +177,7 @@
         }
 
         window.onload = function() {
-            
+
             canvas = document.getElementById("c");
             ctx = canvas.getContext("2d");
 
@@ -193,12 +193,19 @@
                 var x = event.offsetX;
                 var y = event.offsetY;
 
-                grid[Math.floor(x / boxSize)][Math.floor(y / boxSize)] = 0
+                x = Math.floor(x / boxSize)
+                y = Math.floor(y / boxSize)
+
+                if (grid[x][y] != -1) {
+                    // if turned on, turn off
+                    grid[x][y] = -1
+                } else {
+                    // if turned off, paint it black
+                    grid[x][y] = 0
+                }
 
                 // initialCentroids()
                 redraw()
-
-
 
                 // console.log(event.offsetX, event.offsetY);
 
@@ -213,10 +220,16 @@
 
                 for (i = -10; i <= 10; i++) {
                     for (j = -10; j <= 10; j++) {
-                        if (Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2)) <= 5) {
-                            if (Math.random() < 0.3) {
-                                grid[x+i][y+j] = 0
-                            }                            
+                        // inside the box
+                        if (0 <= x+i && x+i < gridSize && 0 <= y+j && y+j < gridSize) {
+                            // inside a circle or radius=5
+                            if (Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2)) <= 5) {
+                                // with 30% likelihood
+                                if (Math.random() < 0.3) {
+                                    // turn it on
+                                    grid[x+i][y+j] = 0
+                                }
+                            }
                         }
                     }
                 }
@@ -224,7 +237,7 @@
 
                 // initialCentroids()
                 redraw()
-                
+
 
 
                 // console.log(event.offsetX, event.offsetY);
@@ -239,11 +252,41 @@
 
 <body>
 
-<br>
-<br>
-
 <div class="container">
+    <h1>Demo: k-means</h1>
+    <br>
     <canvas id="c" width="1000px" height="1000px" style="border:1px solid #000000;"> </canvas>
+    <br>
+    <h2>Notes</h2>
+    <p>This demo is intended to be run through a Javascript console.</p>
+    <ul>
+        <li>
+            Click on the grid to create some data points.
+        </li>
+        <li>
+            Double-click to create a bunch of points at once.
+        </li>
+        <li>
+            Open the Javascript console in your web browser. The following functions are available.
+            <ul>
+                <li>
+                    <strong>initialCentroids</strong>           -- randomly place k centroids
+                </li>
+                <li>
+                    <strong>assignToCentroids</strong>          -- assign each data point to its nearest centroid
+                </li>
+                <li>
+                    <strong>updateCentroids</strong>            -- update the centroids to the average f all points in this cluster
+                </li>
+                <li>
+                    <strong>kmeans</strong>                     -- Combined. Run <strong>initialCentroids</strong> once, followed by <strong>assignToCentroids</strong> and <strong>updateCentroids</strong> in a loop until nothing changes.
+                </li>
+                <li>
+                    <strong>k = NUMBER</strong>                 -- set the value of k to NUMBER. 3 by default.
+                </li>
+            </ul>
+        </li>
+    </ul>
 </div>
 
 </body>
