@@ -104,15 +104,38 @@ Oz
         }
 
         function initialCentroids() {
+            allPoints_x = []
+            allPoints_y = []
+            for (i = 0; i < gridSize; i++) {
+                for (j = 0; j < gridSize; j++) {
+                    if (grid[i][j] >= 0) {
+                        allPoints_x.push(i)
+                        allPoints_y.push(j)
+                    }
+                }
+            }
+
+            chosen_poins = []
+
             centroids_x = []
             centroids_y = []
             for (i = 1; i <= k; i++) {
-                centroids_x[i] = Math.round(Math.random() * gridSize)
-                centroids_y[i] = Math.round(Math.random() * gridSize)
+                var point = Math.floor(Math.random() * allPoints_x.length);
+                chosen_poins.push(point)
+                centroids_x[i] = allPoints_x[point]
+                centroids_y[i] = allPoints_y[point]
             }
+
+
             // console.log(centroids_x)
             // console.log(centroids_y)
-            redraw()
+
+            // if we managed to choose the same point twice, redo
+            if (new Set(chosen_poins).size !== chosen_poins.length) {
+                initialCentroids()
+            } else {
+                redraw()
+            }
         }
 
         function closestCentroid(x, y) {
