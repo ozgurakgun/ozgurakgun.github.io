@@ -61,14 +61,20 @@ for bib in bibs do
   print "\n"
   parts = []
   if bib.key?('container-title') then
-    parts.push(bib['container-title'].gsub("&", "&amp;"))
+    parts.push(bib['container-title'])
   end
   if bib.key?('publisher') then
-    parts.push(bib['publisher'].gsub("&", "&amp;"))
+    parts.push(bib['publisher'])
+  end
+  # Render the note if the venue is otherwise unknown
+  if parts.empty? then
+    if bib.key?('note') then
+      parts.push(bib['note'])
+    end
   end
   unless parts.empty? then
     print "<br>"
-    print parts.join(", ")
+    print parts.join(", ").gsub("&", "&amp;")
   end
 
   if bib.key?('DOI') then
