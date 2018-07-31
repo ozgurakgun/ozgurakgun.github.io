@@ -75,6 +75,10 @@ for bib in bibs do
     print "\n<br>"
     print "<a href=\"https://doi.org/#{bib['DOI']}\">DOI: #{bib['DOI']}</a>"
   end
+  if bib.key?('ISBN') then
+    print "\n<br>"
+    print "<a href=\"http://www.ottobib.com/isbn/#{bib['ISBN']}\">ISBN: #{bib['ISBN']}</a>"
+  end
   if bib.key?('URL') then
     print "\n<br>"
     face = bib['URL']
@@ -82,10 +86,6 @@ for bib in bibs do
       face = bib['URL'].chars.first(30).join + "...." + bib['URL'].chars.last(30).join
     end
     print "<a href=\"#{bib['URL']}\">URL: #{face}</a>"
-  end
-  if bib.key?('ISBN') then
-    print "\n<br>"
-    print "<a href=\"http://www.ottobib.com/isbn/#{bib['ISBN']}\">ISBN: #{bib['ISBN']}</a>"
   end
   
   print "</dd>"
