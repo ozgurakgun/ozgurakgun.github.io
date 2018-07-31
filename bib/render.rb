@@ -32,14 +32,14 @@ for bib in bibs do
   print "\n"
 
   print "<dd>"
-  print "<b>#{bib['title']}</b>"
+  print "<b>#{bib['title']}</b>".gsub("ESSENCE", "Essence").gsub("CONJURE", "Conjure")
   print "<br>"
   print bib['author'].map {|author| "#{author['given']} #{author['family']}" }
                      .join(", ")
-                     .gsub("Ozgur", "Özgür")
-                     .gsub("Akgun", "Akgün")
                      .gsub("{\\\"O}", "Ö")
                      .gsub("{\\\"u}", "ü")
+                     .gsub("Ozgur", "Özgür")
+                     .gsub("Akgun", "Akgün")
                      .gsub("{", "")
                      .gsub("}", "")
                      .gsub("Özgür Akgün", "<u>Özgür Akgün</u>")
@@ -54,14 +54,17 @@ for bib in bibs do
                      .gsub("Christopher Anthony Jefferson", "Chris Jefferson")
                      .gsub("Ian P. Gent", "Ian Gent")
                      .gsub("Ian Philip Gent", "Ian Gent")
+                     .gsub("Saad Wasim A Attieh", "Saad Attieh")
+                     .gsub("Andr\\\'as Z. Salamon", "András Z. Salamon")
+                     .gsub("Lee Emma Palmer Williamson", "Lee Williamson")
 
   print "\n<br>"
   parts = []
   if bib.key?('container-title') then
-    parts.push(bib['container-title'])
+    parts.push(bib['container-title'].gsub("&", "&amp;"))
   end
   if bib.key?('publisher') then
-    parts.push(bib['publisher'])
+    parts.push(bib['publisher'].gsub("&", "&amp;"))
   end
   print parts.join(", ")
 
