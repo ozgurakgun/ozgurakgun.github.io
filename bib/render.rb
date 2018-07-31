@@ -77,7 +77,11 @@ for bib in bibs do
   end
   if bib.key?('URL') then
     print "\n<br>"
-    print "<a href=\"#{bib['URL']}\">URL: #{bib['URL']}</a>"
+    face = bib['URL']
+    if face.length > 120 then
+      face = bib['URL'].chars.first(30).join + "...." + bib['URL'].chars.last(30).join
+    end
+    print "<a href=\"#{bib['URL']}\">URL: #{face}</a>"
   end
   if bib.key?('ISBN') then
     print "\n<br>"
