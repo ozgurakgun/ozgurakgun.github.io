@@ -58,7 +58,7 @@ for bib in bibs do
                      .gsub("Andr\\\'as Z. Salamon", "András Z. Salamon")
                      .gsub("Lee Emma Palmer Williamson", "Lee Williamson")
 
-  print "\n<br>"
+  print "\n"
   parts = []
   if bib.key?('container-title') then
     parts.push(bib['container-title'].gsub("&", "&amp;"))
@@ -66,7 +66,10 @@ for bib in bibs do
   if bib.key?('publisher') then
     parts.push(bib['publisher'].gsub("&", "&amp;"))
   end
-  print parts.join(", ")
+  unless parts.empty? then
+    print "<br>"
+    print parts.join(", ")
+  end
 
   if bib.key?('DOI') then
     print "\n<br>"
