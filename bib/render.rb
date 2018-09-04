@@ -1,6 +1,9 @@
 require 'bibtex'
 
-bibs = BibTeX.open('bib/pure.bib').to_citeproc
+contents = File.read('bib/pure.bib').gsub('{\"O}zg{\"u}r', 'Özgür')
+                                    .gsub('Akg{\"u}n', 'Akgün')
+
+bibs = BibTeX.parse(contents).to_citeproc
 
 knownFields = [ "author", "title", "container-title", "issued", "publisher",      # used
                 "id", "page", "issue", "type", "volume", "genre",                 # ignored
@@ -36,8 +39,6 @@ for bib in bibs do
   print "<br>"
   print bib['author'].map {|author| "#{author['given']} #{author['family']}" }
                      .join(", ")
-                     .gsub("{\\\"O}", "Ö")
-                     .gsub("{\\\"u}", "ü")
                      .gsub("Ozgur", "Özgür")
                      .gsub("Akgun", "Akgün")
                      .gsub("{", "")
