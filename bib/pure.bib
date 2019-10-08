@@ -81,6 +81,29 @@
   number = {1},
 }
 
+@inproceedings{ce8510eb25d34db48cd8c3c7682edfdf,
+  title = {Automatic Streamlining for Constrained Optimisation},
+  abstract = {Augmenting a base constraint model with additional constraints can strengthen the inferences made by a solver and therefore reduce search effort. We focus on the automatic addition of streamliner constraints, which trade completeness for potentially very significant reduction in search. Recently an automated approach has been proposed, which produces streamliners via a set of streamliner generation rules. This existing automated approach to streamliner generation has two key limitations. First, it outputs a single streamlined model. Second, the approach is limited to satisfaction problems. We remove both limitations by providing a method to produce automatically a portfolio of streamliners, each representing a different balance between three criteria: how aggressively the search space is reduced, the proportion of training instances for which the streamliner admitted at least one solution, and the average reduction in quality of the objective value versus the unstreamlined model. In support of our new method, we present an automated approach to training and test instance generation, and provide several approaches to the selection and application of the streamliners from the portfolio. Empirical results demonstrate drastic improvements both to the time required to find good solutions early and to prove optimality on three problem classes.},
+  author = {Patrick Spracklen and Nguyen Dang and Ozgur Akgun and Miguel, {Ian James}},
+  year = {2019},
+  language = {English},
+  pages = {366--383},
+  booktitle = {The 25th International Conference on Principles and Practice of Constraint Programming (CP 2019)},
+  publisher = {Springer, Cham},
+  url = {https://link.springer.com/chapter/10.1007/978-3-030-30048-7_22},
+}
+
+@inproceedings{b1d1e65f1ecf4431bc087cff9ef9b9dd,
+  title = {Instance Generation via Generator Instances},
+  abstract = {Access to good benchmark instances is always desirable when developing new algorithms, new constraint models, or when comparing existing ones. Hand-written instances are of limited utility and are time-consuming to produce. A common method for generating instances is constructing special purpose programs for each class of problems. This can be better than manually producing instances, but developing such instance generators also has drawbacks. In this paper, we present a method for generating graded instances completely automatically starting from a class-level problem specification. A graded instance in our present setting is one which is neither too easy nor too difficult for a given solver. We start from an abstract problem specification written in the Essence language and provide a system to transform the problem specification, via automated type-specific rewriting rules, into a new abstract specification which we call a generator specification. The generator specification is itself parameterised by a number of integer parameters; these are used to characterise a certain region of the parameter space. The solutions of each such generator instance form valid problem instances. We use the parameter tuner irace to explore the space of possible generator parameters, aiming to find parameter values that yield graded instances. We perform an empirical evaluation of our system for five problem classes from CSPlib, demonstrating promising results.},
+  author = {Ozgur Akgun and Nguyen Dang and Miguel, {Ian James} and Salamon, {Andr{\'a}s Z.} and Stone, {Christopher Luciano}},
+  year = {2019},
+  language = {English},
+  pages = {3--19},
+  booktitle = {The 25th International Conference on Principles and Practice of Constraint Programming (CP 2019)},
+  url = {https://link.springer.com/chapter/10.1007/978-3-030-30048-7_1},
+}
+
 @inproceedings{921a03b374654acdb3cf8b608e1ef86a,
   title = {Closed Frequent Itemset Mining with Arbitrary Side Constraints},
   abstract = {Frequent itemset mining (FIM) is a method for finding regularities in transaction databases. It has several application areas, such as market basket analysis, genome analysis, and drug design. Finding frequent itemsets allows further analysis to focus on a small subset of the data. For large datasets the number of frequent itemsets can also be very large, defeating their purpose. Therefore, several extensions to FIM have been studied, such as adding high-utility (or low-cost) constraints and only finding closed (or maximal) frequent itemsets. This paper presents a constraint programming based approach that combines arbitrary side constraints with closed frequent itemset mining. Our approach allows arbitrary side constraints to be expressed in a high level and declarative language which is then translated automatically for efficient solution by a SAT solver. We compare our approach with state-of-the-art algorithms via the MiningZinc system (where possible) and show significant contributions in terms of performance and applicability.},
