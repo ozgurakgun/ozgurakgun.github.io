@@ -31,7 +31,7 @@ You can also [contact me](/contact) if you like.
 </div> <!-- col -->
 
 <div id="ozgur_profile_img_div" class="pull-right">
-    <img src="/assets/burn.jpg"
+    <img src="/assets/monkey.jpg"
          class="ozgur_profile_img img-responsive img-rounded"
          style="width:100%;"
          alt="A handsome looking photo of Özgür">
