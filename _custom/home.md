@@ -48,7 +48,7 @@ You can also [contact me](/contact) if you like.
 
 I am Özgür Akgün. You have reached my personal website.
 
-<img src="/assets/burn.jpg"
+<img src="/assets/monkey.jpg"
      class="ozgur_profile_img img-responsive img-rounded center-block"
      style="width:70%;"
      alt="A handsome looking photo of Özgür">
@@ -70,16 +70,4 @@ You can also [contact me](/contact) if you like.
 </div>
 
 
-
-<script type="text/javascript">
-    $(function() {
-        var h = new Date().getHours()
-        if (h % 2 == 0) {
-            $(".ozgur_profile_img").attr("src", "/assets/lanark.jpg")
-        } else {
-            $(".ozgur_profile_img").attr("src", "/assets/burn.jpg")
-        }
-        $(".ozgur_profile_img").show()
-    });
-</script>
 
