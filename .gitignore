@@ -2,3 +2,4 @@ _site
 .sass-cache
 __internal/sass/bootstrap-sass
 .jekyll-metadata
+.jekyll-cache
