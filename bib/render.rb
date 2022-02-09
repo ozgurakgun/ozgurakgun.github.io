@@ -59,6 +59,7 @@ for bib in bibs do
                      .gsub("Andr\\\'as Z. Salamon", "András Z. Salamon")
                      .gsub("Lee Emma Palmer Williamson", "Lee Williamson")
                      .gsub("G\\\"okberk Ko\\c cak", "Gökberk Koçak")
+                     .gsub("Gokberk Kocak", "Gökberk Koçak")
 
   print "\n"
   parts = []
