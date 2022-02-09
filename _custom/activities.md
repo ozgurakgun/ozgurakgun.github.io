@@ -4,21 +4,9 @@ title: Activities
 permalink: /activities
 ---
 
-Note: I have recently started making a small note for each of my work related activities.
+I have recently started making a small note for my noteworthy work related activities.
 
 This list is not exhaustive and specifically it covers almost nothing from before late 2016.
-
-<!-- I intend to add my important past activities here as well, but it will probably take time. -->
-
-<!-- <ul>
-{% assign items_sorted = site.tags | sort: 'tag' %}
-{% for item in items_sorted %}
-<li><a href="{{ item.url | prepend: site.baseurl }}">{{ item.face }}</a></li>
-{% endfor %}
-</ul> -->
-
-The following is a list of all entries.
-
 
 <div class="wide_version">
     {% assign printed = nil %}
