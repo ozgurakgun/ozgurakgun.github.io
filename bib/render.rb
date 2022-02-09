@@ -2,7 +2,7 @@ require 'bibtex'
 
 contents = File.read('bib/pure.bib').gsub('{\"O}zg{\"u}r', 'Özgür')
                                     .gsub('Akg{\"u}n', 'Akgün')
-
+                                    
 bibs = BibTeX.parse(contents).to_citeproc
 
 knownFields = [ "author", "title", "container-title", "issued", "publisher",      # used
@@ -58,6 +58,7 @@ for bib in bibs do
                      .gsub("Saad Wasim A Attieh", "Saad Attieh")
                      .gsub("Andr\\\'as Z. Salamon", "András Z. Salamon")
                      .gsub("Lee Emma Palmer Williamson", "Lee Williamson")
+                     .gsub("G\\\"okberk Ko\\c cak", "Gökberk Koçak")
 
   print "\n"
   parts = []
