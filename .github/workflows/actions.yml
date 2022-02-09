@@ -4,5 +4,8 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
+      - name: Requiring ruby
+        with:
+          ruby-version: 2.6
       - run: bundle exec jekyll build
       - run: bundle exec htmlproofer _site --assume-extension --check-html --disable-external
