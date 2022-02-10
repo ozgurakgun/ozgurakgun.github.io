@@ -78,7 +78,7 @@ permalink: /contact
     </tr>
     <tr>
         <th style="text-align:center">
-            <img src="https://info.orcid.org/wp-content/uploads/2021/01/orcid_128x128.png" style="" alt="ORCID iD icon">
+            <img src="https://info.orcid.org/wp-content/uploads/2021/01/orcid_128x128.png" width="32px" style="" alt="ORCID iD icon">
         </th>
         <th>
             ORCID
