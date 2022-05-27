@@ -38,7 +38,9 @@ for bib in bibs do
 
   print "<dd>\n"
   print "<b>#{title}</b>\n"
-  print "(<a href=\"/files/fulltext/#{year}/#{title}.pdf\">pdf</a>)\n"
+  if year == 2010 then
+    print "(<a href=\"/files/fulltext/#{year}/#{title}.pdf\">pdf</a>)\n"
+  end
   print "<br>\n"
   print bib['author'].map {|author| "#{author['given']} #{author['family']}" }
                      .join(", ")
