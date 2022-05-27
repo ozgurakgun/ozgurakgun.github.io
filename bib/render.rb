@@ -40,7 +40,7 @@ for bib in bibs do
 
   print "<dd>\n"
   print "<b>#{title}</b>\n"
-  if year <= 2011 then
+  if year <= 2013 then
     print "(<a href=\"/files/fulltext/#{year}/#{filename}.pdf\">pdf</a>)\n"
   end
   print "<br>\n"
