@@ -36,10 +36,12 @@ for bib in bibs do
 
   title = bib['title'].gsub("ESSENCE", "Essence").gsub("CONJURE", "Conjure")
 
+  filename = title.gsub(":", " -")
+
   print "<dd>\n"
   print "<b>#{title}</b>\n"
   if year <= 2011 then
-    print "(<a href=\"/files/fulltext/#{year}/#{title}.pdf\">pdf</a>)\n"
+    print "(<a href=\"/files/fulltext/#{year}/#{filename}.pdf\">pdf</a>)\n"
   end
   print "<br>\n"
   print bib['author'].map {|author| "#{author['given']} #{author['family']}" }
