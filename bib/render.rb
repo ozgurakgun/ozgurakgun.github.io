@@ -34,9 +34,12 @@ for bib in bibs do
   end
   print "\n"
 
-  print "<dd>"
-  print "<b>#{bib['title']}</b>".gsub("ESSENCE", "Essence").gsub("CONJURE", "Conjure")
-  print "<br>"
+  title = bib['title'].gsub("ESSENCE", "Essence").gsub("CONJURE", "Conjure")
+
+  print "<dd>\n"
+  print "<b>#{title}</b>\n"
+  # print " (<a href=\"/files/fulltext/#{year}/#{title}.pdf\">pdf</a>)"
+  print "<br>\n"
   print bib['author'].map {|author| "#{author['given']} #{author['family']}" }
                      .join(", ")
                      .gsub("Ozgur", "Özgür")
@@ -96,7 +99,7 @@ for bib in bibs do
     end
     print "URL: <a href=\"#{bib['URL']}\">#{face}</a>"
   end
-  
+
   print "</dd>"
   print "\n\n"
 
