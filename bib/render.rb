@@ -91,10 +91,11 @@ for bib in bibs do
   if bib.key?('DOI') then
     print "\n<br>"
     print "DOI: <a href=\"https://doi.org/#{bib['DOI']}\">#{bib['DOI']}</a>"
-  end
-  if bib.key?('ISBN') then
-    print "\n<br>"
-    print "ISBN: <a href=\"http://www.ottobib.com/isbn/#{bib['ISBN']}\">#{bib['ISBN']}</a>"
+  else
+    if bib.key?('ISBN') then
+      print "\n<br>"
+      print "ISBN: <a href=\"http://www.ottobib.com/isbn/#{bib['ISBN']}\">#{bib['ISBN']}</a>"
+    end
   end
   if bib.key?('URL') then
     print "\n<br>"
