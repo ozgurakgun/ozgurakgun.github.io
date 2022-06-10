@@ -106,7 +106,7 @@ for bib in bibs do
     print "URL: <a href=\"#{bib['URL']}\">#{face}</a>"
   end
 
-  print "</dd>"
+  print "\n</dd>"
   print "\n\n"
 
   # for key, value in bib do
