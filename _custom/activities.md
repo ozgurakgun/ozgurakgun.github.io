@@ -4,9 +4,9 @@ title: Activities
 permalink: /activities
 ---
 
-I have recently started making a small note for my noteworthy work related activities.
+Here you will find a list of activities that I have been engaged in lately.
 
-This list is not exhaustive and specifically it covers almost nothing from before late 2016.
+I always think it's a good idea to maintain a page like this, but I am not very good at remembering to update it. So, while this list is not comprehensive, I believe it is representative and it shows a good coverage of the kind of activities I like to do.
 
 <div class="wide_version">
     {% assign printed = nil %}
