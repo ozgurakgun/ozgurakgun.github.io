@@ -18,7 +18,7 @@ Students can choose which strand they would like to work on, depending on their 
 Please get in touch if you are interested!
 
 
-# Suggestions
+## Steps
 
 1. Research the VIP and learn more about the work being done by the group. This will help you understand the scope of the project and the specific areas in which you might be able to contribute. Look at the publications by the staff members listed above. Some of these will be difficult to read for undergraduate students, do not worry if you cannot follow them. Try to get an overall feeling of the work. Look at the software projects [Conjure](https://github.com/conjure-cp/conjure), Savile Row, and Minion.
 
