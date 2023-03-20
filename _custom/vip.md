@@ -5,35 +5,15 @@ menutitle: VIP
 permalink: /VIP
 ---
 
-We are starting a new Vertically Integrated Project.
+The Vertically Integrated Project (VIP) on "Using Artificial Intelligence for Decision Making" is an exciting opportunity for students who are interested in software engineering and the application of AI to real-life problems. The project is led by a strong research group consisting of experienced faculty members, PhD students, and post-doctoral researchers.
 
-The project is on the topic of using Artificial Intelligence for Decision Making.
+As with all VIPs, this project designed to include students from multiple year groups and we encourage students to be involved in the project for multiple years. This provides students with the opportunity to take on leadership roles within the project as they gain more experience.
 
-In the School we already have a svery strong research group working in this area.
+The VIP has two main strands: software engineering and the development of demonstrator applications. In the software engineering strand, students will use modern software development methods and tools (Rust, Github, CI/CD) to develop an efficient modelling toolkit. In the demo strand, students will develop web-based applications that use the group's tools to solve real-life problems.
 
-The group includes myself and my colleagues Ian Miguel, Ian Gent and Chris Jefferson, Joan Arxer, Nguyen Dang, Ruth Hoffmann, Andras Salamon and a few more people including PhD students and post doctoral researchers.
+Students can choose which strand they would like to work on, depending on their interests and background. The VIP organizers are happy to talk to students before they choose. We are also open to students changing strands throughout their involvement in the project.
 
-We have supervised projects at all levels in the past and we are now structuring this work under the umbrella of a VIP.
-
-A VIP is vertically integrated because it includes students from multiple year groups and encourages students to be involved in a VIP for multiple years.
-
-This way, students who have been involved in a project for multiple years can take a leadership role within the project.
-
-Specifically for our VIP we would like to have second year, third year, fourth years and fifth year students.
-
-We have developed and maintain a number of open source software projects, including Conjure which is the entry point of the pipeline of software tools.
-
-Activity in this project will be divided into 2 strands: software engineering and the development of demonstrator applications.
-
-In the software engineering strand, we are planning to use Rust and modern software development methods and tools to develop an efficient modelling toolkit.
-
-In the demo strand, we are planning to develop web based applications that use our tools to show how they work on real life problems.
-
-You can choose a strand depending on your interests and background.
-
-We are happy to talk to you before you choose and we fully expect students to change strands throughout their involvement in the VIP.
-
-Please get in touch if you are interested.
+Please get in touch if you are interested!
 
 
 # Suggestions
