@@ -2,7 +2,7 @@
 order: 5
 title: "VIP: Using Artificial Intelligence for Decision Making"
 menutitle: VIP
-permalink: /VIP
+permalink: /vip
 ---
 
 The Vertically Integrated Project (VIP) on "Using Artificial Intelligence for Decision Making" is an exciting opportunity for students who are interested in software engineering and the application of AI to real-life problems. The project is led by a strong research group consisting of experienced faculty members, PhD students, and post-doctoral researchers.
