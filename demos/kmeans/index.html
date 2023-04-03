@@ -29,11 +29,8 @@ Oz
     <title> CS1003 k-means demo </title>
 
     <!-- import bootstrap -->
-    <link
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- empty favicon -->
     <!-- <link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII=" rel="icon" type="image/x-icon"> -->
@@ -84,22 +81,22 @@ Oz
                 for (j = 0; j < gridSize; j++) {
                     if (grid[i][j] >= 0) {
                         ctx.fillStyle = colours[grid[i][j]];
-                        ctx.fillRect( i * boxSize
-                                    , j * boxSize
-                                    , boxSize
-                                    , boxSize
-                                    );
+                        ctx.fillRect(i * boxSize
+                            , j * boxSize
+                            , boxSize
+                            , boxSize
+                        );
                     }
                 }
             }
             if (showCentroids) {
                 for (i = 1; i <= k; i++) {
-                    __drawCircle( ctx
-                                , colours[i]
-                                , centroids_x[i] * boxSize
-                                , centroids_y[i] * boxSize
-                                , boxSize
-                                );
+                    __drawCircle(ctx
+                        , colours[i]
+                        , centroids_x[i] * boxSize
+                        , centroids_y[i] * boxSize
+                        , boxSize
+                    );
                 }
             }
         }
@@ -212,7 +209,7 @@ Oz
             } while (prevgrid != JSON.stringify(grid));
         }
 
-        window.onload = function() {
+        window.onload = function () {
 
             canvas = document.getElementById("c");
             ctx = canvas.getContext("2d");
@@ -225,7 +222,7 @@ Oz
                 grid[i] = row;
             }
 
-            canvas.addEventListener('click', function(event) {
+            canvas.addEventListener('click', function (event) {
                 var x = event.offsetX;
                 var y = event.offsetY;
 
@@ -247,7 +244,7 @@ Oz
 
             });
 
-            canvas.addEventListener('dblclick', function(event) {
+            canvas.addEventListener('dblclick', function (event) {
                 var x = event.offsetX;
                 var y = event.offsetY;
 
@@ -257,13 +254,13 @@ Oz
                 for (i = -10; i <= 10; i++) {
                     for (j = -10; j <= 10; j++) {
                         // inside the box
-                        if (0 <= x+i && x+i < gridSize && 0 <= y+j && y+j < gridSize) {
+                        if (0 <= x + i && x + i < gridSize && 0 <= y + j && y + j < gridSize) {
                             // inside a circle or radius=5
                             if (Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2)) <= 5) {
                                 // with 30% likelihood
                                 if (Math.random() < 0.3) {
                                     // turn it on
-                                    grid[x+i][y+j] = 0
+                                    grid[x + i][y + j] = 0
                                 }
                             }
                         }
@@ -288,60 +285,58 @@ Oz
 
 <body>
 
-<div class="container">
-    <h1>Demo: k-means</h1>
-    <br>
-    <canvas id="c" width="1000px" height="1000px" style="border:1px solid #000000;"> </canvas>
-    <br>
-    <h2>Notes</h2>
-    <p>This demo is intended to be run through a JavaScript console.</p>
-    <ul>
-        <li>
-            Click on the grid to create some data points.
-        </li>
-        <li>
-            Double-click to create a bunch of points at once.
-        </li>
-        <li>
-            Open the JavaScript console in your web browser. The following functions are available.
-            <ul>
-                <li>
-                    <strong>initialCentroids</strong>           -- randomly place k centroids
-                </li>
-                <li>
-                    <strong>assignToCentroids</strong>          -- assign each data point to its nearest centroid
-                </li>
-                <li>
-                    <strong>updateCentroids</strong>            -- update the centroids to the average f all points in this cluster
-                </li>
-                <li>
-                    <strong>kmeans</strong>                     -- Combined. Run <strong>initialCentroids</strong> once, followed by <strong>assignToCentroids</strong> and <strong>updateCentroids</strong> in a loop until nothing changes.
-                </li>
-                <li>
-                    <strong>k = NUMBER</strong>                 -- set the value of k to NUMBER. 3 by default. Do not set it to more than 10, I have only defined that many colours!
-                </li>
-            </ul>
-        </li>
-    </ul>
-</div>
+    <div class="container">
+        <h1>Demo: k-means</h1>
+        <br>
+        <canvas id="c" width="1000px" height="1000px" style="border:1px solid #000000;"> </canvas>
+        <br>
+        <h2>Notes</h2>
+        <p>This demo is intended to be run through a JavaScript console.</p>
+        <ul>
+            <li>
+                Click on the grid to create some data points.
+            </li>
+            <li>
+                Double-click to create a bunch of points at once.
+            </li>
+            <li>
+                Open the JavaScript console in your web browser. The following functions are available.
+                <ul>
+                    <li>
+                        <strong>initialCentroids</strong> -- randomly place k centroids
+                    </li>
+                    <li>
+                        <strong>assignToCentroids</strong> -- assign each data point to its nearest centroid
+                    </li>
+                    <li>
+                        <strong>updateCentroids</strong> -- update the centroids to the average f all points in this
+                        cluster
+                    </li>
+                    <li>
+                        <strong>kmeans</strong> -- Combined. Run <strong>initialCentroids</strong> once, followed by
+                        <strong>assignToCentroids</strong> and <strong>updateCentroids</strong> in a loop until nothing
+                        changes.
+                    </li>
+                    <li>
+                        <strong>k = NUMBER</strong> -- set the value of k to NUMBER. 3 by default. Do not set it to more
+                        than 10, I have only defined that many colours!
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 
-<script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-22790558-1']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-</script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-22790558-1']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
 
 </body>
 
 </html>
-
-
-
-
-
-
