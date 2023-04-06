@@ -15,39 +15,30 @@
 
     <title>
         {% if page.title %}
-            {{ page.title }} &middot; {{ site.title }}
+        {{ page.title }} &middot; {{ site.title }}
         {% else %}
-            {{ site.title }} &middot; {{ site.tagline }}
+        {{ site.title }} &middot; {{ site.tagline }}
         {% endif %}
     </title>
 
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
     <!-- import jQuery -->
-    <script
-        src="//code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 
     <!-- import bootstrap -->
-    <link
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
-    <script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 
     <!-- import fontawesome -->
-    <link
-        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-        rel="stylesheet"
-        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-        crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="{{ "/assets/custom.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ " /assets/custom.css" | prepend: site.baseurl }}">
 
     <!-- empty favicon -->
     <!-- <link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII=" rel="icon" type="image/x-icon"> -->
@@ -59,36 +50,36 @@
 
     <!-- HEADER -->
     <div class="container" style="margin-top:20px;">
-    <div class="well well-sm">
-        <nav id="navigation">
-            <ul class="nav nav-pills nav-justified nav-cleverstack">
-                {% assign sorted_items = site.custom | where: 'layout', 'custom' | sort: 'order' %}
-                {% for item in sorted_items %}
+        <div class="well well-sm">
+            <nav id="navigation">
+                <ul class="nav nav-pills nav-justified nav-cleverstack">
+                    {% assign sorted_items = site.custom | where: 'layout', 'custom' | sort: 'order' %}
+                    {% for item in sorted_items %}
                     {% if item.menutitle %}
-                        {% assign usetitle = item.menutitle %}
+                    {% assign usetitle = item.menutitle %}
                     {% else %}
-                        {% assign usetitle = item.title %}
+                    {% assign usetitle = item.title %}
                     {% endif %}
                     {% if page.title == item.title %}
-                        <li class="active"><a href="{{ item.url | prepend: site.baseurl }}">{{ usetitle }}</a></li>
+                    <li class="active"><a href="{{ item.url | prepend: site.baseurl }}">{{ usetitle }}</a></li>
                     {% else %}
-                        <li><a href="{{ item.url | prepend: site.baseurl }}">{{ usetitle }}</a></li>
+                    <li><a href="{{ item.url | prepend: site.baseurl }}">{{ usetitle }}</a></li>
                     {% endif %}
-                {% endfor %}
-            </ul>
-        </nav>
-    </div>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
     </div>
 
     <div class="container">
         {{ content }}
     </div>
 
-    <br><br><hr>
+    <br><br>
+    <hr>
     <center>
         <a href="https://creativecommons.org/licenses/by/4.0">
-            <img src="https://img.shields.io/badge/license-CC%20BY%204.0-brightgreen.svg"
-                 alt="License CC BY 4.0">
+            <img src="https://img.shields.io/badge/license-CC%20BY%204.0-brightgreen.svg" alt="License CC BY 4.0">
         </a>
     </center>
     <br>
@@ -98,11 +89,11 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-M2ECXX0NL6"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-      gtag('config', 'G-M2ECXX0NL6');
+        gtag('config', 'G-M2ECXX0NL6');
     </script>
     {% endif %}
 
