@@ -1,61 +1,62 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
 
-        <title>Proof of work demo</title>
+<head>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
 
-        <!-- <link rel="stylesheet" href="bower_components/reveal.js/css/reveal.css"> -->
-        <!-- <link rel="stylesheet" href="bower_components/reveal.js/css/theme/white.css"> -->
-        <!-- <link rel="stylesheet" href="bower_components/reveal.js/css/theme/serif.css"> -->
-        <!-- <link rel="stylesheet" href="bower_components/reveal.js/css/theme/league.css"> -->
+    <title>Proof of work demo</title>
 
-        <!-- Theme used for syntax highlighting of code -->
-        <!-- <link rel="stylesheet" href="bower_components/reveal.js/lib/css/zenburn.css"> -->
+    <!-- import jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 
-        <script src="bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="bower_components/cryptojslib/rollups/md5.js"></script>
+    <script src="bower_components/cryptojslib/rollups/md5.js"></script>
 
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 
-    </head>
-    <body>
+</head>
 
-<div class="container">
+<body>
 
-<div>
+    <div class="container">
 
-    <h2 style="text-align: center">Demo: Proof of Work</h2>
+        <div>
 
-    <br />
+            <h2 style="text-align: center">Demo: Proof of Work</h2>
 
-    <!-- <p style="text-align: left; margin-left: 10%"> -->
-    <p style="text-align: center">
-    H("<span id="inp1"  contenteditable="true" class='heditable' tabindex="1">A→B £10</span>",
-       <span id="nonce" contenteditable="true" class='heditable' tabindex="2">[POW]</span>)
-    </p>
-    <p style="text-align: center"> = </p>
-    <p style="text-align: center"> <span id="outp">[Hash value]</span> <span id="check" style="font-size: 2em" hidden>✓</span></p>
+            <br />
 
-    <p style="text-align: center" id="info"></p>
+            <!-- <p style="text-align: left; margin-left: 10%"> -->
+            <p style="text-align: center">
+                H("<span id="inp1" contenteditable="true" class='heditable' tabindex="1">A→B £10</span>",
+                <span id="nonce" contenteditable="true" class='heditable' tabindex="2">[POW]</span>)
+            </p>
+            <p style="text-align: center"> = </p>
+            <p style="text-align: center"> <span id="outp">[Hash value]</span> <span id="check" style="font-size: 2em"
+                    hidden>✓</span></p>
 
-    <br />
+            <p style="text-align: center" id="info"></p>
 
-    <p style="text-align: center">
-        <button type="button" class="btn btn-default btn-lg" onclick="searchClick(1)">Search</button>
-        <button type="button" class="btn btn-default btn-lg" onclick="stopClick()">Stop</button>
-        <button type="button" class="btn btn-default btn-lg" onclick="resetClick()">Reset</button>
-    </p>
+            <br />
 
-    <p style="text-align: center">
-        Difficulty: <input id="difficulty" type="number" min="1" step="1" value="1" />
-    </p>
+            <p style="text-align: center">
+                <button type="button" class="btn btn-default btn-lg" onclick="searchClick(1)">Search</button>
+                <button type="button" class="btn btn-default btn-lg" onclick="stopClick()">Stop</button>
+                <button type="button" class="btn btn-default btn-lg" onclick="resetClick()">Reset</button>
+            </p>
 
-</div>
+            <p style="text-align: center">
+                Difficulty: <input id="difficulty" type="number" min="1" step="1" value="1" />
+            </p>
 
-</div>
+        </div>
+
+    </div>
 
     <script>
 
@@ -74,7 +75,7 @@
             // console.log("prefix: " + prefix)
             if (hash.startsWith(prefix)) {
                 // done!
-                $("#info").text("done! (took " + (n-1) + " attempts)")
+                $("#info").text("done! (took " + (n - 1) + " attempts)")
             }
             else if (n >= 100000000) {
                 // giving up
@@ -86,7 +87,7 @@
                 // go on
                 // $("#nonce").text(getRandomInt(8))
                 $("#nonce").text(n)
-                window.setTimeout(function() { searchClick(n+1) }, 1);
+                window.setTimeout(function () { searchClick(n + 1) }, 1);
             }
         }
 
@@ -103,15 +104,15 @@
 
         function getRandomInt(n) {
             return Math.floor(Math.random() * Math.pow(10, n))
-          // min = Math.ceil(min);
-          // max = Math.floor(max);
-          // return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+            // min = Math.ceil(min);
+            // max = Math.floor(max);
+            // return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
         }
 
-        function updHash(){
+        function updHash() {
             hash = String(CryptoJS.MD5("" +
-                                $("#nonce").text() +
-                                $("#inp1").text()));
+                $("#nonce").text() +
+                $("#inp1").text()));
             // console.log("inp1:  " + $("#inp1").text())
             // console.log("nonce: " + $("#nonce").text())
             // console.log("outp:  " + hash)
@@ -130,13 +131,12 @@
             }
 
         }
-        $(function()
-        {
-            $('[contenteditable]').on('focus', function() {
+        $(function () {
+            $('[contenteditable]').on('focus', function () {
                 var $this = $(this);
                 $this.data('before', $this.html());
                 return $this;
-            }).on('blur keyup paste', function() {
+            }).on('blur keyup paste', function () {
                 var $this = $(this);
                 if ($this.data('before') !== $this.html()) {
                     $this.data('before', $this.html());
@@ -144,53 +144,53 @@
                 }
                 return $this;
             });
-            
-          // $('span.heditable').click(function()
-          // {
-          //   var span = $(this);
-          //   var text = span.text();
-          //
-          //   var new_text = prompt("Change value", text);
-          //
-          //   if (new_text != null)
-          //     span.text(new_text);
-          //
-          //   updHash();
-          //
-          // });
 
-          $('span.heditable').on('change', function()
-          {
-            $("#info").text("")
-            $("#check").hide()
+            // $('span.heditable').click(function()
+            // {
+            //   var span = $(this);
+            //   var text = span.text();
+            //
+            //   var new_text = prompt("Change value", text);
+            //
+            //   if (new_text != null)
+            //     span.text(new_text);
+            //
+            //   updHash();
+            //
+            // });
 
-            var span = $(this);
-            var text = span.text();
+            $('span.heditable').on('change', function () {
+                $("#info").text("")
+                $("#check").hide()
 
-            // var new_text = prompt("Change value", text);
+                var span = $(this);
+                var text = span.text();
 
-            // if (new_text != null)
-            //   span.text(new_text);
+                // var new_text = prompt("Change value", text);
 
-            updHash();
+                // if (new_text != null)
+                //   span.text(new_text);
 
-          });
+                updHash();
+
+            });
 
         });
     </script>
 
 
 
-<script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-22790558-1']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-</script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-22790558-1']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
 
-	</body>
+</body>
+
 </html>
