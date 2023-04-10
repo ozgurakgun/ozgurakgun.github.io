@@ -17,6 +17,8 @@ Students can choose which strand they would like to work on, depending on their 
 
 Please get in touch if you are interested!
 
+**We are primarily interested in recruiting CS students in the first instance, but we will consider motivated non-CS students as well. Please get in touch and explain your background and interests.**
+
 <iframe width="560" height="315" style="display:block;margin:auto;" src="https://www.youtube.com/embed/bK_QmJ4Mlos" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Steps
