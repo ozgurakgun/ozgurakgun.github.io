@@ -22,12 +22,6 @@ Oz
 
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <!--
-        This disables zooming on mobile. Replace with the following to enable it again.
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
     <title> CS1003 k-means demo </title>
 
     <!-- import bootstrap -->
@@ -343,15 +337,14 @@ Oz
         </div>
     </div>
 
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-22790558-1']);
-        _gaq.push(['_trackPageview']);
-        (function () {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M2ECXX0NL6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-M2ECXX0NL6');
     </script>
 
 </body>
