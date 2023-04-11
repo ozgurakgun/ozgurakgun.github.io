@@ -252,35 +252,35 @@ Oz
 
             });
 
-            canvas.addEventListener('dblclick', function (event) {
-                var x = event.offsetX;
-                var y = event.offsetY;
+            // canvas.addEventListener('dblclick', function (event) {
+            //     var x = event.offsetX;
+            //     var y = event.offsetY;
 
-                x = Math.floor(x / boxSize);
-                y = Math.floor(y / boxSize);
+            //     x = Math.floor(x / boxSize);
+            //     y = Math.floor(y / boxSize);
 
-                for (i = -10; i <= 10; i++) {
-                    for (j = -10; j <= 10; j++) {
-                        // inside the box
-                        if (0 <= x + i && x + i < gridSize && 0 <= y + j && y + j < gridSize) {
-                            // inside a circle or radius=5
-                            if (Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2)) <= 5) {
-                                // with 30% likelihood
-                                if (Math.random() < 0.3) {
-                                    // turn it on
-                                    grid[x + i][y + j] = 0;
-                                }
-                            }
-                        }
-                    }
-                }
+            //     for (i = -10; i <= 10; i++) {
+            //         for (j = -10; j <= 10; j++) {
+            //             // inside the box
+            //             if (0 <= x + i && x + i < gridSize && 0 <= y + j && y + j < gridSize) {
+            //                 // inside a circle or radius=5
+            //                 if (Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2)) <= 5) {
+            //                     // with 30% likelihood
+            //                     if (Math.random() < 0.3) {
+            //                         // turn it on
+            //                         grid[x + i][y + j] = 0;
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //     }
 
-                // initialCentroids()
-                redraw();
+            //     // initialCentroids()
+            //     redraw();
 
-                // console.log(event.offsetX, event.offsetY);
+            //     // console.log(event.offsetX, event.offsetY);
 
-            });
+            // });
 
         }
 
