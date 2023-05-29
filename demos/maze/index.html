@@ -39,7 +39,7 @@
             width: 100%;
             text-align: center;
             height: 13vmin;
-            background-color: pink;
+            background: rgba(0, 83, 155, 0.3);
             padding: 1vmin;
         }
 
@@ -48,7 +48,7 @@
             height: 10vmin;
             width: 10vmin;
             display: inline-block;
-            background: red;
+            background: rgba(0, 83, 155, 1);
             text-align: center;
             /* vertical middle alignment */
             line-height: 8vmin;
@@ -89,7 +89,7 @@
         let arrows = new Map();
 
         window.onload = function () {
-            const opts = { curvature: 0, thickness: 3, endpoint: { type: 'none' } };
+            const opts = { curvature: 0, thickness: 3, color: '#231f20', endpoint: { type: 'none' } };
             for (const i in adjacents) {
                 const [a, b] = adjacents[i];
                 arrows.set(a + b, arrowLine('#' + a, '#' + b, opts));
@@ -106,7 +106,7 @@
         function check() {
             for (const i in adjacents) {
                 const [a, b] = adjacents[i];
-                arrows.get(a + b).update({ color: 'black', thickness: 3 });
+                arrows.get(a + b).update({ color: '#231f20', thickness: 3 });
                 if (document.getElementById(a).childNodes.length == 1 &&
                     document.getElementById(b).childNodes.length == 1) {
 
@@ -117,7 +117,7 @@
                     const bCode = bCh.id.charCodeAt(0);
 
                     if (Math.abs(aCode - bCode) == 1) {
-                        arrows.get(a + b).update({ color: 'red', thickness: 5 });
+                        arrows.get(a + b).update({ color: '#ee312a', thickness: 5 });
                     }
                 }
             }
