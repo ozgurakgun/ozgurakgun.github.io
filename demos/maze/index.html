@@ -17,39 +17,45 @@
         rel="icon" type="image/x-icon">
 
     <style>
+        #targets {
+            /* width: 100%; */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         #targets tr td {
-            height: 200px;
-            width: 200px;
+            height: 11vw;
+            width: 11vw;
             display: inline-block;
-            border-collapse: separate;
-            border-spacing: 5em;
+            margin: 2vw 6vw 2vw 6vw;
+            border-radius: 50%;
+            padding: 0;
         }
 
         .target {
-            background-color: rgba(255, 225, 0, 0.182);
+            /* background-color: rgba(255, 225, 0, 0.182); */
             border: 1px dashed gray;
-            margin: 2px 0 2px 0;
         }
 
         #letters {
             /* display: inline-block; */
-            margin-top: 30px;
-            width: 825px;
-            height: 410px;
+            /* margin-top: 30px; */
+            width: 100%;
+            height: 13vw;
             background-color: pink;
-            padding: 5px;
+            padding: 1vw;
         }
 
         .letter {
             cursor: move;
-            height: 200px;
-            width: 200px;
+            height: 11vw;
+            width: 11vw;
             display: inline-block;
             background: red;
             text-align: center;
             /* vertical middle alignment */
-            line-height: 180px;
-            padding: 10px;
+            line-height: 9vw;
+            padding: 1vw;
             border: solid;
             border-radius: 50%;
             font-size: 50px;
@@ -58,76 +64,142 @@
         }
     </style>
 
+    <script src="https://cdn.jsdelivr.net/npm/arrow-line/dist/arrow-line.min.js"></script>
+
     <script>
-        //draggable puzzle is the idea, not yet finished as you can probably tell
-        //copied and pasted this js from w3school
-        //feel free to give suggestions to any part of the code and tweet me @ilovepeoplez ! ^^
+
+        const adjacents = [
+            ['t12', 't13'],
+            ['t12', 't21'],
+            ['t12', 't22'],
+            ['t12', 't23'],
+            ['t13', 't22'],
+            ['t13', 't23'],
+            ['t13', 't24'],
+            ['t21', 't22'],
+            ['t21', 't32'],
+            ['t22', 't23'],
+            ['t22', 't32'],
+            ['t22', 't33'],
+            ['t23', 't24'],
+            ['t23', 't32'],
+            ['t23', 't33'],
+            ['t24', 't33'],
+            ['t32', 't33'],
+        ];
+
+        let arrows = new Map();
+
+        window.onload = function () {
+            const opts = { curvature: 0, thickness: 3, endpoint: { type: 'none' } };
+            for (const i in adjacents) {
+                const [a, b] = adjacents[i];
+                arrows.set(a + b, arrowLine('#' + a, '#' + b, opts));
+            }
+        }
+
+        window.onresize = function () {
+            for (const i in adjacents) {
+                const [a, b] = adjacents[i];
+                arrows.get(a + b).update({});
+            }
+        }
+
+        function check() {
+            for (const i in adjacents) {
+                const [a, b] = adjacents[i];
+                arrows.get(a + b).update({ color: 'black', thickness: 3 });
+                if (document.getElementById(a).childNodes.length == 1 &&
+                    document.getElementById(b).childNodes.length == 1) {
+
+                    const aCh = document.getElementById(a).childNodes[0];
+                    const bCh = document.getElementById(b).childNodes[0];
+
+                    const aCode = aCh.id.charCodeAt(0);
+                    const bCode = bCh.id.charCodeAt(0);
+
+                    if (Math.abs(aCode - bCode) == 1) {
+                        arrows.get(a + b).update({ color: 'red', thickness: 5 });
+                    }
+                }
+            }
+        }
 
         function allowDrop(ev) {
             ev.preventDefault();
         }
 
         function drag(ev) {
-            ev.dataTransfer.setData("text", ev.target.id);
+            ev.dataTransfer.setData('text', ev.target.id);
         }
 
         function drop(ev) {
-            console.log("Dropped, " + ev.dataTransfer.getData("text") + ", " + ev.target.id)
-            console.log(ev.target)
-            if (ev.target.classList.contains("letter")) {
+            if (ev.target.classList.contains('letter')) {
                 //not droppable
                 return;
             } else {
                 ev.preventDefault();
             }
-            var data = ev.dataTransfer.getData("text");
-            if (ev.target.id == "letters") {
+            var data = ev.dataTransfer.getData('text');
+            if (ev.target.id == 'letters') {
                 ev.target.appendChild(document.getElementById(data));
             } else {
                 if (ev.target.childElementCount == 0) {
                     ev.target.appendChild(document.getElementById(data));
                 }
             }
+            check();
         }
+
     </script>
 </head>
 
 <body>
-    <div style="margin: 30px auto; width: 825px;">
-        <div>
-            <h1>Crystal Maze demo</h1>
-            <p>Drag and drop the letters to solve the puzzle.</p>
+    <div style="padding: 30px; width: 100%;">
+        <div class="container">
+            <h1>Crystal maze puzzle demo</h1>
+            <p>Place letters A to H on nodes such that:
+            <ul>
+                <li>Each letter appears exactly once.</li>
+                <li>Consecutive letters do not appear on adjacent nodes.</li>
+                <li>Nodes are adjacent if they are connected with an edge.</li>
+            </ul>
+            </p>
+            <p>Drag and drop the letters to solve the puzzle. Violated constraints will be marked using a red edge.</p>
+            <hr>
         </div>
-        <table id="targets">
-            <tr>
-                <td></td>
-                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                <td></td>
-            </tr>
-        </table>
-        <div id="letters" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <div id="A" class="letter" draggable="true" ondragstart="drag(event)">A</div>
-            <div id="B" class="letter" draggable="true" ondragstart="drag(event)">B</div>
-            <div id="C" class="letter" draggable="true" ondragstart="drag(event)">C</div>
-            <div id="D" class="letter" draggable="true" ondragstart="drag(event)">D</div>
-            <div id="E" class="letter" draggable="true" ondragstart="drag(event)">E</div>
-            <div id="F" class="letter" draggable="true" ondragstart="drag(event)">F</div>
-            <div id="G" class="letter" draggable="true" ondragstart="drag(event)">G</div>
-            <div id="H" class="letter" draggable="true" ondragstart="drag(event)">H</div>
-        </div>
+        <center>
+            <table id="targets">
+                <tr>
+                    <td></td>
+                    <td id="t12" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                    <td id="t13" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td id="t21" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                    <td id="t22" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                    <td id="t23" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                    <td id="t24" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td id="t32" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                    <td id="t33" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                    <td></td>
+                </tr>
+            </table>
+            <div id="letters" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div id="A" class="letter" draggable="true" ondragstart="drag(event)">A</div>
+                <div id="B" class="letter" draggable="true" ondragstart="drag(event)">B</div>
+                <div id="C" class="letter" draggable="true" ondragstart="drag(event)">C</div>
+                <div id="D" class="letter" draggable="true" ondragstart="drag(event)">D</div>
+                <div id="E" class="letter" draggable="true" ondragstart="drag(event)">E</div>
+                <div id="F" class="letter" draggable="true" ondragstart="drag(event)">F</div>
+                <div id="G" class="letter" draggable="true" ondragstart="drag(event)">G</div>
+                <div id="H" class="letter" draggable="true" ondragstart="drag(event)">H</div>
+            </div>
+        </center>
     </div>
 </body>
 
