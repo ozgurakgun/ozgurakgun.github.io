@@ -32,7 +32,7 @@
         }
 
         .target {
-            border: 2px dashed rgb( 35, 31, 32);
+            border: 1px dashed rgb(35, 31, 32);
         }
 
         #letters {
@@ -45,8 +45,8 @@
 
         .letter {
             cursor: move;
-            height: 10vmin;
-            width: 10vmin;
+            height: 9.9vmin;
+            width: 9.9vmin;
             display: inline-block;
             background: rgba(0, 83, 155, 1);
             text-align: center;
@@ -88,7 +88,12 @@
 
         let arrows = new Map();
 
+        // some stats
+        let startTime;
+        let drags = 0;
+
         window.onload = function () {
+            startTime = Date.now();
             const opts = { curvature: 0, thickness: 3, color: '#231f20', endpoint: { type: 'none' } };
             for (const i in adjacents) {
                 const [a, b] = adjacents[i];
@@ -104,11 +109,15 @@
         }
 
         function check() {
+            drags++;
+            let placed = 0;
+            let violated = 0;
             for (const i in adjacents) {
                 const [a, b] = adjacents[i];
                 arrows.get(a + b).update({ color: '#231f20', thickness: 3 });
                 if (document.getElementById(a).childNodes.length == 1 &&
                     document.getElementById(b).childNodes.length == 1) {
+                    placed++;
 
                     const aCh = document.getElementById(a).childNodes[0];
                     const bCh = document.getElementById(b).childNodes[0];
@@ -118,8 +127,32 @@
 
                     if (Math.abs(aCode - bCode) == 1) {
                         arrows.get(a + b).update({ color: '#ee312a', thickness: 5 });
+                        violated++;
                     }
                 }
+            }
+            if (placed == 17 && violated == 0) {
+                // stats & the modal
+                let delta = Date.now() - startTime; // milliseconds elapsed since start
+                delta = delta / 1000; // seconds
+                let hours = Math.floor(delta / 3600)
+                delta = delta - hours * 3600;
+                let mins = Math.floor(delta / 60);
+                let seconds = Math.round(delta - mins * 60);
+                document.getElementById('time').innerHTML = '';
+                if (hours != 0) {
+                    document.getElementById('time').innerHTML += hours + ' hours ';
+                }
+                if (mins != 0) {
+                    document.getElementById('time').innerHTML += mins + ' minutes ';
+                }
+                if (seconds != 0) {
+                    document.getElementById('time').innerHTML += seconds + ' seconds ';
+                }
+
+                document.getElementById("drags").innerHTML = drags;
+
+                new bootstrap.Modal(document.querySelector("#welldone")).show();
             }
         }
 
@@ -198,6 +231,29 @@
         <div id="G" class="letter" draggable="true" ondragstart="drag(event)">G</div>
         <div id="H" class="letter" draggable="true" ondragstart="drag(event)">H</div>
     </div>
+    <div id="welldone" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Well done!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>You have solved the puzzle correctly!</p>
+                    <p>Some basic stats for your amusement:
+                    <ul>
+                        <li>You spent <span id="time"> </span> on this page until now.</li>
+                        <li>You drag-and-dropped <span id="drags"> </span> times.</li>
+                    </ul>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
