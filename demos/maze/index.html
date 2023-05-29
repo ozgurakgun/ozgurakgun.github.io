@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- <meta http-equiv="content-type" content="text/html; charset=utf-8"> -->
+
+    <!-- <meta http-equiv="x-ua-compatible" content="ie=edge"> -->
+
+    <title> Crystal Maze demo </title>
+
+    <!-- import bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <!-- empty favicon -->
+    <link
+        href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII="
+        rel="icon" type="image/x-icon">
+
+    <style>
+        #targets tr td {
+            height: 200px;
+            width: 200px;
+            display: inline-block;
+            border-collapse: separate; 
+            border-spacing: 5em;
+        }
+
+        .target {
+            background-color: rgba(255, 225, 0, 0.182);
+            border: 1px dashed gray;
+            margin: 2px 0 2px 0;
+        }
+
+        #letters {
+            /* display: inline-block; */
+            margin-top: 20px;
+            width: 825px;
+            height: 410px;
+            background-color: pink;
+            padding: 5px;
+        }
+
+        .letter {
+            cursor: move;
+            height: 200px;
+            width: 200px;
+            display: inline-block;
+            background: red;
+            text-align: center;
+            /* vertical middle alignment */
+            line-height: 180px;
+            padding: 10px;
+            border: solid;
+            border-radius: 50%;
+            font-size: 50px;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+
+    <script>
+        //draggable puzzle is the idea, not yet finished as you can probably tell
+        //copied and pasted this js from w3school
+        //feel free to give suggestions to any part of the code and tweet me @ilovepeoplez ! ^^
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            console.log("Dropped, " + ev.dataTransfer.getData("text") + ", " + ev.target.id)
+            console.log(ev.target)
+            if (ev.target.classList.contains("letter")) {
+                //not droppable
+                return;
+            } else {
+                ev.preventDefault();
+            }
+            var data = ev.dataTransfer.getData("text");
+            if (ev.target.id == "letters") {
+                ev.target.appendChild(document.getElementById(data));
+            } else {
+                if (ev.target.childElementCount == 0) {
+                    ev.target.appendChild(document.getElementById(data));
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div style="margin: 30px auto; width: 2220px;">
+        <table id="targets">
+            <tr>
+                <td></td>
+                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                <td ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                <td></td>
+            </tr>
+        </table>
+        <div id="letters" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div id="A" class="letter" draggable="true" ondragstart="drag(event)">A</div>
+            <div id="B" class="letter" draggable="true" ondragstart="drag(event)">B</div>
+            <div id="C" class="letter" draggable="true" ondragstart="drag(event)">C</div>
+            <div id="D" class="letter" draggable="true" ondragstart="drag(event)">D</div>
+            <div id="E" class="letter" draggable="true" ondragstart="drag(event)">E</div>
+            <div id="F" class="letter" draggable="true" ondragstart="drag(event)">F</div>
+            <div id="G" class="letter" draggable="true" ondragstart="drag(event)">G</div>
+            <div id="H" class="letter" draggable="true" ondragstart="drag(event)">H</div>
+        </div>
+    </div>
+</body>
+
+</html>
