@@ -24,10 +24,10 @@
         }
 
         #targets tr td {
-            height: 11vw;
-            width: 11vw;
+            height: 10vmin;
+            width: 10vmin;
             display: inline-block;
-            margin: 2vw 6vw 2vw 6vw;
+            margin: 2vmin 6vmin 2vmin 6vmin;
             border-radius: 50%;
             padding: 0;
         }
@@ -41,21 +41,22 @@
             /* display: inline-block; */
             /* margin-top: 30px; */
             width: 100%;
-            height: 13vw;
+            text-align: center;
+            height: 13vmin;
             background-color: pink;
-            padding: 1vw;
+            padding: 1vmin;
         }
 
         .letter {
             cursor: move;
-            height: 11vw;
-            width: 11vw;
+            height: 10vmin;
+            width: 10vmin;
             display: inline-block;
             background: red;
             text-align: center;
             /* vertical middle alignment */
-            line-height: 9vw;
-            padding: 1vw;
+            line-height: 8vmin;
+            padding: 1vmin;
             border: solid;
             border-radius: 50%;
             font-size: 50px;
@@ -168,38 +169,37 @@
             <p>Drag and drop the letters to solve the puzzle. Violated constraints will be marked using a red edge.</p>
             <hr>
         </div>
-        <center>
-            <table id="targets">
-                <tr>
-                    <td></td>
-                    <td id="t12" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                    <td id="t13" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td id="t21" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                    <td id="t22" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                    <td id="t23" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                    <td id="t24" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td id="t32" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                    <td id="t33" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                    <td></td>
-                </tr>
-            </table>
-            <div id="letters" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <div id="A" class="letter" draggable="true" ondragstart="drag(event)">A</div>
-                <div id="B" class="letter" draggable="true" ondragstart="drag(event)">B</div>
-                <div id="C" class="letter" draggable="true" ondragstart="drag(event)">C</div>
-                <div id="D" class="letter" draggable="true" ondragstart="drag(event)">D</div>
-                <div id="E" class="letter" draggable="true" ondragstart="drag(event)">E</div>
-                <div id="F" class="letter" draggable="true" ondragstart="drag(event)">F</div>
-                <div id="G" class="letter" draggable="true" ondragstart="drag(event)">G</div>
-                <div id="H" class="letter" draggable="true" ondragstart="drag(event)">H</div>
-            </div>
-        </center>
+    </div>
+
+    <table id="targets">
+        <tr>
+            <td></td>
+            <td id="t12" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+            <td id="t13" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td id="t21" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+            <td id="t22" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+            <td id="t23" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+            <td id="t24" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td id="t32" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+            <td id="t33" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+            <td></td>
+        </tr>
+    </table>
+    <div id="letters" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div id="A" class="letter" draggable="true" ondragstart="drag(event)">A</div>
+        <div id="B" class="letter" draggable="true" ondragstart="drag(event)">B</div>
+        <div id="C" class="letter" draggable="true" ondragstart="drag(event)">C</div>
+        <div id="D" class="letter" draggable="true" ondragstart="drag(event)">D</div>
+        <div id="E" class="letter" draggable="true" ondragstart="drag(event)">E</div>
+        <div id="F" class="letter" draggable="true" ondragstart="drag(event)">F</div>
+        <div id="G" class="letter" draggable="true" ondragstart="drag(event)">G</div>
+        <div id="H" class="letter" draggable="true" ondragstart="drag(event)">H</div>
     </div>
 </body>
 
