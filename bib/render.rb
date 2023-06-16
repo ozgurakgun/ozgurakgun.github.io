@@ -55,6 +55,7 @@ for bib in bibs do
                      .gsub("Peter William Nightingale", "Peter Nightingale")
                      .gsub("James Patrick Wetter", "James Wetter")
                      .gsub("Ian James Miguel", "Ian Miguel")
+                     .gsub("Ian J. Miguel", "Ian Miguel")
                      .gsub("Long Thanh Thai", "Long Thai")
                      .gsub("Adam David Barker", "Adam Barker")
                      .gsub("Graham Njal Cameron Kirby", "Graham Kirby")
