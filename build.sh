@@ -7,7 +7,7 @@ set -o nounset
 bibtex-clean < bib/pure.bib > bib/pure-clean.bib ; mv bib/pure-clean.bib bib/pure.bib
 ruby bib/render.rb > _includes/bib.html
 
-# bundle update # to update dependencies
+# bundle install --path vendor/bundle # to update dependencies
 
 bundle install
 bundle exec jekyll build
