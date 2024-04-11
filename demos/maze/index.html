@@ -97,6 +97,8 @@
             ['t32', 't33'],
         ];
 
+        const wompWomp = new Audio("https://www.myinstants.com/media/sounds/downer_noise.mp3");
+
         let arrows = new Map();
 
         // some stats
@@ -173,6 +175,18 @@
                 document.getElementById("drags").innerHTML = drags;
 
                 new bootstrap.Modal(document.querySelector("#welldone")).show();
+            }
+            else if (placed == 17 && violated > 0) {
+                // all placed but some violated
+                wompWomp.play(); // play full womp womp sound
+            }
+            else if (violated > 0) {
+                // not all placed and some violated
+                wompWomp.play();
+                setTimeout(() => { // play partial womp womp sound
+                    wompWomp.pause();
+                    wompWomp.currentTime = 0;
+                }, 1400);
             }
         }
 
