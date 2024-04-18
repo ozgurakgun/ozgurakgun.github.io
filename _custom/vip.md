@@ -42,6 +42,6 @@ The coming year (2024/25 academic year) will be the second time we are running t
 
 ## 2023 VIP promo video
 
-Less useful than the 2023 video, but: 2023 was the first year we were running the VIP. At the time I recorded a short video of myself explaining the project for interested students. Here it is, in case you want to check it out!
+Less useful than the 2024 video, but: 2023 was the first year we were running the VIP. At the time I recorded a short video of myself explaining the project for interested students. Here it is, in case you want to check it out!
 
 <iframe width="560" height="315" style="display:block;margin:auto;" src="https://www.youtube.com/embed/bK_QmJ4Mlos" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
