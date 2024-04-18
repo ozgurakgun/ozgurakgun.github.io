@@ -27,11 +27,13 @@ Please get in touch if you are interested!
 
 3. Consider your interests and skills in software engineering and development of demonstrator applications. This will help you decide which strand of the project would be a good fit for you. You might want to look at [CSPLib](https://www.csplib.org) to get an idea of application domains. We have some demonstrator applications hosted at [https://conjure-cp.github.io/demos](https://conjure-cp.github.io/demos). Also see the Jupyter notebooks showing simple models written in Essence, hosted at [https://github.com/ozgurakgun/notebooks](https://github.com/ozgurakgun/notebooks).
 
-4. Reach out to the VIP organizers and express your interest in getting involved. They may be able to answer any questions you have and provide more information about the project. Email Oz, include VIP in the title.
+4. If you have any previous experience in software development or AI, be sure to highlight this in your communication with the VIP organizers.
 
-5. If you have any previous experience in software development or AI, be sure to highlight this in your communication with the VIP organizers.
+5. If you are interested in Rust, start reading the [Rust book](https://doc.rust-lang.org/book/index.html) and go through [rustlings](https://github.com/rust-lang/rustlings). They are both very well done. 
 
-6. If you are accepted into the VIP, be prepared to work hard and collaborate closely with the other members of the group. VIPs are a great opportunity to gain valuable experience and make meaningful contributions to ongoing research projects.
+6. Reach out to the VIP organizers and express your interest in getting involved. They may be able to answer any questions you have and provide more information about the project. Email Oz, include VIP in the title.
+
+7. If you are accepted into the VIP, be prepared to work hard and collaborate closely with the other members of the group. VIPs are a great opportunity to gain valuable experience and make meaningful contributions to ongoing research projects.
 
 
 ## 2024 VIP promo video
