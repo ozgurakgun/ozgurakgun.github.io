@@ -12,9 +12,5 @@ jobs:
   Job:
     runs-on: ubuntu-latest
     steps:
-    - name: broken-link-check
-      uses: celinekurpershoek/link-checker@v1.0.2
-      with:
-        url: "https://ozgurakgun.github.io"
-    - name: Get the result
-      run: echo "${{steps.link-report.outputs.result}}"
+    - name: Broken Link Checker
+      uses: technote-space/broken-link-checker-action@v2.3.1
