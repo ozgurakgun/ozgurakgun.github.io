@@ -16,3 +16,5 @@ jobs:
       uses: celinekurpershoek/link-checker@v1.0.2
       with:
         url: "https://ozgurakgun.github.io"
+    - name: Get the result
+      run: echo "${{steps.link-report.outputs.result}}"
