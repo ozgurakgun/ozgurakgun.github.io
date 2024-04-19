@@ -54,7 +54,7 @@ I am Özgür Akgün. You have reached my personal website.
      alt="A handsome looking photo of Özgür">
 
 I am a Lecturer at the
-[School of Computer Science](http://www.cs.st-andrews.ac.uk),
+[School of Computer Science](https://www.st-andrews.ac.uk/computer-science),
 [University of St Andrews](http://www.st-andrews.ac.uk).
 
 You are very welcome to explore these pages.
