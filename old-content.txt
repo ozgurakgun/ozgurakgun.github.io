@@ -15,9 +15,6 @@ Please don't hesitate to [contact me](/contact) if you cannot find something you
         exist on several other places throughout the internet, this is
         the <em>serious</em> one.
     </p>
-    <!-- <p style="float: right">
-        <img src="http://www.cs.st-andrews.ac.uk/images/people/ozgur.jpg" />
-    </p> -->
     <h1> Contact </h1>
     <p>
         If you wish to contact me about a research related topic, or
@@ -67,8 +64,8 @@ Please don't hesitate to [contact me](/contact) if you cannot find something you
     </p>
     <p>
         I did my PhD under the supervision of <a
-        href="http://www.cs.st-andrews.ac.uk/~ianm">Ian Miguel</a> and
-        <a href="http://www.cs.st-andrews.ac.uk/~caj">Chris
+        href="https://www.st-andrews.ac.uk/computer-science/people/ijm/">Ian Miguel</a> and
+        <a href="https://www.st-andrews.ac.uk/computer-science/people/caj21/">Chris
         Jefferson</a>. We also have strong collaborations with <a
         href="http://www-users.cs.york.ac.uk/~frisch">Alan Frisch</a>
         from University of York and <a
