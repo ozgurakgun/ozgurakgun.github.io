@@ -2,9 +2,6 @@ name: Check broken links
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-    - main
   schedule:
   - cron: '0 11 * * 1'    # run at 11.00 every Monday
 
