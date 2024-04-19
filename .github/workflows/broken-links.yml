@@ -14,3 +14,5 @@ jobs:
     steps:
     - name: Broken Link Checker
       uses: technote-space/broken-link-checker-action@v2.3.1
+      with:
+        TARGET: https://ozgurakgun.github.io
