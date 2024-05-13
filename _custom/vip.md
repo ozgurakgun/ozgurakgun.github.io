@@ -1,11 +1,11 @@
 ---
 order: 5
-title: "VIP: Using Artificial Intelligence for Decision Making"
+title: "VIP: Artificial Intelligence for Decision Making"
 menutitle: VIP
 permalink: /vip
 ---
 
-The Vertically Integrated Project (VIP) on "Using Artificial Intelligence for Decision Making" is an opportunity for students who are interested in software engineering and the application of AI to real-life problems. The project is led by a strong research group consisting of experienced faculty members, PhD students, and post-doctoral researchers.
+The Vertically Integrated Project (VIP) on "Artificial Intelligence for Decision Making" is an opportunity for students who are interested in software engineering and the application of AI to real-life problems. The project is led by a strong research group consisting of experienced faculty members, PhD students, and post-doctoral researchers.
 
 The project is led by myself ([Özgür Akgün](https://www.st-andrews.ac.uk/computer-science/people/oa86/)) and supported by supervisors [Ian Miguel](https://www.st-andrews.ac.uk/computer-science/people/ijm/), [Ian Gent](https://www.st-andrews.ac.uk/computer-science/people/ipg1/) and [Chris Jefferson](https://www.st-andrews.ac.uk/computer-science/people/caj21/), [Joan Espasa Arxer](https://www.st-andrews.ac.uk/computer-science/people/jea20/), [Nguyen Dang](https://www.st-andrews.ac.uk/computer-science/people/nttd/), [Ruth Hoffmann](https://www.st-andrews.ac.uk/computer-science/people/rh347/), [Andras Salamon](https://www.st-andrews.ac.uk/computer-science/people/as456/) and a few more people including PhD students and post doctoral researchers.
 
