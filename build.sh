@@ -7,7 +7,16 @@ set -o nounset
 bibtex-clean < bib/pure.bib > bib/pure-clean.bib ; mv bib/pure-clean.bib bib/pure.bib
 ruby bib/render.rb > _includes/bib.html
 
-# bundle install --path vendor/bundle # to update dependencies
+# had to do:
+# brew install rbenv
+# brew install ruby-build
+# eval "$(rbenv init -)"
+# rbenv install 3.1.2
+# rbenv global 3.1.2
+
+# bundle config set --local path 'vendor/bundle'
+
+# bundle update # to update Gemfile.lock
 
 bundle install
 bundle exec jekyll build
