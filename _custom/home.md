@@ -17,7 +17,7 @@ permalink: /
 
 I am Özgür Akgün. You have reached my personal website.
 
-I am a Lecturer at the
+I am a Senior Lecturer at the
 [School of Computer Science](https://www.st-andrews.ac.uk/computer-science/),
 [University of St Andrews](http://www.st-andrews.ac.uk).
 
@@ -53,7 +53,7 @@ I am Özgür Akgün. You have reached my personal website.
      style="width:70%;"
      alt="A handsome looking photo of Özgür">
 
-I am a Lecturer at the
+I am a Senior Lecturer at the
 [School of Computer Science](https://www.st-andrews.ac.uk/computer-science),
 [University of St Andrews](http://www.st-andrews.ac.uk).
 
