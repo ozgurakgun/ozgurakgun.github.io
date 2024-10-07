@@ -26,7 +26,9 @@ Have a look at my
 [latest publications](/publications),
 [software development experience](/software), and
 [recent activities](/activities).  
+
 You can also [contact me](/contact) if you like.
+
 
 </div> <!-- col -->
 
