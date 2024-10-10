@@ -1,9 +1,11 @@
 ---
 order: 2
-title: Publications
-menutitle: Publications
-permalink: /publications
+title: Research and publications
+menutitle: Research
+permalink: /research
 ---
+
+I routinely serve as a program committee member and reviewer at top AI conferences (AAAI, IJCAI, ECAI), subject specific conferences (CP, CPAIOR, PADL), and AI journal (AIJ, JAIR). Notable cases of service can be seen on the [activities](/activities) page.
 
 Please see my profiles on
 [Orcid](http://orcid.org/0000-0001-9519-938X) and

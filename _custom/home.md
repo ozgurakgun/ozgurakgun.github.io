@@ -23,7 +23,7 @@ I am a Senior Lecturer at the
 
 You are very welcome to explore these pages.
 Have a look at my
-[latest publications](/publications),
+[latest publications](/research),
 [software development experience](/software), and
 [recent activities](/activities).  
 
@@ -61,7 +61,7 @@ I am a Senior Lecturer at the
 
 You are very welcome to explore these pages.
 Have a look at my
-[latest publications](/publications),
+[latest publications](/research),
 [software development experience](/software), and
 [recent activities](/activities).  
 You can also [contact me](/contact) if you like.
