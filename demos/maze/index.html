@@ -18,8 +18,7 @@
     <script src="arrow-line.min.js"></script>
 
     <!-- from: https://github.com/drag-drop-touch-js/dragdroptouch -->
-    <script src="drag-drop-touch.esm.min.js"
-        type="module"></script>
+    <script src="drag-drop-touch.esm.min.js" type="module"></script>
 
     <!-- empty favicon -->
     <link
@@ -79,6 +78,18 @@
             font-size: 6vmin;
             font-weight: bold;
             color: white;
+        }
+
+        /* nothing should be selectable, important for touch screen support */
+        * {
+            /* Safari */
+            -webkit-user-select: none;
+            /* Firefox */
+            -moz-user-select: none;
+            /* Internet Explorer/Edge */
+            -ms-user-select: none;
+            /* Standard */
+            user-select: none;
         }
     </style>
 
