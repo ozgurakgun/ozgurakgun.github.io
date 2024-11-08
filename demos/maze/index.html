@@ -84,7 +84,6 @@
             font-size: 6vmin;
             font-weight: bold;
             color: white;
-            touch-action: none;
         }
 
         /* nothing should be selectable, important for touch screen support */
@@ -97,6 +96,8 @@
             -ms-user-select: none;
             /* Standard */
             user-select: none;
+            /* disable default touch actions */
+            touch-action: none;
         }
 
         /* Use Flexbox on the body to center content */
