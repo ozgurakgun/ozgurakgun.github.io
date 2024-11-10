@@ -72,11 +72,11 @@
         }
 
         .letter {
-            height: 15.9vmin;
-            width: 15.9vmin;
+            height: 15vmin;
+            width: 15vmin;
             line-height: 12vmin;
             font-size: 9vmin;
-            padding: 2vmin;
+            padding: 1vmin;
 
             cursor: move;
             display: inline-block;
@@ -308,27 +308,42 @@
                     // Show the dragged element again
                     target.style.display = '';
 
-                    if (dropTarget && dropTarget.classList.contains('target') && dropTarget.childElementCount === 0) {
-                        // Append the dragged element to the valid drop target
-                        dropTarget.appendChild(event.target);
+                    if (dropTarget && dropTarget.classList.contains('target')) {
+                        if (dropTarget.childElementCount === 0) {
+                            // If the target is empty, append the dragged element to the target
+                            dropTarget.appendChild(target);
+                        } else {
+                            // If the target is occupied, perform a swap
+                            const existingElement = dropTarget.firstChild;
 
-                        // Reset position for the dropped element
-                        event.target.style.transform = 'translate(0px, 0px)';
-                        event.target.removeAttribute('data-x');
-                        event.target.removeAttribute('data-y');
+                            // Find the original parent of the dragged element
+                            const originalParent = target.parentNode;
+
+                            // Swap the elements
+                            dropTarget.appendChild(target);
+                            originalParent.appendChild(existingElement);
+                        }
+
+                        // Reset position for the dragged element
+                        target.style.transform = 'translate(0px, 0px)';
+                        target.removeAttribute('data-x');
+                        target.removeAttribute('data-y');
                     } else {
                         // Return to original container if dropped in an invalid area
-                        document.getElementById('letters').appendChild(event.target);
+                        document.getElementById('letters').appendChild(target);
 
                         // Reset position
-                        event.target.style.transform = 'translate(0px, 0px)';
-                        event.target.removeAttribute('data-x');
-                        event.target.removeAttribute('data-y');
+                        target.style.transform = 'translate(0px, 0px)';
+                        target.removeAttribute('data-x');
+                        target.removeAttribute('data-y');
                     }
-                    check(); // Call check function to update the puzzle state
+
+                    // Call check function to update the puzzle state
+                    check();
                 }
             }
         });
+
 
         // Allow targets to accept draggable items
         interact('.target').dropzone({
