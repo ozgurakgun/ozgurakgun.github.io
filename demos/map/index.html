@@ -489,10 +489,10 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
         }
 
         function save() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(paths));
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ paths: paths }));
             const downloadAnchorNode = document.createElement('a');
             downloadAnchorNode.setAttribute("href", dataStr);
-            downloadAnchorNode.setAttribute("download", "drawing.json");
+            downloadAnchorNode.setAttribute("download", "map-colouring.json");
             document.body.appendChild(downloadAnchorNode); // required for firefox
             downloadAnchorNode.click();
             downloadAnchorNode.remove();
@@ -507,7 +507,7 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
             reader.onload = function (e) {
                 try {
                     const loadedPaths = JSON.parse(e.target.result);
-                    paths = loadedPaths;
+                    paths = loadedPaths["paths"];
                     segments = [];
                     // Reconstruct segments from paths
                     for (const path of paths) {
