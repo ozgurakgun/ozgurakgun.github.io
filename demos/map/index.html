@@ -133,7 +133,7 @@
             for (let y = 0; y < height; y++) {
                 for (let x = 0; x < width; x++) {
                     const idx = y * width + x;
-                    if (!visited[idx] && !isBlack(pixels, x, y, width)) {
+                    if (!visited[idx] && !isBlack(pixels, x, y, width, height)) {
                         floodFill(x, y, visited, pixels, width, height, pixelRegionMap, regionID);
                         regionID++;
                     }
@@ -213,7 +213,11 @@
             }
         }
 
-        function isBlack(pixels, x, y, width) {
+        function isBlack(pixels, x, y, width, height) {
+            // Treat canvas edges as black pixels
+            if (x === 0 || x === width - 1 || y === 0 || y === height - 1) {
+                return true;
+            }
             const index = (y * width + x) * 4;
             const r = pixels[index];
             const g = pixels[index + 1];
@@ -237,7 +241,7 @@
                 if (px < 0 || px >= width || py < 0 || py >= height) continue;
                 const idx = py * width + px;
                 if (visited[idx]) continue;
-                if (isBlack(pixels, px, py, width)) continue;
+                if (isBlack(pixels, px, py, width, height)) continue;
 
                 visited[idx] = 1;
                 pixelRegionMap[idx] = regionID;
