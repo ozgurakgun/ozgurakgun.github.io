@@ -199,17 +199,16 @@
         window.onload = function () {
             startTime = Date.now();
             const opts = { curvature: 0, thickness: 3, color: '#231f20', endpoint: { type: 'none' } };
-            for (const i in adjacents) {
-                const [a, b] = adjacents[i];
+            for (const [a, b] of adjacents) {
                 arrows.set(a + b, arrowLine('#' + a, '#' + b, opts));
             }
+
             // Show the instructions modal automatically on page load
             new bootstrap.Modal(document.getElementById('instructionsModal')).show();
         }
 
         window.onresize = function () {
-            for (const i in adjacents) {
-                const [a, b] = adjacents[i];
+            for (const [a, b] of adjacents) {
                 arrows.get(a + b).update({});
             }
         }
@@ -218,8 +217,7 @@
             drags++;
             let placed = 0;
             let violated = 0;
-            for (const i in adjacents) {
-                const [a, b] = adjacents[i];
+            for (const [a, b] of adjacents) {
                 arrows.get(a + b).update({ color: '#231f20', thickness: 3 });
                 if (document.getElementById(a).childNodes.length == 1 &&
                     document.getElementById(b).childNodes.length == 1) {
