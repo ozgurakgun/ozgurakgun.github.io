@@ -146,6 +146,27 @@
             text-align: center;
             transform-origin: center;
         }
+
+        /* Make modal full-width on small screens */
+        @media (max-width: 576px) {
+            .modal-dialog {
+                max-width: 90vw;
+                width: 90vw;
+                height: 90vh;
+                margin: 1rem auto;
+            }
+
+            .modal-content {
+                height: 100%;
+                overflow: auto;
+                /* Enables scrolling within the modal if content overflows */
+            }
+
+            .modal-body {
+                max-height: 65vh;
+                overflow-y: auto;
+            }
+        }
     </style>
 
     <script>
