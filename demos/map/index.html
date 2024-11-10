@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Map colouring</title>
+    <!-- Include Bootstrap CSS (Version 5.3.3) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            margin: 10px;
+            padding: 0;
+        }
+        #toolbar {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        canvas {
+            border: 1px solid #333;
+        }
+        #loadingSpinner {
+            display: none;
+            margin-left: 10px;
+        }
+    </style>
+    <!-- Import the Conjure client library -->
+    <script src="https://conjure-aas.cs.st-andrews.ac.uk/client.js"></script>
+</head>
+<body>
+    <h1>Draw a map and we will colour it!</h1>
+    <p>According to the <strong>four-colour theorem</strong>, any planar map can be coloured using no more than four colours such that no two adjacent regions share the same colour. Try to challenge us by creating a map that needs more than four colours!</p>
+
+    <div id="toolbar">
+        <button id="undoButton" class="btn btn-primary">Undo</button>
+        <button id="redoButton" class="btn btn-primary">Redo</button>
+        <button id="resetButton" class="btn btn-danger">Reset</button>
+        <button id="saveButton" class="btn btn-success">Save</button>
+        <input type="file" id="loadInput" accept=".json" style="display:none;">
+        <button id="loadButton" class="btn btn-info">Load</button>
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="spinner-border text-primary" role="status" style="display: none; margin-left: 10px;">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <canvas id="drawingCanvas"></canvas>
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Set up canvas size
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth - 20; // 10px margin on each side
+        canvas.height = window.innerHeight - 180; // Adjusted height to accommodate header and toolbar
+
+        // Fill the canvas background with white
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Toolbar buttons and loading spinner
+        const undoButton = document.getElementById('undoButton');
+        const redoButton = document.getElementById('redoButton');
+        const resetButton = document.getElementById('resetButton');
+        const saveButton = document.getElementById('saveButton');
+        const loadButton = document.getElementById('loadButton');
+        const loadInput = document.getElementById('loadInput');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+
+        let drawing = false;
+        let paths = []; // Array of paths drawn
+        let segments = []; // Array of segments
+        let undoStack = []; // For undo functionality
+        let redoStack = []; // For redo functionality
+        let pixelRegionMap; // For mapping pixels to regions
+        let savedImageData; // To save the original image data
+        let regionCount = 0;
+        let colouringResult = null; // To store the colouring result
+        let regionPixels = {}; // Data structure to store pixels per region
+        const lineThickness = 3; // Line thickness used in drawing
+
+        function startDrawing(event) {
+            drawing = true;
+            ctx.beginPath();
+            ctx.moveTo(event.offsetX, event.offsetY);
+            paths.push([{ x: event.offsetX, y: event.offsetY }]);
+        }
+
+        function draw(event) {
+            if (!drawing) return;
+            ctx.lineTo(event.offsetX, event.offsetY);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = lineThickness; // Set line width
+            ctx.stroke();
+            paths[paths.length - 1].push({ x: event.offsetX, y: event.offsetY });
+        }
+
+        function stopDrawing() {
+            if (drawing) {
+                const currentPath = paths[paths.length - 1];
+                // Add segments
+                for (let i = 0; i < currentPath.length - 1; i++) {
+                    segments.push({ start: currentPath[i], end: currentPath[i + 1] });
+                }
+                // After drawing, clear redoStack
+                redoStack = [];
+                drawing = false;
+                ctx.closePath();
+
+                detectRegions();
+            }
+        }
+
+        function detectRegions() {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            savedImageData = ctx.getImageData(0, 0, canvas.width, canvas.height); // Save for unhighlighting
+            const pixels = imageData.data;
+            const width = canvas.width;
+            const height = canvas.height;
+
+            const visited = new Uint8Array(width * height);
+            pixelRegionMap = new Uint16Array(width * height);
+            regionPixels = {}; // Reset regionPixels
+            regionCount = 0;
+            let regionID = 1;
+
+            // First pass: flood fill to assign region IDs and collect pixels per region
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const idx = y * width + x;
+                    if (!visited[idx] && !isBlack(pixels, x, y, width)) {
+                        floodFill(x, y, visited, pixels, width, height, pixelRegionMap, regionID);
+                        regionID++;
+                    }
+                }
+            }
+            regionCount = regionID - 1;
+
+            const adjacencyList = {};
+            for (let i = 1; i <= regionCount; i++) {
+                adjacencyList[i] = new Set();
+            }
+
+            // Morphological dilation to detect adjacency
+            const dilatedLabels = new Uint16Array(width * height);
+
+            // Create a structuring element for dilation
+            const structuringElement = createStructuringElement(lineThickness);
+
+            for (let regionID in regionPixels) {
+                const pixelIndices = regionPixels[regionID];
+                const regionMask = new Uint8Array(width * height);
+
+                // Create mask for the region
+                for (let idx of pixelIndices) {
+                    regionMask[idx] = 1;
+                }
+
+                // Dilate the region mask
+                const dilatedMask = dilate(regionMask, width, height, structuringElement);
+
+                // Assign labels and detect overlaps
+                for (let idx = 0; idx < dilatedMask.length; idx++) {
+                    if (dilatedMask[idx]) {
+                        if (dilatedLabels[idx] === 0) {
+                            dilatedLabels[idx] = parseInt(regionID);
+                        } else if (dilatedLabels[idx] !== parseInt(regionID)) {
+                            // Regions are adjacent
+                            const regionA = parseInt(regionID);
+                            const regionB = dilatedLabels[idx];
+                            adjacencyList[regionA].add(regionB);
+                            adjacencyList[regionB].add(regionA);
+                        }
+                    }
+                }
+            }
+
+            // Create list of adjacency pairs
+            const adjacencyPairs = [];
+            for (let region in adjacencyList) {
+                const neighbours = Array.from(adjacencyList[region]);
+                for (let neighbour of neighbours) {
+                    const pair = [parseInt(region) - 1, neighbour - 1].sort((a, b) => a - b);
+                    adjacencyPairs.push(pair);
+                }
+            }
+            // Remove duplicate pairs
+            const uniquePairs = Array.from(new Set(adjacencyPairs.map(JSON.stringify)), JSON.parse);
+
+            // Output the results to the console
+            console.log(`Number of regions: ${regionCount}`);
+            console.log(`Adjacency List:`, uniquePairs);
+
+            // Call the colourRegions function
+            colourRegions(regionCount, uniquePairs);
+        }
+
+        function isBlack(pixels, x, y, width) {
+            const index = (y * width + x) * 4;
+            const r = pixels[index];
+            const g = pixels[index + 1];
+            const b = pixels[index + 2];
+            // Assuming black is (0, 0, 0)
+            return r === 0 && g === 0 && b === 0;
+        }
+
+        function floodFill(x, y, visited, pixels, width, height, pixelRegionMap, regionID) {
+            const stack = [];
+            stack.push({ x: x, y: y });
+
+            // Initialize pixel list for this region
+            regionPixels[regionID] = [];
+
+            while (stack.length > 0) {
+                const point = stack.pop();
+                const px = point.x;
+                const py = point.y;
+
+                if (px < 0 || px >= width || py < 0 || py >= height) continue;
+                const idx = py * width + px;
+                if (visited[idx]) continue;
+                if (isBlack(pixels, px, py, width)) continue;
+
+                visited[idx] = 1;
+                pixelRegionMap[idx] = regionID;
+                regionPixels[regionID].push(idx); // Store pixel index
+
+                stack.push({ x: px + 1, y: py });
+                stack.push({ x: px - 1, y: py });
+                stack.push({ x: px, y: py + 1 });
+                stack.push({ x: px, y: py - 1 });
+            }
+        }
+
+        // Create a structuring element for dilation
+        function createStructuringElement(radius) {
+            const size = radius * 2 + 1;
+            const structuringElement = [];
+            for (let y = -radius; y <= radius; y++) {
+                for (let x = -radius; x <= radius; x++) {
+                    if (Math.sqrt(x * x + y * y) <= radius) {
+                        structuringElement.push({ x: x, y: y });
+                    }
+                }
+            }
+            return structuringElement;
+        }
+
+        // Dilate a binary mask
+        function dilate(mask, width, height, structuringElement) {
+            const dilated = new Uint8Array(width * height);
+            for (let idx = 0; idx < mask.length; idx++) {
+                if (mask[idx]) {
+                    const x = idx % width;
+                    const y = Math.floor(idx / width);
+                    for (let offset of structuringElement) {
+                        const nx = x + offset.x;
+                        const ny = y + offset.y;
+                        if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                            const nIdx = ny * width + nx;
+                            dilated[nIdx] = 1;
+                        }
+                    }
+                }
+            }
+            return dilated;
+        }
+
+        function highlight(regionID, colour = 'yellow') {
+            if (!pixelRegionMap) {
+                console.error('No region data available. Please draw and finish drawing first.');
+                return;
+            }
+            if (!regionPixels[regionID]) {
+                console.error('Invalid region ID.');
+                return;
+            }
+            const width = canvas.width;
+            const height = canvas.height;
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const pixels = imageData.data;
+
+            // Convert colour to RGBA
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = 1;
+            tempCanvas.height = 1;
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCtx.fillStyle = colour;
+            tempCtx.fillRect(0, 0, 1, 1);
+            const colourData = tempCtx.getImageData(0, 0, 1, 1).data;
+            const r = colourData[0];
+            const g = colourData[1];
+            const b = colourData[2];
+            const a = colourData[3];
+
+            // Loop over the pixels in the region
+            for (let idx of regionPixels[regionID]) {
+                const pixelIdx = idx * 4;
+                // Set the pixel colour
+                pixels[pixelIdx] = r;
+                pixels[pixelIdx + 1] = g;
+                pixels[pixelIdx + 2] = b;
+                pixels[pixelIdx + 3] = a;
+            }
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function unhighlight() {
+            if (!savedImageData) {
+                console.error('No saved image data available.');
+                return;
+            }
+            ctx.putImageData(savedImageData, 0, 0);
+        }
+
+        // Modify drawRegions to use highlight
+        function drawRegions() {
+            if (!colouringResult) {
+                console.error('No colouring result available.');
+                return;
+            }
+
+            // Use the specified colours
+            const colours = ['#f5842b', '#7b439a', '#c60c46', '#ffdf00'];
+
+            // Prepare colour mapping
+            const regionColours = {};
+
+            for (let region in colouringResult) {
+                const colourIndex = colouringResult[region] - 1; // Colours are from 1 to 4
+                regionColours[parseInt(region) + 1] = colours[colourIndex];
+            }
+
+            // Redraw regions using highlight function
+            for (let regionID in regionPixels) {
+                const colour = regionColours[regionID];
+                if (colour) {
+                    highlight(parseInt(regionID), colour);
+                }
+            }
+        }
+
+        // Add the colourRegions function
+        function colourRegions(regionCount, adjacents) {
+            // Show loading spinner
+            loadingSpinner.style.display = 'block';
+
+            // Prepare data for solver
+            let essence = `
+given nb_nodes : int
+letting NODE be domain int(0..nb_nodes-1)
+find colouring : function (total) NODE --> int(1..4)
+given edges : set of (NODE, NODE)
+such that forAll (i,j) in edges . colouring(i) != colouring(j)
+`;
+
+            let data = {
+                "nb_nodes": regionCount,
+                "edges": adjacents
+            };
+
+            const client = new ConjureClient("map-colouring");
+
+            // Disable drawing while solving
+            canvas.style.pointerEvents = 'none';
+
+            client.solve(essence, {
+                data: data,
+                solver: "chuffed",
+                metadata: {
+                    "paths": paths
+                }
+            }).then(result => {
+                console.log('Solver result:', result.solution);
+                // Extract the first solution from the array
+                if (result.solution && result.solution.length > 0) {
+                    colouringResult = result.solution[0].colouring;
+                } else {
+                    colouringResult = {};
+                }
+                canvas.style.pointerEvents = 'auto';
+                drawRegions();
+
+                // Hide loading spinner
+                loadingSpinner.style.display = 'none';
+            }).catch(error => {
+                console.error("Solver Error:", error);
+                canvas.style.pointerEvents = 'auto';
+
+                // Hide loading spinner
+                loadingSpinner.style.display = 'none';
+            });
+        }
+
+        function redraw() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Refill background
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Redraw all paths
+            ctx.lineWidth = lineThickness; // Ensure the line width is set
+            ctx.strokeStyle = 'black';
+            for (const path of paths) {
+                if (path.length > 0) {
+                    ctx.beginPath();
+                    ctx.moveTo(path[0].x, path[0].y);
+                    for (let i = 1; i < path.length; i++) {
+                        ctx.lineTo(path[i].x, path[i].y);
+                    }
+                    ctx.stroke();
+                    ctx.closePath();
+                }
+            }
+        }
+
+        function undo() {
+            if (paths.length > 0) {
+                const path = paths.pop();
+                undoStack.push(path);
+                // Remove segments associated with this path
+                const numSegments = path.length - 1;
+                segments.splice(segments.length - numSegments, numSegments);
+                redraw();
+                detectRegions();
+            }
+        }
+
+        function redo() {
+            if (undoStack.length > 0) {
+                const path = undoStack.pop();
+                paths.push(path);
+                // Re-add the segments
+                for (let i = 0; i < path.length - 1; i++) {
+                    segments.push({ start: path[i], end: path[i + 1] });
+                }
+                redraw();
+                detectRegions();
+            }
+        }
+
+        function resetCanvas() {
+            paths = [];
+            segments = [];
+            undoStack = [];
+            redoStack = [];
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Refill background
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            // Reset other variables
+            savedImageData = null;
+            pixelRegionMap = null;
+            regionPixels = {};
+            colouringResult = null;
+        }
+
+        function save() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(paths));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "drawing.json");
+            document.body.appendChild(downloadAnchorNode); // required for firefox
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        }
+
+        function load(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const loadedPaths = JSON.parse(e.target.result);
+                    paths = loadedPaths;
+                    segments = [];
+                    // Reconstruct segments from paths
+                    for (const path of paths) {
+                        for (let i = 0; i < path.length - 1; i++) {
+                            segments.push({ start: path[i], end: path[i + 1] });
+                        }
+                    }
+                    undoStack = [];
+                    redoStack = [];
+                    redraw();
+                    detectRegions();
+                } catch (err) {
+                    console.error('Error parsing JSON:', err);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Toolbar button event listeners
+        undoButton.addEventListener('click', undo);
+        redoButton.addEventListener('click', redo);
+        resetButton.addEventListener('click', resetCanvas);
+        saveButton.addEventListener('click', save);
+        loadButton.addEventListener('click', () => loadInput.click());
+        loadInput.addEventListener('change', load);
+
+        canvas.addEventListener('mousedown', (event) => {
+            startDrawing(event);
+        });
+        canvas.addEventListener('mousemove', (event) => {
+            draw(event);
+        });
+        canvas.addEventListener('mouseup', () => {
+            stopDrawing();
+        });
+        canvas.addEventListener('mouseleave', () => {
+            stopDrawing();
+        });
+
+        // Touch support for touch devices
+        canvas.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            const touch = event.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            startDrawing({ offsetX: touch.clientX - rect.left, offsetY: touch.clientY - rect.top });
+        });
+
+        canvas.addEventListener('touchmove', (event) => {
+            event.preventDefault();
+            const touch = event.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            draw({ offsetX: touch.clientX - rect.left, offsetY: touch.clientY - rect.top });
+        });
+
+        canvas.addEventListener('touchend', () => {
+            stopDrawing();
+        });
+        canvas.addEventListener('touchcancel', () => {
+            stopDrawing();
+        });
+    </script>
+</body>
+</html>
