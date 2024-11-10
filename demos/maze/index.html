@@ -70,20 +70,46 @@
         }
 
         .letter {
-            cursor: move;
             height: 9.9vmin;
             width: 9.9vmin;
+            line-height: 8vmin;
+            font-size: 6vmin;
+            padding: 1vmin;
+
+            cursor: move;
             display: inline-block;
             background: rgba(0, 83, 155, 1);
             text-align: center;
-            /* vertical middle alignment */
-            line-height: 8vmin;
-            padding: 1vmin;
             border: solid;
             border-radius: 50%;
-            font-size: 6vmin;
             font-weight: bold;
             color: white;
+        }
+
+        /* rectangles of this range of aspect ratio, use vw instead of vmin */
+        @media (min-aspect-ratio: 1/1) and (max-aspect-ratio: 17/10) {
+            #targets tr td {
+                height: 10vw;
+                width: 10vw;
+                margin: 2vw 6vw 2vw 6vw;
+            }
+
+            .letter {
+                height: 9.9vw;
+                width: 9.9vw;
+                line-height: 8vw;
+                font-size: 6vw;
+                padding: 1vw;
+            }
+
+            #letters {
+                height: 13vw;
+                padding: 1vw;
+            }
+
+            #letters {
+                background-color: pink;
+            }
         }
 
         /* nothing should be selectable, important for touch screen support */
@@ -116,6 +142,7 @@
             padding: 20px;
             box-sizing: border-box;
             text-align: center;
+            transform-origin: center;
         }
     </style>
 
