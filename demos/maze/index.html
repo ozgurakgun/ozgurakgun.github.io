@@ -17,6 +17,8 @@
     <!-- from: https://github.com/stanko-arbutina/arrow-line -->
     <script src="arrow-line.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.27/dist/interact.min.js"></script>
+
     <!-- empty favicon -->
     <link
         href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII="
@@ -275,31 +277,80 @@
             }
         }
 
-        function allowDrop(ev) {
-            ev.preventDefault();
-        }
+        // Setup interact.js for drag and drop
+        interact('.letter').draggable({
+            listeners: {
+                start(event) {
+                    // Optional: Add any custom logic to be executed at the start of the drag
+                },
+                move(event) {
+                    const target = event.target;
 
-        function drag(ev) {
-            ev.dataTransfer.setData('letter-id', ev.target.id);
-        }
+                    // Keep track of the current position of the element
+                    const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+                    const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-        function drop(ev) {
-            if (ev.target.classList.contains('letter')) {
-                //not droppable
-                return;
-            } else {
-                ev.preventDefault();
-            }
-            var data = ev.dataTransfer.getData('letter-id');
-            if (ev.target.id == 'letters') {
-                ev.target.appendChild(document.getElementById(data));
-            } else {
-                if (ev.target.childElementCount == 0) {
-                    ev.target.appendChild(document.getElementById(data));
+                    // Update the element's transform to move it
+                    target.style.transform = `translate(${x}px, ${y}px)`;
+
+                    // Update the data attributes to store new positions
+                    target.setAttribute('data-x', x);
+                    target.setAttribute('data-y', y);
+                },
+                end(event) {
+                    const target = event.target;
+
+                    // Hide the dragged element momentarily to get the correct drop target
+                    target.style.display = 'none';
+
+                    // Reset position if the item is dropped in an invalid area
+                    const dropTarget = document.elementFromPoint(event.clientX, event.clientY);
+
+                    // Show the dragged element again
+                    target.style.display = '';
+
+                    if (dropTarget && dropTarget.classList.contains('target') && dropTarget.childElementCount === 0) {
+                        // Append the dragged element to the valid drop target
+                        dropTarget.appendChild(event.target);
+
+                        // Reset position for the dropped element
+                        event.target.style.transform = 'translate(0px, 0px)';
+                        event.target.removeAttribute('data-x');
+                        event.target.removeAttribute('data-y');
+                    } else {
+                        // Return to original container if dropped in an invalid area
+                        document.getElementById('letters').appendChild(event.target);
+
+                        // Reset position
+                        event.target.style.transform = 'translate(0px, 0px)';
+                        event.target.removeAttribute('data-x');
+                        event.target.removeAttribute('data-y');
+                    }
+                    check(); // Call check function to update the puzzle state
                 }
             }
-            check();
-        }
+        });
+
+        // Allow targets to accept draggable items
+        interact('.target').dropzone({
+            accept: '.letter',
+            overlap: 0.75,
+            ondropactivate: function (event) {
+                event.target.classList.add('drop-active');
+            },
+            ondragenter: function (event) {
+                event.target.classList.add('drop-target');
+            },
+            ondragleave: function (event) {
+                event.target.classList.remove('drop-target');
+            },
+            ondrop: function (event) {
+                event.target.classList.remove('drop-target');
+            },
+            ondropdeactivate: function (event) {
+                event.target.classList.remove('drop-active');
+            }
+        });
 
     </script>
 </head>
@@ -335,35 +386,36 @@
         <table id="targets">
             <tr>
                 <td></td>
-                <td id="t12" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                <td id="t13" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                <td id="t12" class="target"></td>
+                <td id="t13" class="target"></td>
                 <td></td>
             </tr>
             <tr>
-                <td id="t21" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                <td id="t22" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                <td id="t23" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                <td id="t24" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                <td id="t21" class="target"></td>
+                <td id="t22" class="target"></td>
+                <td id="t23" class="target"></td>
+                <td id="t24" class="target"></td>
             </tr>
             <tr>
                 <td></td>
-                <td id="t32" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
-                <td id="t33" ondrop="drop(event)" ondragover="allowDrop(event)" class="target"></td>
+                <td id="t32" class="target"></td>
+                <td id="t33" class="target"></td>
                 <td></td>
             </tr>
         </table>
 
-        <div id="letters" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <div id="A" class="letter" draggable="true" ondragstart="drag(event)">A</div>
-            <div id="B" class="letter" draggable="true" ondragstart="drag(event)">B</div>
-            <div id="C" class="letter" draggable="true" ondragstart="drag(event)">C</div>
-            <div id="D" class="letter" draggable="true" ondragstart="drag(event)">D</div>
-            <div id="E" class="letter" draggable="true" ondragstart="drag(event)">E</div>
-            <div id="F" class="letter" draggable="true" ondragstart="drag(event)">F</div>
-            <div id="G" class="letter" draggable="true" ondragstart="drag(event)">G</div>
-            <div id="H" class="letter" draggable="true" ondragstart="drag(event)">H</div>
+        <div id="letters">
+            <div id="A" class="letter" draggable="true">A</div>
+            <div id="B" class="letter" draggable="true">B</div>
+            <div id="C" class="letter" draggable="true">C</div>
+            <div id="D" class="letter" draggable="true">D</div>
+            <div id="E" class="letter" draggable="true">E</div>
+            <div id="F" class="letter" draggable="true">F</div>
+            <div id="G" class="letter" draggable="true">G</div>
+            <div id="H" class="letter" draggable="true">H</div>
         </div>
     </div>
+
     <div id="welldone" class="modal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
