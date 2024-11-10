@@ -15,9 +15,12 @@
             margin-bottom: 10px;
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
         }
         canvas {
             border: 1px solid #333;
+            display: block;
+            margin-bottom: 10px; /* Added margin-bottom to increase space below the canvas */
         }
         #loadingSpinner {
             display: none;
@@ -32,14 +35,14 @@
     <p>According to the <strong>four-colour theorem</strong>, any planar map can be coloured using no more than four colours such that no two adjacent regions share the same colour. Try to challenge us by creating a map that needs more than four colours!</p>
 
     <div id="toolbar">
-        <button id="undoButton" class="btn btn-primary">Undo</button>
-        <button id="redoButton" class="btn btn-primary">Redo</button>
-        <button id="resetButton" class="btn btn-danger">Reset</button>
-        <button id="saveButton" class="btn btn-success">Save</button>
+        <button id="undoButton" class="btn btn-primary me-2 mb-2">Undo</button>
+        <button id="redoButton" class="btn btn-primary me-2 mb-2">Redo</button>
+        <button id="resetButton" class="btn btn-danger me-2 mb-2">Reset</button>
+        <button id="saveButton" class="btn btn-success me-2 mb-2">Save</button>
         <input type="file" id="loadInput" accept=".json" style="display:none;">
-        <button id="loadButton" class="btn btn-info">Load</button>
+        <button id="loadButton" class="btn btn-info me-2 mb-2">Load</button>
         <!-- Loading Spinner -->
-        <div id="loadingSpinner" class="spinner-border text-primary" role="status" style="display: none; margin-left: 10px;">
+        <div id="loadingSpinner" class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
@@ -51,7 +54,7 @@
         const canvas = document.getElementById('drawingCanvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth - 20; // 10px margin on each side
-        canvas.height = window.innerHeight - 180; // Adjusted height to accommodate header and toolbar
+        canvas.height = window.innerHeight - 200; // Adjusted height to accommodate header, toolbar, and bottom padding
 
         // Fill the canvas background with white
         ctx.fillStyle = 'white';
