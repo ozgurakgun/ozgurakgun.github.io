@@ -81,6 +81,10 @@
         let regionPixels = {}; // Data structure to store pixels per region
         const lineThickness = 3; // Line thickness used in drawing
 
+        // Variables to store previous adjacency data
+        let previousAdjacencyPairs = null;
+        let previousRegionCount = 0;
+
         function startDrawing(event) {
             drawing = true;
             ctx.beginPath();
@@ -193,8 +197,21 @@
             console.log(`Number of regions: ${regionCount}`);
             console.log(`Adjacency List:`, uniquePairs);
 
-            // Call the colourRegions function
-            colourRegions(regionCount, uniquePairs);
+            // Check if the adjacency has changed
+            if (
+                previousRegionCount === regionCount &&
+                JSON.stringify(previousAdjacencyPairs) === JSON.stringify(uniquePairs)
+            ) {
+                // Redraw the previous colouring
+                drawRegions();
+            } else {
+                // Update the previous adjacency data
+                previousRegionCount = regionCount;
+                previousAdjacencyPairs = uniquePairs;
+
+                // Call the colourRegions function
+                colourRegions(regionCount, uniquePairs);
+            }
         }
 
         function isBlack(pixels, x, y, width) {
@@ -415,6 +432,11 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
                     ctx.closePath();
                 }
             }
+
+            // Redraw the regions if colouringResult exists
+            if (colouringResult) {
+                drawRegions();
+            }
         }
 
         function undo() {
@@ -456,6 +478,8 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
             pixelRegionMap = null;
             regionPixels = {};
             colouringResult = null;
+            previousAdjacencyPairs = null;
+            previousRegionCount = 0;
         }
 
         function save() {
