@@ -20,7 +20,7 @@ If you try hard enough I am sure you can break this demo - though I did put it t
 <center>
     <img src="/files/OzanMapColouring.jpg"
          class="img-responsive img-rounded"
-         style="height: 540px; width: auto;"
+         style="height: 540px"
          alt="Ozan testing the map colouring demo">
 </center>
 
