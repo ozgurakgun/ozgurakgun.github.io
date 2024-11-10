@@ -16,6 +16,12 @@ I developed a new demo this weekend for the [map colouring problem](https://ozgu
 
 If you try hard enough I am sure you can break this demo - though I did put it through some rigourous *monkey testing* before releasing it.
 
-![Ozan testing the map colouring demo][/files/OzanMapColouring.jpg]
+
+<center>
+    <img src="/files/OzanMapColouring.jpg"
+         class="img-responsive img-rounded"
+         style="width:70%;"
+         alt="Ozan testing the map colouring demo">
+</center>
 
 There are a few other demos on the [conjure-cp demos](https://conjure-cp.github.io/demos/) page, those are developed by students. I particularly like the Task Allocation one and use it in my teaching.
