@@ -27,7 +27,7 @@
 
     <style>
         .text h1 {
-            /* min 12px */
+            /* min 24px */
             font-size: calc(24px + 2vw);
         }
 
@@ -201,6 +201,7 @@
         let drags = 0;
 
         window.onload = function () {
+            enableDragDropTouch();
             startTime = Date.now();
             const opts = { curvature: 0, thickness: 3, color: '#231f20', endpoint: { type: 'none' } };
             for (const i in adjacents) {
@@ -287,7 +288,7 @@
         }
 
         function drag(ev) {
-            ev.dataTransfer.setData('text', ev.target.id);
+            ev.dataTransfer.setData('letter-id', ev.target.id);
         }
 
         function drop(ev) {
@@ -297,7 +298,7 @@
             } else {
                 ev.preventDefault();
             }
-            var data = ev.dataTransfer.getData('text');
+            var data = ev.dataTransfer.getData('letter-id');
             if (ev.target.id == 'letters') {
                 ev.target.appendChild(document.getElementById(data));
             } else {
