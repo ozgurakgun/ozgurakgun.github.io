@@ -34,8 +34,6 @@
     <p>According to the <strong>four-colour theorem</strong>, any planar map can be coloured using no more than four colours such that no two adjacent regions share the same colour. Try to challenge us by creating a map that needs more than four colours!</p>
 
     <div id="toolbar">
-        <button id="undoButton" class="btn btn-primary me-2 mb-2">Undo</button>
-        <button id="redoButton" class="btn btn-primary me-2 mb-2">Redo</button>
         <button id="resetButton" class="btn btn-danger me-2 mb-2">Reset</button>
         <button id="saveButton" class="btn btn-success me-2 mb-2">Save</button>
         <input type="file" id="loadInput" accept=".json" style="display:none;">
@@ -60,8 +58,6 @@
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         // Toolbar buttons and loading spinner
-        const undoButton = document.getElementById('undoButton');
-        const redoButton = document.getElementById('redoButton');
         const resetButton = document.getElementById('resetButton');
         const saveButton = document.getElementById('saveButton');
         const loadButton = document.getElementById('loadButton');
@@ -71,8 +67,6 @@
         let drawing = false;
         let paths = []; // Array of paths drawn
         let segments = []; // Array of segments
-        let undoStack = []; // For undo functionality
-        let redoStack = []; // For redo functionality
         let pixelRegionMap; // For mapping pixels to regions
         let savedImageData; // To save the original image data
         let regionCount = 0;
@@ -442,36 +436,9 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
             }
         }
 
-        function undo() {
-            if (paths.length > 0) {
-                const path = paths.pop();
-                undoStack.push(path);
-                // Remove segments associated with this path
-                const numSegments = path.length - 1;
-                segments.splice(segments.length - numSegments, numSegments);
-                redraw();
-                detectRegions();
-            }
-        }
-
-        function redo() {
-            if (undoStack.length > 0) {
-                const path = undoStack.pop();
-                paths.push(path);
-                // Re-add the segments
-                for (let i = 0; i < path.length - 1; i++) {
-                    segments.push({ start: path[i], end: path[i + 1] });
-                }
-                redraw();
-                detectRegions();
-            }
-        }
-
         function resetCanvas() {
             paths = [];
             segments = [];
-            undoStack = [];
-            redoStack = [];
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             // Refill background
             ctx.fillStyle = 'white';
@@ -512,8 +479,6 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
                             segments.push({ start: path[i], end: path[i + 1] });
                         }
                     }
-                    undoStack = [];
-                    redoStack = [];
                     redraw();
                     detectRegions();
                 } catch (err) {
@@ -524,8 +489,6 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
         }
 
         // Toolbar button event listeners
-        undoButton.addEventListener('click', undo);
-        redoButton.addEventListener('click', redo);
         resetButton.addEventListener('click', resetCanvas);
         saveButton.addEventListener('click', save);
         loadButton.addEventListener('click', () => loadInput.click());
