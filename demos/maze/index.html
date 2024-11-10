@@ -48,33 +48,35 @@
             margin-right: auto;
         }
 
-        #targets tr td {
-            height: 10vmin;
-            width: 10vmin;
-            display: inline-block;
-            margin: 2vmin 6vmin 2vmin 6vmin;
-            border-radius: 50%;
-            padding: 0;
-        }
-
         .target {
             border: 1px dashed rgb(35, 31, 32);
         }
 
+        #targets tr td {
+            height: 15vmin;
+            width: 15vmin;
+            margin: 3vmin 9vmin 3vmin 9vmin;
+
+            display: inline-block;
+            border-radius: 50%;
+            padding: 0;
+        }
+
         #letters {
+            height: 20vmin;
+            padding: 2vmin;
+
             width: 100%;
             text-align: center;
-            height: 13vmin;
             background: rgba(0, 83, 155, 0.3);
-            padding: 1vmin;
         }
 
         .letter {
-            height: 9.9vmin;
-            width: 9.9vmin;
-            line-height: 8vmin;
-            font-size: 6vmin;
-            padding: 1vmin;
+            height: 15.9vmin;
+            width: 15.9vmin;
+            line-height: 12vmin;
+            font-size: 9vmin;
+            padding: 2vmin;
 
             cursor: move;
             display: inline-block;
@@ -87,7 +89,7 @@
         }
 
         /* rectangles of this range of aspect ratio, use vw instead of vmin */
-        @media  (max-aspect-ratio: 17/10) {
+        @media (max-aspect-ratio: 17/10) {
             #targets tr td {
                 height: 10vw;
                 width: 10vw;
