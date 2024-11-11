@@ -125,7 +125,7 @@
             if (!drawing) return;
             ctx.lineTo(event.offsetX, event.offsetY);
             ctx.strokeStyle = 'black';
-            ctx.lineWidth = lineThickness; // Set line width
+            ctx.lineWidth = lineThickness;
             ctx.stroke();
             paths[paths.length - 1].push({ x: event.offsetX, y: event.offsetY });
         }
@@ -147,6 +147,9 @@
         }
 
         function detectRegions() {
+            // Show loading spinner
+            loadingSpinner.style.display = 'block';
+
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             savedImageData = ctx.getImageData(0, 0, canvas.width, canvas.height); // Save for unhighlighting
             const pixels = imageData.data;
@@ -394,9 +397,6 @@
 
         // Add the colourRegions function
         function colourRegions(regionCount, adjacents) {
-            // Show loading spinner
-            loadingSpinner.style.display = 'block';
-
             // Prepare data for solver
             let essence = `
 given nb_nodes : int
@@ -452,7 +452,7 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             // Redraw all paths
-            ctx.lineWidth = lineThickness; // Ensure the line width is set
+            ctx.lineWidth = lineThickness;
             ctx.strokeStyle = 'black';
             for (const path of paths) {
                 if (path.length > 0) {
