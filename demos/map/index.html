@@ -467,11 +467,8 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
                 loadingLabel.style.display = 'none';
             }).catch(error => {
                 console.error("Solver Error:", error);
-                canvas.style.pointerEvents = 'auto';
-
-                // Hide loading spinner and label
-                loadingSpinner.style.display = 'none';
-                loadingLabel.style.display = 'none';
+                giveUp("Something went wrong when colouring this map, sorry!");
+                return;
             });
         }
 
@@ -518,6 +515,7 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
             previousAdjacencyPairs = null;
             previousRegionCount = 0;
             loadingLabel.style.display = 'none';
+            canvas.style.pointerEvents = 'auto';
         }
 
         function save() {
