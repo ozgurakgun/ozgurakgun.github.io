@@ -36,6 +36,11 @@
             display: none;
             margin-left: 10px;
         }
+
+        #loadingLabel {
+            display: none;
+            margin-left: 5px;
+        }
     </style>
     <!-- Import the Conjure client library -->
     <script src="https://conjure-aas.cs.st-andrews.ac.uk/client.js"></script>
@@ -59,10 +64,11 @@
         <button id="saveButton" class="btn btn-success me-2 mb-2">Save</button>
         <input type="file" id="loadInput" accept=".json" style="display:none;">
         <button id="loadButton" class="btn btn-info me-2 mb-2">Load</button>
-        <!-- Loading Spinner -->
+        <!-- Loading Spinner and Label -->
         <div id="loadingSpinner" class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
+        <span id="loadingLabel" style="display: none; margin-left: 5px;"></span>
     </div>
     <canvas id="drawingCanvas"></canvas>
     <!-- Include Bootstrap JS -->
@@ -99,6 +105,7 @@
         const loadButton = document.getElementById('loadButton');
         const loadInput = document.getElementById('loadInput');
         const loadingSpinner = document.getElementById('loadingSpinner');
+        const loadingLabel = document.getElementById('loadingLabel');
 
         let drawing = false;
         let paths = []; // Array of paths drawn
@@ -147,8 +154,10 @@
         }
 
         function detectRegions() {
-            // Show loading spinner
+            // Show loading spinner and label
             loadingSpinner.style.display = 'block';
+            loadingLabel.textContent = 'Detecting regions';
+            loadingLabel.style.display = 'inline';
 
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             savedImageData = ctx.getImageData(0, 0, canvas.width, canvas.height); // Save for unhighlighting
@@ -236,6 +245,9 @@
             ) {
                 // Redraw the previous colouring
                 drawRegions();
+                // Hide loading spinner and label
+                loadingSpinner.style.display = 'none';
+                loadingLabel.style.display = 'none';
             } else {
                 // Update the previous adjacency data
                 previousRegionCount = regionCount;
@@ -397,6 +409,9 @@
 
         // Add the colourRegions function
         function colourRegions(regionCount, adjacents) {
+            // Update loading label
+            loadingLabel.textContent = 'Colouring';
+
             // Prepare data for solver
             let essence = `
 given nb_nodes : int
@@ -433,14 +448,16 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
                 canvas.style.pointerEvents = 'auto';
                 drawRegions();
 
-                // Hide loading spinner
+                // Hide loading spinner and label
                 loadingSpinner.style.display = 'none';
+                loadingLabel.style.display = 'none';
             }).catch(error => {
                 console.error("Solver Error:", error);
                 canvas.style.pointerEvents = 'auto';
 
-                // Hide loading spinner
+                // Hide loading spinner and label
                 loadingSpinner.style.display = 'none';
+                loadingLabel.style.display = 'none';
             });
         }
 
