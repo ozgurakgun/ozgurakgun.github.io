@@ -407,10 +407,21 @@
             }
         }
 
+        function giveUp(message) {
+            loadingSpinner.style.display = 'none';
+            loadingLabel.textContent = message + " Feel free to reset and start again.";
+            loadingLabel.style.display = 'inline';
+        }
+
         // Add the colourRegions function
         function colourRegions(regionCount, adjacents) {
             // Update loading label
             loadingLabel.textContent = 'Colouring';
+
+            if (regionCount >= 500) {
+                giveUp("More than 500 regions, that's my limit.");
+                return;
+            }
 
             // Prepare data for solver
             let essence = `
@@ -440,10 +451,13 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
             }).then(result => {
                 console.log('Solver result:', result.solution);
                 // Extract the first solution from the array
+                console.log(result.solution);
                 if (result.solution && result.solution.length > 0) {
                     colouringResult = result.solution[0].colouring;
                 } else {
                     colouringResult = {};
+                    giveUp("Something went wrong when detecting regions, sorry!");
+                    return;
                 }
                 canvas.style.pointerEvents = 'auto';
                 drawRegions();
@@ -503,6 +517,7 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
             colouringResult = null;
             previousAdjacencyPairs = null;
             previousRegionCount = 0;
+            loadingLabel.style.display = 'none';
         }
 
         function save() {
