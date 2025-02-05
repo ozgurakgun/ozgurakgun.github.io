@@ -6,4 +6,4 @@ tags:
 
 I attended the second Ethical Digital Nation Workshop, specifically focusing on "Co-Designing with Communities for an Ethical Digital Nation".
 
-This is a continuation of the earlier workshop, [see earlier post](/activities/2024-10-25-EthicalDigitalNation).
+This is a continuation of the earlier workshop, [see earlier post](/activity/2024-10-25-EthicalDigitalNation).
