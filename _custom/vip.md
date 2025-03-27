@@ -35,6 +35,7 @@ Please get in touch if you are interested!
 
 7. If you are accepted into the VIP, be prepared to work hard and collaborate closely with the other members of the group. VIPs are a great opportunity to gain valuable experience and make meaningful contributions to ongoing research projects.
 
+Weekly meetings: This VIP has a routine weekly meeting. Due to timetabling challenges, this meeting is on Wednesdays afternoons.
 
 ## 2024 VIP promo video
 
