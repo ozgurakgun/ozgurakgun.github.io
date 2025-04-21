@@ -46,14 +46,57 @@ Note that this VIP has a routine weekly meeting during semester times. Due to ti
 
 # Past students and promo videos
 
+The 2025/26 academic year will be the third year we run this VIP. We will shoot a new promo video with the current set of students, should be available very soon now.
+
 ## 2024 VIP promo video
 
-The coming year (2024/25 academic year) will be the second time we are running the VIP. Some of the existing VIP students and I recorded a video where we talk about the upsides and downsides of being involved in a project like this. Please watch this video if you are interested in applying.
+The 2024/25 academic year was the second time we ran the VIP. Some of the existing VIP students and I recorded a video where we talked about the upsides and downsides of being involved in a project like this. Please watch this video if you are interested in applying.
 
 <iframe width="560" height="315" style="display:block;margin:auto;" src="https://www.youtube.com/embed/PgnxbnGh3oo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+Students:
+
+Anastasia Martinson
+Arnav Bista
+Devansh Chopra
+Elizabeth Dempster
+Eworitse Wilbert
+Felix Leitner-mittersinker
+Georgii Skorokhod
+Henry Chandler
+Leia Young
+Lilian Contius
+Liz Dempster
+Nadine Martin
+Nik Dewally
+Owain Thorp
+Shikhar Srivastava-roy Srivastava
+Sofiia Morgulchik
+Tudor Huica
+Tyler Swan
+Vincent Pickering
+Yehor Boiar
+Yi Xin Chong
+Zayaan Ahmed
+
+
 ## 2023 VIP promo video
 
-Less useful than the 2024 video, but: 2023 was the first year we were running the VIP. At the time I recorded a short video of myself explaining the project for interested students. Here it is, in case you want to check it out!
+Less useful than the 2024 video, but: 2023 was the first year we ran the VIP. At the time I recorded a short video of myself explaining the project for interested students. Here it is, in case you want to check it out!
 
 <iframe width="560" height="315" style="display:block;margin:auto;" src="https://www.youtube.com/embed/bK_QmJ4Mlos" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+Students:
+
+Carla Biermann
+Felix Leitner-mittersinker
+Georgii Skorokhod
+Hannah Zeng
+Kieran Fowlds
+Nadine Martin
+Nik Dewally
+Pedro Gronda Garrigues
+Samvit Nagpal
+Stella Mortarotti
+
+
