@@ -47,7 +47,7 @@ IDEA Network's post copied here as well for convenience.
 > We’re excited to continue the journey toward a fairer, more responsible digital future!
 
 <center>
-    <img src="/files/actiities-media/1730459522337.jpg"
+    <img src="/files/activities-media/1730459522337.jpg"
          class="img-responsive img-rounded"
          style="max-height: 540px; max-width: 100%"
          alt="Group photo">
