@@ -55,27 +55,26 @@ The 2024/25 academic year was the second time we ran the VIP. Some of the existi
 <iframe width="560" height="315" style="display:block;margin:auto;" src="https://www.youtube.com/embed/PgnxbnGh3oo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 Students:
-
-Anastasia Martinson
-Arnav Bista
-Devansh Chopra
-Eworitse Wilbert
-Felix Leitner-Mittersinker
-Georgii Skorokhod
-Henry Chandler
-Leia Young
-Lilian Contius
-Liz Dempster
-Nadine Martin
-Nik Dewally
-Owain Thorp
-Shikhar Srivastava
-Soph Morgulchik
-Tudor Huica
-Tyler Swan
-Vincent Pickering
-Yehor Boiar
-Yi Xin Chong
+Anastasia Martinson,
+Arnav Bista,
+Devansh Chopra,
+Eworitse Wilbert,
+Felix Leitner-Mittersinker,
+Georgii Skorokhod,
+Henry Chandler,
+Leia Young,
+Lilian Contius,
+Liz Dempster,
+Nadine Martin,
+Nik Dewally,
+Owain Thorp,
+Shikhar Srivastava,
+Soph Morgulchik,
+Tudor Huica,
+Tyler Swan,
+Vincent Pickering,
+Yehor Boiar,
+Yi Xin Chong,
 Zayaan Ahmed
 
 
@@ -86,16 +85,15 @@ Less useful than the 2024 video, but: 2023 was the first year we ran the VIP. At
 <iframe width="560" height="315" style="display:block;margin:auto;" src="https://www.youtube.com/embed/bK_QmJ4Mlos" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 Students:
-
-Carla Biermann
-Felix Leitner-Mittersinker
-Georgii Skorokhod
-Hannah Zeng
-Kieran Fowlds
-Nadine Martin
-Nik Dewally
-Pedro Gronda Garrigues
-Samvit Nagpal
+Carla Biermann,
+Felix Leitner-Mittersinker,
+Georgii Skorokhod,
+Hannah Zeng,
+Kieran Fowlds,
+Nadine Martin,
+Nik Dewally,
+Pedro Gronda Garrigues,
+Samvit Nagpal,
 Stella Mortarotti
 
 
