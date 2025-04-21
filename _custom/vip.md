@@ -61,7 +61,7 @@ Arnav Bista
 Devansh Chopra
 Elizabeth Dempster
 Eworitse Wilbert
-Felix Leitner-mittersinker
+Felix Leitner-Mittersinker
 Georgii Skorokhod
 Henry Chandler
 Leia Young
@@ -70,7 +70,7 @@ Liz Dempster
 Nadine Martin
 Nik Dewally
 Owain Thorp
-Shikhar Srivastava-roy Srivastava
+Shikhar Srivastava
 Sofiia Morgulchik
 Tudor Huica
 Tyler Swan
@@ -89,7 +89,7 @@ Less useful than the 2024 video, but: 2023 was the first year we ran the VIP. At
 Students:
 
 Carla Biermann
-Felix Leitner-mittersinker
+Felix Leitner-Mittersinker
 Georgii Skorokhod
 Hannah Zeng
 Kieran Fowlds
