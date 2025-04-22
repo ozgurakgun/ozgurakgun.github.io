@@ -33,11 +33,13 @@ In terms of technical preparation, interested students often want to know what t
 
 In addition to the above, explore the existing repositories; they are all under [the conjure-cp organisation](https://github.com/conjure-cp). Look at the recent publications by the staff members listed above. Some of these will be difficult to read for undergraduate students; do not worry if you cannot follow them entirely. Try to get an overall feeling of the work. Look at the software projects [Conjure](https://github.com/conjure-cp/conjure), Savile Row, and Minion. You might want to look at [CSPLib](https://www.csplib.org) to get an idea of application domains. We have some demonstrator applications hosted at [https://conjure-cp.github.io/demos](https://conjure-cp.github.io/demos). Also see the Jupyter notebooks showing simple models written in Essence, hosted at [https://github.com/ozgurakgun/notebooks](https://github.com/ozgurakgun/notebooks).
 
-An additional consideration: Most students remain in the VIP for multiple semesters; this way you get a chance to work on more advanced projects and get more value out of your time investment.
+Also consider that most students remain in the VIP for multiple semesters; this way you get a chance to work on more advanced projects and get more value out of your time investment.
 
 ## Applying
 
-Use the official method of application as detailed on the [University VIP web pages](https://www.st-andrews.ac.uk/education/vip/). In addition, I strongly encourage interested students to get in touch and have a conversation.
+Use the official method of application as detailed on the [University VIP web pages](https://www.st-andrews.ac.uk/education/vip/).
+
+In addition, I strongly encourage interested students to get in touch and have a conversation. Bonus points if you solve [the crystal maze puzzle](https://ozgurakgun.github.io/demos/maze) and tell me about your experience in your email :)
 
 Note that this VIP has a routine weekly meeting during semesters. Due to timetabling challenges, this meeting is on Wednesday afternoons.
 
