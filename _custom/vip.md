@@ -48,7 +48,11 @@ Note that this VIP has a routine weekly meeting during semesters. Due to timetab
 
 # Past students and promo videos
 
-The 2025/26 academic year will be the third year we run this VIP. We will shoot a new promo video with the current set of students, should be available very soon now.
+## 2025 VIP promo video
+
+The 2025/26 academic year will be the third year we run this VIP. Here is this year's edition of the promo video.
+
+<iframe width="560" height="315" style="display:block;margin:auto;" src="https://www.youtube.com/embed/JF67yRAEWew" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## 2024 VIP promo video
 
