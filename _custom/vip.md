@@ -48,7 +48,11 @@ Note that this VIP has a routine weekly meeting during semesters. Due to timetab
 
 # Past students and promo videos
 
-The 2025/26 academic year will be the third year we run this VIP. We will shoot a new promo video with the current set of students, should be available very soon now.
+## 2025 VIP promo video
+
+The 2025/26 academic year will be the third year we run this VIP. Here is this year's edition of the promo video.
+
+<iframe width="560" height="315" style="display:block;margin:auto;" src="https://www.youtube.com/embed/JF67yRAEWew" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## 2024 VIP promo video
 
@@ -83,6 +87,8 @@ Zayaan Ahmed
 ## 2023 VIP promo video
 
 Less useful than the 2024 video, but: 2023 was the first year we ran the VIP. At the time I recorded a short video of myself explaining the project for interested students. Here it is, in case you want to check it out!
+
+Note from the future (2025): You are welcome to watch this video, but I must warn you that we have mostly abandoned the "web demos strand" idea. Having two explicit strands like this fragmented the group unnecessarily. We still have the web demos and we maintain/improve them, so you can definitely get involved in that work, but it's not a priority of the VIP any more.
 
 <iframe width="560" height="315" style="display:block;margin:auto;" src="https://www.youtube.com/embed/bK_QmJ4Mlos" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
