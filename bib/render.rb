@@ -1,15 +1,33 @@
 require 'bibtex'
 
+
+################################################################################
+# defining file_exists_case_sensitive?
+
+require 'pathname'
+
+def file_exists_case_sensitive?(filepath)
+  path = Pathname.new(filepath)
+  dir = path.dirname
+  name = path.basename.to_s
+  return false unless Dir.exist?(dir)
+
+  Dir.entries(dir).any? { |entry| entry == name }
+end
+
+################################################################################
+
+
 contents = File.read('bib/pure.bib').gsub('{\"O}zg{\"u}r', 'Özgür')
                                     .gsub('Akg{\"u}n', 'Akgün')
-                                    
+
 bibs = BibTeX.parse(contents).to_citeproc
 
-knownFields = [ "author", "title", "container-title", "issued", "publisher",      # used
-                "id", "page", "issue", "type", "volume", "genre",                 # ignored
-                "ISBN", "issn", "note", "DOI", "collection-title", "editor",
-                "publisher-place", "keywords", "month_numeric"
-              ]
+# knownFields = [ "author", "title", "container-title", "issued", "publisher",      # used
+#                 "id", "page", "issue", "type", "volume", "genre",                 # ignored
+#                 "ISBN", "issn", "note", "DOI", "collection-title", "editor",
+#                 "publisher-place", "keywords", "month_numeric"
+#               ]
 
 printed = []
 
@@ -41,7 +59,7 @@ for bib in bibs do
 
   print "<dd>\n"
   print "<b>#{title}</b>\n"
-  if File.exist?(filename) then
+  if file_exists_case_sensitive?(filename) then
     print "(<a href=\"/#{filename}\">pdf</a>)\n"
   end
   print "<br>\n"
