@@ -122,7 +122,7 @@
 }
 
 @inproceedings{79fdf668ac41414ea3542907ce49e71a,
-  title = {Learning when to use automatic tabulation in constraint model reformulation},
+  title = {Learning When to Use Automatic Tabulation in Constraint Model Reformulation},
   abstract = {Combinatorial optimisation has numerous practical applications, such as planning, logistics, or circuit design. Problems such as these can be solved by approaches such as Boolean Satisfiability (SAT) or Constraint Programming (CP). Solver performance is affected significantly by the model chosen to represent a given problem, which has led to the study of model reformulation. One such method is tabulation: rewriting the expression of some of the model constraints in terms of a single “table” constraint. Successfully applying this process means identifying expressions amenable to trans- formation, which has typically been done manually. Recent work introduced an automatic tabulation using a set of hand-designed heuristics to identify constraints to tabulate. However, the performance of these heuristics varies across problem classes and solvers. Recent work has shown learning techniques to be increasingly useful in the context of automatic model reformulation. The goal of this study is to understand whether it is possible to improve the performance of such heuristics, by learning a model to predict whether or not to activate them for a given instance. Experimental results suggest that a random forest classifier is the most robust choice, improving the performance of four different SAT and CP solvers.},
   keywords = {Constraint Satisfaction and Optimization: CSO: Modeling, Constraint Satisfaction and Optimization: CSO: Solvers and tools, Machine Learning: ML: Classification},
   author = {Carlo Cena and Ozgur Akgun and Zeynep Kiziltan and Miguel, {Ian James} and Peter Nightingale and Felix Ulrich-Oltean},
@@ -140,7 +140,7 @@
 }
 
 @inproceedings{b0595c37d1cb4bca8819f5f38b367dc5,
-  title = {Conjure: Automatic generation of constraint models from problem specifications (extended abstract)},
+  title = {Conjure: Automatic Generation of Constraint Models from Problem Specifications (Extended Abstract)},
   abstract = {When solving a combinatorial problem, the formulation or model of the problem is critical to the efficiency of the solver. Automating the modelling process has long been of interest given the expertise and time required to develop an effective model of a particular problem. We describe a method to automatically produce constraint models from a problem specification written in the abstract constraint specification language ESSENCE. Our approach is to incrementally refine the specification into a concrete model by applying a chosen refinement rule at each step. Any non-trivial specification may be refined in multiple ways, creating a diverse space of models to choose from. The handling of symmetries is a particularly important aspect of automated modelling. We show how modelling symmetries may be broken automatically as they enter a model during refinement, removing the need for an expensive symmetry detection step following model formulation. Our approach is implemented in a system called CONJURE. We compare the models produced by CONJURE to constraint models from the literature that are known to be effective. Our empirical results confirm that CONJURE can reproduce successfully the kernels of the constraint models of 42 benchmark problems found in the literature.},
   keywords = {Constraint satisfaction and optimization: CSO: constraint programming, Constraint satisfaction and optimization: CSO: modeling},
   author = {{\"O}zg{\"u}r Akg{\"u}n and Frisch, {Alan M.} and Gent, {Ian P.} and Christopher Jefferson and Ian Miguel and Peter Nightingale},
@@ -209,7 +209,7 @@
 }
 
 @inproceedings{c341e68df4c14ab5b77b0693aa1cc90f,
-  title = {A framework for generating informative benchmark instances},
+  title = {A Framework for Generating Informative Benchmark Instances},
   abstract = {Benchmarking is an important tool for assessing the relative performance of alternative solving approaches. However, the utility of benchmarking is limited by the quantity and quality of the available problem instances. Modern constraint programming languages typically allow the specification of a class-level model that is parameterised over instance data. This separation presents an opportunity for automated approaches to generate instance data that define instances that are graded (solvable at a certain difficulty level for a solver) or can discriminate between two solving approaches. In this paper, we introduce a framework that combines these two properties to generate a large number of benchmark instances, purposely generated for effective and informative benchmarking. We use five problems that were used in the MiniZinc competition to demonstrate the usage of our framework. In addition to producing a ranking among solvers, our framework gives a broader understanding of the behaviour of each solver for the whole instance space; for example by finding subsets of instances where the solver performance significantly varies from its average performance.},
   keywords = {Instance generation, Benchmarking, Constraint programming},
   author = {Nguyen Dang and Ozgur Akgun and {Espasa Arxer}, Joan and Miguel, {Ian James} and Peter Nightingale},
@@ -226,7 +226,7 @@
 }
 
 @inproceedings{1436930e0d004c7fa6adee33e4c98bd6,
-  title = {Understanding how people approach constraint modelling and solving},
+  title = {Understanding How People Approach Constraint Modelling and Solving},
   abstract = {Research in constraint programming typically focuses on problem solving efficiency. However, the way users conceptualise problems and communicate with constraint programming tools is often sidelined. How humans think about constraint problems can be important for the development of efficient tools that are useful to a broader audience. For example, a system incorporating knowledge on how people think about constraint problems can provide explanations to users and improve the communication between the human and the solver.We present an initial step towards a better understanding of the human side of the constraint solving process. To our knowledge, this is the first human-centred study addressing how people approach constraint modelling and solving. We observed three sets of ten users each (constraint programmers, computer scientists and non-computer scientists) and analysed how they find solutions for well-known constraint problems. We found regularities offering clues about how to design systems that are more intelligible to humans.},
   keywords = {Constraint modelling, HCI, User study, Grounded theory},
   author = {Ruth Hoffmann and Xu Zhu and Ozgur Akgun and Miguel Nacenta},
@@ -262,7 +262,7 @@
 }
 
 @inproceedings{36323c314240451291f8377d5a4f9668,
-  title = {Towards reformulating Essence specifications for robustness},
+  title = {Towards Reformulating Essence Specifications for Robustness},
   abstract = {The Essence language allows a user to specify a constraint problem at a level of abstraction above that at which constraint modelling decisions are made. Essence specifications are refined into constraint models using the Conjure automated modelling tool, which employs a suite of refinement rules. However, Essence is a rich language in which there are many equivalent ways to specify a given problem. A user may therefore omit the use of domain attributes or abstract types, resulting in fewer refinement rules being applicable and therefore a reduced set of output models from which to select. This paper addresses the problem of recovering this information automatically to increase the robustness of the quality of the output constraint models in the face of variation in the input Essence specification. We present reformulation rules that can change the type of a decision variable or add attributes that shrink its domain. We demonstrate the efficacy of this approach in terms of the quantity and quality of models Conjure can produce from the transformed specification compared with the original. },
   author = {{\"O}zg{\"u}r Akg{\"u}n and Frisch, {Alan M.} and Gent, {Ian P.} and Christopher Jefferson and Ian Miguel and Peter Nightingale and Salamon, {Andr{\'a}s Z.}},
   note = {Funding: This research was supported by the UK EPSRC grants EP/K015745/1 and EP/V027182/1. Chris Jefferson is a University Research Fellow funded by the Royal Society; The 20th workshop on Constraint Modelling and Reformulation (ModRef), ModRef ; Conference date: 25-10-2021 Through 25-10-2021},
@@ -334,7 +334,7 @@
 }
 
 @inproceedings{17528eb080e74cb6ac61a8387e9ac515,
-  title = {Exploiting incomparability in solution dominance: improving general purpose constraint-based mining},
+  title = {Exploiting Incomparability in Solution Dominance: Improving General Purpose Constraint-Cased Mining},
   abstract = {In data mining, finding interesting patterns is a challenging task. Constraint-based mining is a well-known approach to this, and one for which constraint programming has been shown to be a well-suited and generic framework. Constraint dominance programming (CDP) has been proposed as an extension that can capture an even wider class of constraint-based mining problems, by allowing us to compare relations between patterns. In this paper we improve CDP with the ability to specify an incomparability condition. This allows us to overcome two major shortcomings of CDP: finding dominated solutions that must then be filtered out after search, and unnecessarily adding dominance blocking constraints between incomparable solutions. We demonstrate the efficacy of our approach by extending the problem specification language ESSENCE and implementing it in a solver-independent manner on top of the constraint modelling tool CONJURE. Our experiments on pattern mining tasks with both a CP solver and a SAT solver show that using the incomparability condition during search significantly improves the efficiency of dominance programming and reduces (and often eliminates entirely) the need for post-processing to filter dominated solutions.},
   author = {Gokberk Kocak and Ozgur Akgun and Tias Guns and Miguel, {Ian James}},
   year = {2020},
@@ -373,7 +373,7 @@
 }
 
 @inproceedings{04b6f9716a204104b26a8a664d101d92,
-  title = {Discriminating instance generation from abstract specifications: a case study with CP and MIP},
+  title = {Discriminating Instance Generation from Abstract Specifications: A Case Study with CP and MIP},
   abstract = {We extend automatic instance generation methods to allow cross-paradigm comparisons. We demonstrate that it is possible to completely automate the search for benchmark instances that help to discriminate between solvers. Our system starts from a high level human-provided problem specification, which is translated into a specification for valid instances. We use the automated algorithm configuration tool irace to search for instances, which are translated into inputs for both MIP and CP solvers by means of the Conjure, Savile Row, and MiniZinc tools. These instances are then solved by CPLEX and Chuffed, respectively. We constrain our search for instances by requiring them to exhibit a significant advantage for MIP over CP, or vice versa. Experimental results on four optimisation problem classes demonstrate the effectiveness of our method in identifying instances that highlight differences in performance of the two solvers.},
   keywords = {Constraint Programming, Instance generation, MIP},
   author = {{\"O}zg{\"u}r Akg{\"u}n and Nguyen Dang and Ian Miguel and Salamon, {Andr{\'a}s Z.} and Patrick Spracklen and Christopher Stone},
@@ -392,7 +392,7 @@
 }
 
 @inproceedings{5d418525265e4c2189449a84ef9db61e,
-  title = {Effective encodings of constraint programming models to SMT},
+  title = {Effective Encodings of Constraint Programming Models to SMT},
   abstract = {Satisfiability Modulo Theories (SMT) is a well-established methodology that generalises propositional satisfiability (SAT) by adding support for a variety of theories such as integer arithmetic and bit-vector operations. SMT solvers have made rapid progress in recent years. In part, the efficiency of modern SMT solvers derives from the use of specialised decision procedures for each theory. In this paper we explore how the Essence Prime constraint modelling language can be translated to the standard SMT-LIB language. We target four theories: bit-vectors (QF_BV), linear integer arithmetic (QF_LIA), non-linear integer arithmetic (QF_NIA), and integer difference logic (QF_IDL). The encodings are implemented in the constraint modelling tool Savile Row. In an extensive set of experiments, we compare our encodings for the four theories, showing some notable differences and complementary strengths. We also compare our new encodings to the existing work targeting SMT and SAT, and to a well-established learning CP solver. Our two proposed encodings targeting the theory of bit-vectors (QF_BV) both substantially outperform earlier work on encoding to QF_BV on a large and diverse set of problem classes.},
   keywords = {Constraint modelling, SMT, Automated reformulation},
   author = {Ewan Davidson and Ozgur Akgun and {Espasa Arxer}, Joan and Peter Nightingale},
@@ -411,7 +411,7 @@
 }
 
 @inproceedings{e74974988ec540bab669443ad10422b3,
-  title = {Towards improving solution dominance with incomparability conditions: a case-study using Generator Itemset Mining},
+  title = {Towards Improving Solution Dominance with Incomparability Conditions: A case-study using Generator Itemset Mining},
   abstract = {Finding interesting patterns is a challenging task in data mining. Constraint based mining is a well-known approach to this, and one for which constraint programming has been shown to be a well-suited and generic framework.Dominance programming has been proposed as an extension that can capture aneven wider class of constraint-based mining problems, by allowing to comparerelations between patterns. In this paper, in addition to specifying a dominancerelation, we introduce the ability to specify an incomparability condition. Usingthese two concepts we devise a generic framework that can do a batch-wise searchthat avoids checking incomparable solutions. We extend the ESSENCE languageand underlying modelling pipeline to support this. We use generator itemset mining problem as a test case and give a declarative specification for that. We alsopresent preliminary experimental results on this specific problem class with a CPsolver backend to show that using the incomparability condition during searchcan improve the efficiency of dominance programming and reduces the need forpost-processing to filter dominated solutions.},
   keywords = {Constraint programming, Constraint modelling, Data mining, Itemset mining, Pattern mining, Dominance programming},
   author = {Gokberk Kocak and {\"O}zg{\"u}r Akg{\"u}n and Ian Miguel and Tias Guns},
@@ -442,7 +442,7 @@
 }
 
 @article{4b54ed2e79924712bcf8e6fea3211d72,
-  title = {How people visually represent discrete constraint problems},
+  title = {How People Visually Represent Discrete Constraint Problems},
   abstract = {Problems such as timetabling or personnel allocation can be modeled and solved using discrete constraint programming languages. However, while existing constraint solving software solves such problems quickly in many cases, these systems involve specialized languages that require significant time and effort to learn and apply. These languages are typically text-based and often difficult to interpret and understand quickly, especially for people without engineering or mathematics backgrounds. Visualization could provide an alternative way to model and understand such problems. Although many visual programming languages exist for procedural languages, visual encoding of problem specifications has not received much attention. Future problem visualization languages could represent problem elements and their constraints unambiguously, but without unnecessary cognitive burdens for those needing to translate their problem's mental representation into diagrams. As a first step towards such languages, we executed a study that catalogs how people represent constraint problems graphically. We studied three groups with different expertise: non-computer scientists, computer scientists and constraint programmers and analyzed their marks on paper (e.g., arrows), gestures (e.g., pointing) and the mappings to problem concepts (e.g., containers, sets). We provide foundations to guide future tool designs allowing people to effectively grasp, model and solve problems through visual representations.},
   keywords = {Problem visualization, Problem modeling, Problem solving, Constraint programming, Visual programming languages},
   author = {Xu Zhu and Miguel Nacenta and {\"O}zg{\"u}r Akg{\"u}n and Nightingale, {Peter William}},
@@ -461,7 +461,7 @@
 }
 
 @article{1a41bce3240a48d8a8c1b977f34215ea,
-  title = {Cloud benchmarking for maximising performance of scientific applications},
+  title = {Cloud Benchmarking for Maximising Performance of Scientific Applications},
   abstract = {How can applications be deployed on the cloud to achieve maximum performance? This question is challenging to address with the availability of a wide variety of cloud Virtual Machines (VMs) with different performance capabilities. The research reported in this paper addresses the above question by proposing a six step benchmarking methodology in which a user provides a set of weights that indicate how important memory, local communication, computation and storage related operations are to an application. The user can either provide a set of four abstract weights or eight fine grain weights based on the knowledge of the application. The weights along with benchmarking data collected from the cloud are used to generate a set of two rankings - one based only on the performance of the VMs and the other takes both performance and costs into account. The rankings are validated on three case study applications using two validation techniques. The case studies on a set of experimental VMs highlight that maximum performance can be achieved by the three top ranked VMs and maximum performance in a cost-effective manner is achieved by at least one of the top three ranked VMs produced by the methodology.},
   keywords = {Cloud benchmarking, Cloud performance, Benchmarking methodology, Cloud ranking},
   author = {Blesson Varghese and Ozgur Akgun and Miguel, {Ian James} and Thai, {Long Thanh} and Barker, {Adam David}},
@@ -480,7 +480,7 @@
 }
 
 @inproceedings{ce8510eb25d34db48cd8c3c7682edfdf,
-  title = {Automatic streamlining for constrained optimisation},
+  title = {Automatic Streamlining for Constrained Optimisation},
   abstract = {Augmenting a base constraint model with additional constraints can strengthen the inferences made by a solver and therefore reduce search effort. We focus on the automatic addition of streamliner constraints, which trade completeness for potentially very significant reduction in search. Recently an automated approach has been proposed, which produces streamliners via a set of streamliner generation rules. This existing automated approach to streamliner generation has two key limitations. First, it outputs a single streamlined model. Second, the approach is limited to satisfaction problems. We remove both limitations by providing a method to produce automatically a portfolio of streamliners, each representing a different balance between three criteria: how aggressively the search space is reduced, the proportion of training instances for which the streamliner admitted at least one solution, and the average reduction in quality of the objective value versus the unstreamlined model. In support of our new method, we present an automated approach to training and test instance generation, and provide several approaches to the selection and application of the streamliners from the portfolio. Empirical results demonstrate drastic improvements both to the time required to find good solutions early and to prove optimality on three problem classes.},
   keywords = {Constraint programming, Streamliners},
   author = {Patrick Spracklen and Nguyen Dang and Ozgur Akgun and Miguel, {Ian James}},
@@ -499,7 +499,7 @@
 }
 
 @inproceedings{b1d1e65f1ecf4431bc087cff9ef9b9dd,
-  title = {Instance generation via generator instances},
+  title = {Instance Generation via Generator Instances},
   abstract = {Access to good benchmark instances is always desirable when developing new algorithms, new constraint models, or when comparing existing ones. Hand-written instances are of limited utility and are time-consuming to produce. A common method for generating instances is constructing special purpose programs for each class of problems. This can be better than manually producing instances, but developing such instance generators also has drawbacks. In this paper, we present a method for generating graded instances completely automatically starting from a class-level problem specification. A graded instance in our present setting is one which is neither too easy nor too difficult for a given solver. We start from an abstract problem specification written in the Essence language and provide a system to transform the problem specification, via automated type-specific rewriting rules, into a new abstract specification which we call a generator specification. The generator specification is itself parameterised by a number of integer parameters; these are used to characterise a certain region of the parameter space. The solutions of each such generator instance form valid problem instances. We use the parameter tuner irace to explore the space of possible generator parameters, aiming to find parameter values that yield graded instances. We perform an empirical evaluation of our system for five problem classes from CSPlib, demonstrating promising results.},
   keywords = {Automated modelling, Instance generation, Parameter tuning},
   author = {Ozgur Akgun and Nguyen Dang and Miguel, {Ian James} and Salamon, {Andr{\'a}s Z.} and Stone, {Christopher Luciano}},
@@ -518,7 +518,7 @@
 }
 
 @inproceedings{921a03b374654acdb3cf8b608e1ef86a,
-  title = {Closed frequent itemset mining with arbitrary side constraints},
+  title = {Closed Frequent Itemset Mining with Arbitrary Side Constraints},
   abstract = {Frequent itemset mining (FIM) is a method for finding regularities in transaction databases. It has several application areas, such as market basket analysis, genome analysis, and drug design. Finding frequent itemsets allows further analysis to focus on a small subset of the data. For large datasets the number of frequent itemsets can also be very large, defeating their purpose. Therefore, several extensions to FIM have been studied, such as adding high-utility (or low-cost) constraints and only finding closed (or maximal) frequent itemsets. This paper presents a constraint programming based approach that combines arbitrary side constraints with closed frequent itemset mining. Our approach allows arbitrary side constraints to be expressed in a high level and declarative language which is then translated automatically for efficient solution by a SAT solver. We compare our approach with state-of-the-art algorithms via the MiningZinc system (where possible) and show significant contributions in terms of performance and applicability.},
   keywords = {Data mining, Pattern mining, Frequent itemset mining, Closed frequent itemset mining, Constraint modelling},
   author = {Gokberk Kocak and Ozgur Akgun and Miguel, {Ian James} and Nightingale, {Peter William}},
@@ -538,7 +538,7 @@
 }
 
 @inproceedings{8f516aac022d4bcdb34e5f63976bdd78,
-  title = {Memory consistency models using constraints},
+  title = {Memory Consistency Models using Constraints},
   abstract = {Memory consistency models (MCMs) are at the heart of concurrent programming. They represent the behaviour of concurrent programs at the chip level. To test these models small program snippets called litmus test are generated, which show allowed or forbidden behaviour of different MCMs. This paper is showcasing the use of constraint programming to automate the generation and testing of litmus tests for memory consistency models. We produce a few exemplary case studies for two MCMs, namely Sequential Consistency and Total Store Order. These studies demonstrate the flexibility of constrains programming in this context and lay foundation to the direct verification of MCMs against the software facing cache coherence protocols. },
   keywords = {Memory consistency, Concurrent programming, Litmus tests, Constraints programming, Modelling},
   author = {{\"O}zg{\"u}r Akg{\"u}n and Ruth Hoffmann and Susmit Sarkar},
@@ -552,7 +552,7 @@
 }
 
 @inproceedings{56bd918cab3c4a66b6fae5b71f88b1b6,
-  title = {Modelling Langford's Problem: a viewpoint for search},
+  title = {Modelling Langford's Problem: A Viewpoint for Search},
   abstract = {The performance of enumerating all solutions to an instance of Langford's Problem is sensitive to the model and the search strategy. In this paper we compare the performance of a large variety of models, all derived from two base viewpoints. We empirically show that a channelled model with a static branching order on one of the viewpoints offers the best performance out of all the options we consider. Surprisingly, one of the base models proves very effective for propagation, while the other provides an effective means of stating a static search order. },
   author = {{\"O}zg{\"u}r Akg{\"u}n and Ian Miguel},
   note = {Funding: EPSRC (EP/P015638/1).; 24th International Conference on Principles and Practice of Constraint Programming (CP 2018), CP 2018 ; Conference date: 27-08-2018 Through 31-08-2018},
@@ -565,7 +565,7 @@
 }
 
 @inproceedings{413b9d1324cf4826b5ea1a130eb96159,
-  title = {A framework for constraint based local search using ESSENCE},
+  title = {A Framework for Constraint Based Local Search using Essence},
   abstract = {Structured Neighbourhood Search (SNS) is a framework for constraint-based local search for problems expressed in the Essence abstract constraint specification language. The local search explores a structured neighbourhood, where each state in the neighbourhood preserves a high level structural feature of the problem. SNS derives highly structured problem-specific neighbourhoods automatically and directly from the features of the ESSENCE specification of the problem. Hence, neighbourhoods can represent important structural features of the problem, such as partitions of sets, even if that structure is obscured in the low-level input format required by a constraint solver. SNS expresses each neighbourhood as a constrained optimisation problem, which is solved with a constraint solver. We have implemented SNS, together with automatic generation of neighbourhoods for high level structures, and report high quality results for several optimisation problems.},
   keywords = {Constraints and SAT: constraint satisfaction, Constraints and SAT: modeling; formulation, Constraints and SAT: constraint ptimisation, Constraints and SAT: Constraints: solvers and tools},
   author = {Ozgur Akgun and Attieh, {Saad Wasim A} and Gent, {Ian Philip} and Jefferson, {Christopher Anthony} and Miguel, {Ian James} and Nightingale, {Peter William} and Salamon, {Andr{\'a}s Z.} and Patrick Spracklen and Wetter, {James Patrick}},
@@ -594,7 +594,7 @@
 }
 
 @inproceedings{b170a1edfb03483a860a1e1482829944,
-  title = {Automatic discovery and exploitation of promising subproblems for tabulation},
+  title = {Automatic Discovery and Exploitation of Promising Subproblems for Tabulation},
   abstract = {The performance of a constraint model can often be improved by converting a subproblem into a single table constraint. In this paper we study heuristics for identifying promising subproblems. We propose a small set of heuristics to identify common cases such as expressions that will propagate weakly. The process of discovering promising subproblems and tabulating them is entirely automated in the tool Savile Row. A cache is implemented to avoid tabulating equivalent subproblems many times. We give a simple algorithm to generate table constraints directly from a constraint expression in Savile Row. We demonstrate good performance on the benchmark problems used in earlier work on tabulation, and also for several new problem classes. },
   author = {Ozgur Akgun and Gent, {Ian Philip} and Jefferson, {Christopher Anthony} and Miguel, {Ian James} and Nightingale, {Peter William} and Salamon, {Andr{\'a}s Z.}},
   note = {Funding: EP/P015638/1 and EP/P026842/1. Dr Jefferson holds a Royal Society University Research Fellowship.; 24th International Conference on Principles and Practice of Constraint Programming (CP 2018), CP 2018 ; Conference date: 27-08-2018 Through 31-08-2018},
@@ -612,7 +612,7 @@
 }
 
 @inproceedings{6eef5285c1a0471ebba55a9179298de8,
-  title = {Automatic generation and selection of streamlined constraint models via Monte Carlo search on a model lattice},
+  title = {Automatic Generation and Selection of Streamlined Constraint Models via Monte Carlo Search on a Model Lattice},
   abstract = {Streamlined constraint reasoning is the addition of uninferred constraints to a constraint model to reduce the search space, while retaining at least one solution. Previously it has been established that it is possible to generate streamliners automatically from abstract constraint specifications in Essence and that effective combinations of streamliners can allow instances of much larger scale to be solved. A shortcoming of the previous approach was the crude exploration of the power set of all combinations using depth and breadth first search. We present a new approach based on Monte Carlo search over the lattice of streamlined models, which efficiently identifies effective streamliner combinations.},
   author = {Patrick Spracklen and Ozgur Akgun and Miguel, {Ian James}},
   note = {Funding: EPSRC EP/P015638/1.},
@@ -629,7 +629,7 @@
 }
 
 @inproceedings{53282bbae2084f9ab816728d0a72fd7b,
-  title = {Metamorphic testing of constraint solvers},
+  title = {Metamorphic Testing of Constraint Solvers},
   abstract = {Constraint solvers are complex pieces of software and are notoriously difficult to debug. In large part this is due to the difficulty of pinpointing the source of an error in the vast searches these solvers perform, since the effect of an error may only come to light long after the error is made. In addition, an error does not necessarily lead to the wrong result, further complicating the debugging process. A major source of errors in a constraint solver is the complex constraint propagation algorithms that provide the inference that controls and directs the search. In this paper we show that metamorphic testing is a principled way to test constraint solvers by comparing two different implementations of the same constraint. Specifically, specialised propagators for the constraint are tested against the general purpose table constraint propagator. We report on metamorphic testing of the constraint solver Minion. We demonstrate that the metamorphic testing method is very effective for finding artificial bugs introduced by random code mutation.},
   author = {Ozgur Akgun and Gent, {Ian Philip} and Jefferson, {Christopher Anthony} and Miguel, {Ian James} and Nightingale, {Peter William}},
   note = {Funding: EPSRC EP/P015638/1 and EP/P026842/1. Dr Jefferson holds a Royal Society University Research Fellowship.; 24th International Conference on Principles and Practice of Constraint Programming (CP 2018), CP 2018 ; Conference date: 27-08-2018 Through 31-08-2018},
@@ -647,7 +647,7 @@
 }
 
 @inproceedings{2bf3e6cc02c540439b29015862135919,
-  title = {Using metric space indexing for complete and efficient record linkage},
+  title = {Using Metric Space Indexing for Complete and Efficient Record Linkage},
   abstract = {Record linkage is the process of identifying records that refer to the same real-world entities in situations where entity identifiers are unavailable. Records are linked on the basis of similarity between common attributes, with every pair being classified as a link or non-link depending on their similarity. Linkage is usually performed in a three-step process: first, groups of similar candidate records are identified using indexing, then pairs within the same group are compared in more detail, and finally classified. Even state-of-the-art indexing techniques, such as locality sensitive hashing, have potential drawbacks. They may fail to group together some true matching records with high similarity, or they may group records with low similarity, leading to high computational overhead. We propose using metric space indexing (MSI) to perform complete linkage, resulting in a parameter-free process combining indexing, comparison and classification into a single step delivering complete and efficient record linkage. An evaluation on real-world data from several domains shows that linkage using MSI can yield better quality than current indexing techniques, with similar execution cost, without the need for domain knowledge or trial and error to configure the process.},
   keywords = {Entity resolution, Data matching, Similarity search, Blocking},
   author = {{\"O}zg{\"u}r Akg{\"u}n and Alan Dearle and Kirby, {Graham Njal Cameron} and Peter Christen},
@@ -760,7 +760,7 @@
 }
 
 @inproceedings{03feab994c4544a49e1387c269b809e0,
-  title = {Exploiting short supports for improved encoding of arbitrary constraints into SAT},
+  title = {Exploiting Short Supports for Improved Encoding of Arbitrary Constraints into SAT},
   abstract = {Encoding to SAT and applying a highly efficient modern SAT solver is an increasingly popular method of solving finite-domain constraint problems. In this paper we study encodings of arbitrary constraints where unit propagation on the encoding provides strong reasoning. Specifically, unit propagation on the encoding simulates generalised arc consistency on the original constraint. To create compact and efficient encodings we use the concept of short support. Short support has been successfully applied to create efficient propagation algorithms for arbitrary constraints. A short support of a constraint is similar to a satisfying tuple however a short support is not required to assign every variable in scope. Some variables are left free to take any value. In some cases a short support representation is smaller than the table of satisfying tuples by an exponential factor. We present two encodings based on short supports and evaluate them on a set of benchmark problems, demonstrating a substantial improvement over the state of the art. },
   author = {{\"O}zg{\"u}r Akg{\"u}n and Gent, {Ian Philip} and Jefferson, {Christopher Anthony} and Miguel, {Ian James} and Nightingale, {Peter William}},
   year = {2016},
@@ -777,7 +777,7 @@
 }
 
 @inproceedings{3881455b36054960a6bae0910108ab95,
-  title = {Cloud-based e-Infrastructure for scheduling astronomical observations},
+  title = {Cloud-based e-Infrastructure for Scheduling Astronomical Observations},
   abstract = {Gravitational microlensing exploits a transient phenomenon where an observed star is brightened due to deflection of its light by the gravity of an intervening foreground star. It is conjectured that this technique can be used to measurethe abundance of planets throughout the Milky Way. In order to undertake efficient gravitational microlensing an observation schedule must be constructed such that various targets are observed while undergoing a microlensing event. In this paper, we propose a cloud-based e-Infrastructure that currently supportsfour methods to compute candidate schedules via the application of local search and probabilistic meta-heuristics. We then validate the feasibility of the e-Infrastructure by evaluating the methods on historic data. The experiments demonstrate that the use of on-demand cloud resources for the e-Infrastructure can allow better schedules to be found more rapidly.},
   author = {Wetter, {James Patrick} and Ozgur Akgun and Barker, {Adam David} and Martin Dominik and Miguel, {Ian James} and Blesson Varghese},
   note = {This research was pursued under the EPSRC grant {\textquoteleft}Working Together: Constraint Programming and Cloud Computing{\textquoteright} (EP/K015745/1) and an Amazon Web Services (AWS) Education Research Grant. ; 11th IEEE International Conference on eScience ; Conference date: 31-08-2015 Through 04-09-2015},
@@ -794,7 +794,7 @@
 }
 
 @inproceedings{9dd26cea0c54476f8d0418df430909da,
-  title = {Automatically generating streamlined constraint models with ESSENCE and CONJURE},
+  title = {Automatically Generating Streamlined Constraint Models with Essence and Conjure},
   abstract = {Streamlined constraint reasoning is the addition of uninferred constraints to a constraint model to reduce the search space, while retaining at least one solution. Previously, effective streamlined models have been constructed by hand, requiring an expert to examine closely solutions to small instances of a problem class and identify regularities. We present a system that automatically generates many conjectured regularities for a given Essence specification of a problem class by examining the domains of decision variables present in the problem specification. These conjectures are evaluated independently and in conjunction with one another on a set of instances from the specified class via an automated modelling tool-chain comprising of Conjure, Savile Row and Minion. Once the system has identified effective conjectures they are used to generate streamlined models that allow instances of much larger scale to be solved. Our results demonstrate good models can be identified for problems in combinatorial design, Ramsey theory, graph theory and group theory - often resulting in order of magnitude speed-ups.},
   author = {James Wetter and Ozgur Akgun and Ian Miguel},
   year = {2015},
@@ -813,7 +813,7 @@
 }
 
 @inproceedings{0e8ec1d427b148acb1f0d20b9ef51659,
-  title = {Cloud benchmarking for performance},
+  title = {Cloud Benchmarking for Performance},
   abstract = {How can applications be deployed on the cloud to achieve maximum performance? This question has become significant and challenging with the availability of a wide variety of Virtual Machines (VMs) with different performance capabilities in the cloud. The above question is addressed by proposing a six step benchmarking methodology in which a user provides a set of four weights that indicate how important each of the following groups: memory, processor, computation and storage are to the application that needs to be executed on the cloud. The weights along with cloud benchmarking data are used to generate a ranking of VMs that can maximise performance of the application. The rankings are validated through an empirical analysis using two case study applications, the first is a financial risk application and the second is a molecular dynamics simulation, which are both representative of workloads that can benefit from execution on the cloud. Both case studies validate the feasibility of the methodology and highlight that maximum performance can be achieved on the cloud by selecting the top ranked VMs produced by the methodology.},
   author = {Blesson Varghese and Ozgur Akgun and Ian Miguel and Long Thai and Adam Barker},
   year = {2014},
@@ -829,7 +829,7 @@
 }
 
 @inproceedings{09b16cf13ed94fb1b2fed6296b5a75d1,
-  title = {Optimal deployment of geographically distributed workflow engines on the Cloud},
+  title = {Optimal Deployment of Geographically Distributed Workflow Engines on the Cloud},
   abstract = {When orchestrating Web service workflows, the geographical placement of the orchestration engine(s) can greatly affect workflow performance. Data may have to be transferred across long geographical distances, which in turn increases execution time and degrades the overall performance of a workflow. In this paper, we present a framework that, given a DAG-based workflow specification, computes the op- timal Amazon EC2 cloud regions to deploy the orchestration engines and execute a workflow. The framework incorporates a constraint model that solves the workflow deployment problem, which is generated using an automated constraint modelling system. The feasibility of the framework is evaluated by executing different sample workflows representative of sci- entific workloads. The experimental results indicate that the framework reduces the workflow execution time and provides a speed up of 1.3x-2.5x over centralised approaches.},
   keywords = {Workflow engine, Optimal deployment, Cloud computing, Workflow execution},
   author = {Long Thai and Adam Barker and Blesson Varghese and Ozgur Akgun and Ian Miguel},
@@ -846,7 +846,7 @@
 }
 
 @inproceedings{4d61e32b389247fe849054856b224aa1,
-  title = {Automatically improving constraint models in Savile Row through associative-commutative common subexpression elimination},
+  title = {Automatically Improving Constraint Models in Savile Row through Associative-Commutative Common Subexpression Elimination},
   abstract = {When solving a problem using constraint programming, constraint modelling is widely acknowledged as an important and difficult task. Even a constraint modelling expert may explore many models and spend considerable time modelling a single problem. Therefore any automated assistance in the area of constraint modelling is valuable. Common sub-expression elimination (CSE) is a type of constraint reformulation that has proved to be useful on a range of problems. In this paper we demonstrate the value of an extension of CSE called Associative-Commutative CSE (AC-CSE). This technique exploits the properties of associativity and commutativity of binary operators, for example in sum constraints. We present a new algorithm, X-CSE, that is able to choose from a larger palette of common subexpressions than previous approaches. We demonstrate substantial gains in performance using X-CSE. For example on BIBD we observed speed increases of more than 20 times compared to a standard model and that using X-CSE outperforms a sophisticated model from the literature. For Killer Sudoku we found that X-CSE can render some apparently difficult instances almost trivial to solve, and we observe speed increases up to 350 times. For BIBD and Killer Sudoku the common subexpressions are not present in the initial model: an important part of our methodology is reformulations at the preprocessing stage, to create the common subexpressions for X-CSE to exploit. In summary we show that X-CSE, combined with preprocessing and other reformulations, is a powerful technique for automated modelling of problems containing associative and commutative constraints.},
   keywords = {Symmetry, Breaking, System},
   author = {Peter Nightingale and Ozgur Akgun and Gent, {Ian P.} and Christopher Jefferson and Ian Miguel},
@@ -866,7 +866,7 @@
 }
 
 @inbook{dd9347655a2d45f2bef81ebcb8778daa,
-  title = {Breaking conditional symmetry in automated constraint modelling with CONJURE},
+  title = {Breaking Conditional Symmetry in Automated Constraint Modelling with Conjure},
   abstract = {Many constraint problems contain symmetry, which can lead to redundant search. If a partial assignment is shown to be invalid, we are wasting time if we ever consider a symmetric equivalent of it. A particularly important class of symmetries are those introduced by the constraint modelling process: model symmetries. We present a systematic method by which the automated constraint modelling tool CONJURE can break conditional symmetry as it enters a model during refinement. Our method extends, and is compatible with, our previous work on automated symmetry breaking in CONJURE. The result is the automatic and complete removal of model symmetries for the entire problem class represented by the input specification. This applies to arbitrarily nested conditional symmetries and represents a significant step forward for automated constraint modelling.},
   author = {{\"O}zg{\"u}r Akg{\"u}n and Ian Gent and Chris Jefferson and Ian Miguel and Peter Nightingale},
   note = {This work was supported by UK EPSRC EP/K015745/1. Jefferson is supported by a Royal Society University Research Fellowship.},
@@ -885,7 +885,7 @@
 }
 
 @misc{0ef98e79e0bd426eb92227f281f4ee4e,
-  title = {Extensible automated constraint modelling via refinement of abstract problem specifications},
+  title = {Extensible Automated Constraint Modelling via Refinement of Abstract Problem Specifications},
   abstract = {Constraint Programming (CP) is a powerful technique for solving large-scale combinatorial (optimisation) problems. Constraint solving a given problem proceeds in two phases: modelling and solving. Effective modelling has an huge impact on the performance of the solving process. This thesis presents a framework in which the users are not required to make modelling decisions, concrete CP models are automatically generated from a high level problem specification. In this framework, modelling decisions are encoded as generic rewrite rules applicable to many different problems. First, modelling decisions are divided into two broad categories. This categorisation guides the automation of each kind of modelling decision and also leads us to the architecture of the automated modelling tool. Second, a domain-specific declarative rewrite rule language is introduced. Thanks to the rule language, automated modelling transformations and the core system are decoupled. The rule language greatly increases the extensibility and maintainability of the rewrite rules database. The database of rules represents the modelling knowledge acquired after analysis of expert models. This database must be easily extensible to best benefit from the active research on constraint modelling. Third, the automated modelling system Conjure is implemented as a realisation of these ideas; having an implementation enables empirical testing of the quality of generated models. The ease with which rewrite rules can be encoded to produce good models is shown. Furthermore, thanks to the generality of the system, one needs to add a very small number of rules to encode many transformations. Finally, the work is evaluated by comparing the generated models to expert models found in the literature for a wide variety of benchmark problems. This evaluation confirms the hypothesis that expert models can be automatically generated starting from high level problem specifications. An method of automatically identifying good models is also presented. In summary, this thesis presents a framework to enable the automatic generation of efficient constraint models from problem specifications. It provides a pleasant environment for both problem owners and modelling experts. Problem owners are presented with a fully automated constraint solution process, once they have a precise description of their problem. Modelling experts can now encode their precious modelling expertise as rewrite rules instead of merely modelling a single problem; resulting in reusable constraint modelling knowledge.},
   author = {Ozgur Akgun},
   year = {2014},
