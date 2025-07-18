@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Birthday Date Picker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            font-family: system-ui, sans-serif;
+            background: #f6f6f6;
+            padding: 2rem;
+            min-height: 100vh;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+            max-width: 700px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            font-weight: 500;
+        }
+        .component-box {
+            background: #f3f7fb;
+            border: 1.5px solid #b3cae6;
+            border-radius: 1rem;
+            box-shadow: 0 1px 7px rgba(0,0,0,0.04);
+            padding: 1.5rem 1.5rem 1rem 1.5rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .date {
+            font-size: 2rem;
+            margin: 0.6rem 0 1rem 0;
+        }
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1.1rem;
+        }
+        button {
+            font-size: 1rem;
+            padding: 0.8rem 1.4rem;
+            border: none;
+            border-radius: 0.5rem;
+            background: #005b99;
+            color: #fff;
+            cursor: pointer;
+            min-width: 110px;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+        button:active {
+            background: #0074cc;
+        }
+        button:disabled {
+            background: #e0e0e0 !important;
+            color: #888 !important;
+            cursor: not-allowed;
+        }
+        #reset { background: #bbb; }
+        #undo { background: #aaa; }
+        .counter {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+        .possibilities {
+            margin: 0.2rem 0 0.5rem 0;
+            font-size: 1rem;
+            color: #0074cc;
+        }
+        .slider-container {
+            width: 100%;
+            margin: 1.3rem 0 0.5rem 0;
+            position: relative;
+            box-sizing: border-box;
+        }
+        .slider-bar {
+            width: 100%;
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 6px;
+            position: relative;
+        }
+        .slider-range {
+            position: absolute;
+            height: 12px;
+            background: #0074cc;
+            border-radius: 6px;
+        }
+        .slider-marker {
+            position: absolute;
+            top: -7px;
+            width: 8px;
+            height: 26px;
+            background: #f90;
+            border-radius: 4px;
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            width: 100%;
+        }
+        .submit-row {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 0.8rem;
+        }
+        .submit-row button {
+            min-width: 140px;
+            font-size: 1.08rem;
+            font-weight: 500;
+        }
+        @media (max-width: 500px) {
+            .container {
+                padding: 1rem;
+            }
+            .component-box {
+                padding: 1rem 0.4rem 1rem 0.4rem;
+            }
+            .slider-container, .slider-labels {
+                font-size: 0.8rem;
+            }
+            .date {
+                font-size: 1.1rem;
+            }
+            button {
+                min-width: 85px;
+                font-size: 0.93rem;
+                padding: 0.7rem 0.6rem;
+            }
+            .submit-row button {
+                min-width: 110px;
+                font-size: 0.97rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>This is a date picker, specifically for birthdays</h1>
+        <div class="component-box">
+            <div class="date" id="guessDate"></div>
+            <div class="button-row">
+                <button id="olderBtn">I am older than that</button>
+                <button id="youngerBtn">I am younger than that</button>
+                <button id="undo">Undo</button>
+                <button id="reset">Reset</button>
+            </div>
+            <div class="possibilities" id="possibilities"></div>
+            <div class="slider-container">
+                <div class="slider-bar" id="sliderBar">
+                    <div class="slider-range" id="sliderRange"></div>
+                    <div class="slider-marker" id="sliderMarker"></div>
+                </div>
+                <div class="slider-labels">
+                    <span id="minLabel"></span>
+                    <span id="maxLabel"></span>
+                </div>
+            </div>
+            <div class="counter" id="counter"></div>
+        </div>
+        <div class="submit-row">
+            <button id="submitBtn">Submit</button>
+        </div>
+        <div id="message"></div>
+    </div>
+    <script>
+        function formatDate(d) {
+            return d.getUTCFullYear().toString().padStart(4, '0') + '-' +
+                   (d.getUTCMonth()+1).toString().padStart(2, '0') + '-' +
+                   d.getUTCDate().toString().padStart(2, '0');
+        }
+
+        // Use UTC dates to avoid timezone issues.
+        const minDate = new Date(Date.UTC(1900, 0, 1));
+        const now = new Date();
+        const maxDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+
+        function daysBetween(a, b) {
+            return Math.round((b.getTime() - a.getTime()) / (24*60*60*1000));
+        }
+        function addDays(date, days) {
+            const d = new Date(date.getTime());
+            d.setUTCDate(d.getUTCDate() + days);
+            return d;
+        }
+
+        let low, high, currentGuess, solved, counter;
+        let history = [];
+
+        function saveState() {
+            history.push({
+                low: new Date(low.getTime()),
+                high: new Date(high.getTime()),
+                currentGuess: new Date(currentGuess.getTime()),
+                solved: solved,
+                counter: counter,
+                message: document.getElementById('message').textContent
+            });
+        }
+
+        function restoreState() {
+            if (history.length === 0) return;
+            const state = history.pop();
+            low = new Date(state.low.getTime());
+            high = new Date(state.high.getTime());
+            currentGuess = new Date(state.currentGuess.getTime());
+            solved = state.solved;
+            counter = state.counter;
+            document.getElementById('message').textContent = state.message;
+            updateCounter();
+            updateGuessDisplay();
+            updateSlider();
+            updatePossibilities();
+        }
+
+        function reset() {
+            low = minDate;
+            high = maxDate;
+            solved = false;
+            counter = 0;
+            history = [];
+            document.getElementById('message').textContent = '';
+            updateCounter();
+            nextGuess(true, false);
+            updatePossibilities();
+        }
+
+        function nextGuess(random=false, saveHist=true) {
+            if (daysBetween(low, high) < 0) {
+                document.getElementById('guessDate').textContent = '';
+                document.getElementById('message').textContent = 'No dates left. Please reset.';
+                solved = true;
+                updateSlider();
+                updatePossibilities();
+                return;
+            }
+            if (saveHist) saveState();
+            let guess;
+            if (random) {
+                const span = daysBetween(low, high);
+                guess = addDays(low, Math.floor(Math.random() * (span+1)));
+            } else {
+                const span = daysBetween(low, high);
+                guess = addDays(low, Math.floor(span/2));
+            }
+            currentGuess = guess;
+            updateGuessDisplay();
+            updateSlider();
+            updatePossibilities();
+        }
+
+        function updateGuessDisplay() {
+            document.getElementById('guessDate').textContent = formatDate(currentGuess);
+        }
+
+        function updateCounter() {
+            document.getElementById('counter').textContent = `Number of guesses: ${counter}`;
+        }
+
+        function setGuessButtonsEnabled(enabled) {
+            document.getElementById('olderBtn').disabled = !enabled;
+            document.getElementById('youngerBtn').disabled = !enabled;
+        }
+
+        function updatePossibilities() {
+            const possibleDays = Math.max(0, daysBetween(low, high) + 1);
+            document.getElementById('possibilities').textContent = `Number of possibilities remaining: ${possibleDays}`;
+            setGuessButtonsEnabled(possibleDays > 1 && !solved);
+        }
+
+        document.getElementById('submitBtn').onclick = function() {
+            if (solved) return;
+            saveState();
+            document.getElementById('message').textContent = `Guessed correctly! Your birthday is ${formatDate(currentGuess)}. Number of guesses: ${counter}`;
+            solved = true;
+            setGuessButtonsEnabled(false);
+        };
+        document.getElementById('olderBtn').onclick = function() {
+            if (solved) return;
+            counter++;
+            nextGuess(false, true);
+            high = addDays(currentGuess, -1);
+            updateCounter();
+            nextGuess(false, false);
+        };
+        document.getElementById('youngerBtn').onclick = function() {
+            if (solved) return;
+            counter++;
+            nextGuess(false, true);
+            low = addDays(currentGuess, 1);
+            updateCounter();
+            nextGuess(false, false);
+        };
+        document.getElementById('undo').onclick = function() {
+            restoreState();
+            setGuessButtonsEnabled(daysBetween(low, high) + 1 > 1 && !solved);
+        };
+        document.getElementById('reset').onclick = function() {
+            reset();
+            setGuessButtonsEnabled(true);
+        };
+
+        function updateSlider() {
+            const bar = document.getElementById('sliderBar');
+            const rangeDiv = document.getElementById('sliderRange');
+            const marker = document.getElementById('sliderMarker');
+            const minLabel = document.getElementById('minLabel');
+            const maxLabel = document.getElementById('maxLabel');
+
+            const barWidth = bar.offsetWidth;
+            const totalSpan = daysBetween(minDate, maxDate);
+            const leftSpan = daysBetween(minDate, low);
+            const rightSpan = daysBetween(minDate, high);
+
+            const rangeLeft = Math.max(0, barWidth * (leftSpan / totalSpan));
+            const rangeRight = Math.min(barWidth, barWidth * (rightSpan / totalSpan));
+            const rangeWidth = Math.max(1, rangeRight - rangeLeft);
+
+            rangeDiv.style.left = `${rangeLeft}px`;
+            rangeDiv.style.width = `${rangeWidth}px`;
+
+            const guessSpan = daysBetween(minDate, currentGuess);
+            let markerLeft = barWidth * (guessSpan / totalSpan) - 4;
+            marker.style.left = `${markerLeft}px`;
+
+            minLabel.textContent = `Earliest possible: ${formatDate(low)}`;
+            maxLabel.textContent = `Latest possible: ${formatDate(high)}`;
+        }
+
+        window.addEventListener('resize', updateSlider);
+
+        reset();
+    </script>
+</body>
+</html>
