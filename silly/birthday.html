@@ -150,6 +150,19 @@
             margin-top: 0;
             padding-left: 1.2rem;
         }
+
+        /* ---------- Responsive behaviour for buttons ---------- */
+        /* On very small widths, stack one button per line */
+        @media (max-width: 460px) {
+            .button-row {
+                flex-direction: column;
+                align-items: stretch; /* make buttons take full width */
+            }
+            .button-row button {
+                width: 100%;
+            }
+        }
+
         @media (max-width: 500px) {
             .container {
                 padding: 1rem;
