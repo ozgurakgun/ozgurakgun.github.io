@@ -123,12 +123,20 @@
             width: 100%;
             display: flex;
             justify-content: center;
+            align-items: center;
             margin-bottom: 0.8rem;
+            gap: 1.1rem;
         }
         .submit-row button {
             min-width: 140px;
             font-size: 1.08rem;
             font-weight: 500;
+        }
+        .submit-label {
+            font-size: 1.05rem;
+            color: #065; 
+            font-weight: 500;
+            white-space: nowrap;
         }
         hr {
             border: none;
@@ -164,6 +172,9 @@
                 min-width: 110px;
                 font-size: 0.97rem;
             }
+            .submit-label {
+                font-size: 0.99rem;
+            }
         }
     </style>
 </head>
@@ -193,6 +204,7 @@
         </div>
         <div class="submit-row">
             <button id="submitBtn">Submit</button>
+            <span class="submit-label" id="submitLabel"></span>
         </div>
         <hr>
         <ul class="notes-list">
@@ -200,7 +212,6 @@
             <li>Inspired by <a href="https://www.reddit.com/r/ProgrammerHumor/comments/1lzqsdz/comment/n33mes2/" target="_blank" rel="noopener">this comment</a></li>
             <li>This uses random guesses, could be changed to always guess the mid point...</li>
         </ul>
-        <div id="message"></div>
     </div>
     <script>
         function formatDate(d) {
@@ -232,8 +243,7 @@
                 high: new Date(high.getTime()),
                 currentGuess: new Date(currentGuess.getTime()),
                 solved: solved,
-                counter: counter,
-                message: document.getElementById('message').textContent
+                counter: counter
             });
         }
 
@@ -245,7 +255,7 @@
             currentGuess = new Date(state.currentGuess.getTime());
             solved = state.solved;
             counter = state.counter;
-            document.getElementById('message').textContent = state.message;
+            clearSubmitLabel();
             updateCounter();
             updateGuessDisplay();
             updateSlider();
@@ -258,7 +268,7 @@
             solved = false;
             counter = 0;
             history = [];
-            document.getElementById('message').textContent = '';
+            clearSubmitLabel();
             updateCounter();
             nextGuess(true, false);
             updatePossibilities();
@@ -267,7 +277,6 @@
         function nextGuess(random=false, saveHist=true) {
             if (daysBetween(low, high) < 0) {
                 document.getElementById('guessDate').textContent = '';
-                document.getElementById('message').textContent = 'No dates left. Please reset.';
                 solved = true;
                 updateSlider();
                 updatePossibilities();
@@ -307,10 +316,17 @@
             setGuessButtonsEnabled(possibleDays > 1 && !solved);
         }
 
+        function setSubmitLabel(text) {
+            document.getElementById('submitLabel').textContent = text;
+        }
+
+        function clearSubmitLabel() {
+            document.getElementById('submitLabel').textContent = '';
+        }
+
         document.getElementById('submitBtn').onclick = function() {
             if (solved) return;
-            saveState();
-            document.getElementById('message').textContent = `Guessed correctly! Your birthday is ${formatDate(currentGuess)}. Number of guesses: ${counter}`;
+            setSubmitLabel(`Submitted ${formatDate(currentGuess)}`);
             solved = true;
             setGuessButtonsEnabled(false);
         };
@@ -333,10 +349,12 @@
         document.getElementById('undo').onclick = function() {
             restoreState();
             setGuessButtonsEnabled(daysBetween(low, high) + 1 > 1 && !solved);
+            clearSubmitLabel();
         };
         document.getElementById('reset').onclick = function() {
             reset();
             setGuessButtonsEnabled(true);
+            clearSubmitLabel();
         };
 
         function updateSlider() {
