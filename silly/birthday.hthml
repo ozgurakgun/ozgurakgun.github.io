@@ -130,6 +130,18 @@
             font-size: 1.08rem;
             font-weight: 500;
         }
+        hr {
+            border: none;
+            border-top: 1px solid #b3cae6;
+            margin: 1.5rem 0 1rem 0;
+        }
+        .notes-list {
+            font-size: 0.98rem;
+            color: #444;
+            margin-bottom: 0;
+            margin-top: 0;
+            padding-left: 1.2rem;
+        }
         @media (max-width: 500px) {
             .container {
                 padding: 1rem;
@@ -182,6 +194,12 @@
         <div class="submit-row">
             <button id="submitBtn">Submit</button>
         </div>
+        <hr>
+        <ul class="notes-list">
+            <li>Implemented (vibe coded) using GPT 4.1</li>
+            <li>Inspired by <a href="https://www.reddit.com/r/ProgrammerHumor/comments/1lzqsdz/comment/n33mes2/" target="_blank" rel="noopener">this comment</a></li>
+            <li>This uses random guesses, could be changed to always guess the mid point...</li>
+        </ul>
         <div id="message"></div>
     </div>
     <script>
