@@ -160,7 +160,8 @@ class NumeracyGame {
         }
         
         // Fallback: just change one digit
-        return this.changeOneDigit(digits.slice(), min, max);
+        const fallbackDigits = this.changeOneDigit(digits.slice(), min, max);
+        return parseInt(fallbackDigits.join(''));
     }
 
     swapAdjacentDigits(digits) {
