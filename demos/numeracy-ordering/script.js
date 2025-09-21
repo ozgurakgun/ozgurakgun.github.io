@@ -291,6 +291,8 @@ class NumeracyGame {
         document.querySelectorAll('.number-card').forEach(card => {
             card.classList.remove('drop-target');
         });
+        // Hide drop indicator
+        this.hideDropIndicator();
     }
 
     handleDragOver(e) {
@@ -298,22 +300,7 @@ class NumeracyGame {
         e.dataTransfer.dropEffect = 'move';
         
         const afterElement = this.getDragAfterElement(this.numbersContainer, e.clientX);
-        const dragging = document.querySelector('.dragging');
-        
-        // Remove previous drop-target highlights
-        document.querySelectorAll('.number-card').forEach(card => {
-            card.classList.remove('drop-target');
-        });
-        
-        if (afterElement == null) {
-            // Add drop-target to last element
-            const cards = [...this.numbersContainer.querySelectorAll('.number-card:not(.dragging)')];
-            if (cards.length > 0) {
-                cards[cards.length - 1].classList.add('drop-target');
-            }
-        } else {
-            afterElement.classList.add('drop-target');
-        }
+        this.showDropIndicator(afterElement, e.clientX);
     }
 
     handleDrop(e) {
@@ -330,6 +317,9 @@ class NumeracyGame {
         } else {
             this.numbersContainer.insertBefore(dragging, afterElement);
         }
+        
+        // Hide drop indicator
+        this.hideDropIndicator();
         
         // Update currentNumbers array based on new order
         this.updateCurrentOrder();
@@ -391,24 +381,9 @@ class NumeracyGame {
             this.draggedElement.style.opacity = '0.8';
             this.draggedElement.style.pointerEvents = 'none';
             
-            // Remove previous drop-target highlights
-            document.querySelectorAll('.number-card').forEach(card => {
-                card.classList.remove('drop-target');
-            });
-            
-            // Find the drop position and highlight accordingly
+            // Show drop indicator
             const afterElement = this.getTouchDropPosition(touch.clientX, touch.clientY);
-            
-            if (afterElement == null) {
-                // Would drop at the end - highlight the last card
-                const cards = [...this.numbersContainer.querySelectorAll('.number-card:not(.dragging)')];
-                if (cards.length > 0) {
-                    cards[cards.length - 1].classList.add('drop-target');
-                }
-            } else {
-                // Would drop before this element - highlight it
-                afterElement.classList.add('drop-target');
-            }
+            this.showDropIndicator(afterElement, touch.clientX);
         }
     }
 
@@ -426,10 +401,8 @@ class NumeracyGame {
         this.draggedElement.style.pointerEvents = '';
         this.draggedElement.classList.remove('dragging');
         
-        // Remove drop-target highlights
-        document.querySelectorAll('.number-card').forEach(card => {
-            card.classList.remove('drop-target');
-        });
+        // Hide drop indicator
+        this.hideDropIndicator();
         
         if (this.isDragging) {
             // Find where to drop using the same logic as desktop drag & drop
@@ -468,6 +441,45 @@ class NumeracyGame {
                 return closest;
             }
         }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+    showDropIndicator(afterElement, x) {
+        // Remove existing indicator
+        this.hideDropIndicator();
+        
+        // Create new indicator
+        const indicator = document.createElement('div');
+        indicator.className = 'drop-indicator';
+        indicator.id = 'drop-indicator';
+        
+        // Position the indicator
+        const containerRect = this.numbersContainer.getBoundingClientRect();
+        
+        if (afterElement == null) {
+            // Position at the end
+            const cards = [...this.numbersContainer.querySelectorAll('.number-card:not(.dragging)')];
+            if (cards.length > 0) {
+                const lastCard = cards[cards.length - 1];
+                const lastCardRect = lastCard.getBoundingClientRect();
+                indicator.style.left = (lastCardRect.right - containerRect.left + 8) + 'px';
+            } else {
+                indicator.style.left = '20px';
+            }
+        } else {
+            // Position before the target element
+            const targetRect = afterElement.getBoundingClientRect();
+            indicator.style.left = (targetRect.left - containerRect.left - 8) + 'px';
+        }
+        
+        indicator.style.top = '20px';
+        this.numbersContainer.appendChild(indicator);
+    }
+
+    hideDropIndicator() {
+        const indicator = document.getElementById('drop-indicator');
+        if (indicator) {
+            indicator.remove();
+        }
     }
 
     checkAnswer() {

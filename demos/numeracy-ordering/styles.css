@@ -240,6 +240,41 @@ header p {
     background: #f0f8f0;
 }
 
+.drop-indicator {
+    width: 4px;
+    height: 60px;
+    background: #4CAF50;
+    border-radius: 2px;
+    position: absolute;
+    z-index: 999;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+    transition: all 0.2s ease;
+}
+
+.drop-indicator::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -4px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 8px solid #4CAF50;
+}
+
+.drop-indicator::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: -4px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid #4CAF50;
+}
+
 .result-message {
     text-align: center;
     font-size: 1.5rem;
