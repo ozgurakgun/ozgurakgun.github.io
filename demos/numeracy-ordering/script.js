@@ -253,36 +253,37 @@ class NumeracyGame {
             const numberRow = document.createElement('div');
             numberRow.className = 'number-row';
             
-            // Create move buttons container
-            const moveButtons = document.createElement('div');
-            moveButtons.className = 'move-buttons';
+            // Create number card
+            const numberCard = document.createElement('div');
+            numberCard.className = 'number-card';
+            numberCard.dataset.number = number;
+            numberCard.dataset.index = index;
             
             // Create up button
             const upBtn = document.createElement('button');
-            upBtn.className = 'move-btn';
+            upBtn.className = 'move-btn up';
             upBtn.textContent = '↑';
             upBtn.disabled = index === 0; // Disable if first item
             upBtn.addEventListener('click', () => this.moveUp(index));
             
+            // Create number value
+            const numberValue = document.createElement('div');
+            numberValue.className = 'number-value';
+            numberValue.textContent = number;
+            
             // Create down button
             const downBtn = document.createElement('button');
-            downBtn.className = 'move-btn';
+            downBtn.className = 'move-btn down';
             downBtn.textContent = '↓';
             downBtn.disabled = index === this.currentNumbers.length - 1; // Disable if last item
             downBtn.addEventListener('click', () => this.moveDown(index));
             
-            moveButtons.appendChild(upBtn);
-            moveButtons.appendChild(downBtn);
+            // Add buttons and number to card
+            numberCard.appendChild(upBtn);
+            numberCard.appendChild(numberValue);
+            numberCard.appendChild(downBtn);
             
-            // Create number card
-            const numberCard = document.createElement('div');
-            numberCard.className = 'number-card';
-            numberCard.textContent = number;
-            numberCard.dataset.number = number;
-            numberCard.dataset.index = index;
-            
-            // Add to row
-            numberRow.appendChild(moveButtons);
+            // Add card to row
             numberRow.appendChild(numberCard);
             
             // Add to container

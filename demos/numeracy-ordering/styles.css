@@ -210,42 +210,44 @@ header p {
 }
 
 .number-row {
-    display: flex;
-    align-items: center;
-    gap: 15px;
     width: 100%;
-    max-width: 300px;
+    max-width: 200px;
 }
 
 .number-card {
     background: white;
     border: 3px solid #ddd;
     border-radius: 15px;
-    padding: 15px 20px;
-    font-size: 1.8rem;
-    font-weight: bold;
     color: #333;
     user-select: none;
     transition: all 0.3s ease;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
-    flex: 1;
-}
-
-.move-buttons {
+    position: relative;
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.number-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 10px 0;
 }
 
 .move-btn {
-    width: 40px;
-    height: 40px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     background: #667eea;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -254,16 +256,24 @@ header p {
     justify-content: center;
 }
 
+.move-btn.up {
+    top: 8px;
+}
+
+.move-btn.down {
+    bottom: 8px;
+}
+
 .move-btn:hover {
     background: #5a67d8;
-    transform: translateY(-1px);
+    transform: translateX(-50%) scale(1.1);
     box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }
 
 .move-btn:disabled {
     background: #ccc;
     cursor: not-allowed;
-    transform: none;
+    transform: translateX(-50%);
     box-shadow: none;
 }
 
