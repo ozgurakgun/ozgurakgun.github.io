@@ -8,6 +8,10 @@
     user-select: none;
 }
 
+.hidden {
+    display: none !important;
+}
+
 body {
     font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', 'Marker Felt', 'Trebuchet MS', sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
