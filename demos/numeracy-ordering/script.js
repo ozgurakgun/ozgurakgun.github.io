@@ -249,246 +249,75 @@ class NumeracyGame {
         this.numbersContainer.innerHTML = '';
         
         this.currentNumbers.forEach((number, index) => {
+            // Create row container
+            const numberRow = document.createElement('div');
+            numberRow.className = 'number-row';
+            
+            // Create move buttons container
+            const moveButtons = document.createElement('div');
+            moveButtons.className = 'move-buttons';
+            
+            // Create up button
+            const upBtn = document.createElement('button');
+            upBtn.className = 'move-btn';
+            upBtn.textContent = '↑';
+            upBtn.disabled = index === 0; // Disable if first item
+            upBtn.addEventListener('click', () => this.moveUp(index));
+            
+            // Create down button
+            const downBtn = document.createElement('button');
+            downBtn.className = 'move-btn';
+            downBtn.textContent = '↓';
+            downBtn.disabled = index === this.currentNumbers.length - 1; // Disable if last item
+            downBtn.addEventListener('click', () => this.moveDown(index));
+            
+            moveButtons.appendChild(upBtn);
+            moveButtons.appendChild(downBtn);
+            
+            // Create number card
             const numberCard = document.createElement('div');
             numberCard.className = 'number-card';
             numberCard.textContent = number;
-            numberCard.draggable = true;
             numberCard.dataset.number = number;
-            numberCard.dataset.originalIndex = index;
+            numberCard.dataset.index = index;
             
-            // Add drag event listeners (for desktop)
-            numberCard.addEventListener('dragstart', this.handleDragStart.bind(this));
-            numberCard.addEventListener('dragend', this.handleDragEnd.bind(this));
+            // Add to row
+            numberRow.appendChild(moveButtons);
+            numberRow.appendChild(numberCard);
             
-            // Add touch event listeners (for mobile/tablet)
-            numberCard.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
-            numberCard.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
-            numberCard.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: false });
-            
-            this.numbersContainer.appendChild(numberCard);
+            // Add to container
+            this.numbersContainer.appendChild(numberRow);
         });
-        
-        // Add drop event listeners to container (for desktop)
-        this.numbersContainer.addEventListener('dragover', this.handleDragOver.bind(this));
-        this.numbersContainer.addEventListener('drop', this.handleDrop.bind(this));
-        
-        // Initialize touch tracking variables
-        this.touchStartX = 0;
-        this.touchStartY = 0;
-        this.isDragging = false;
-        this.draggedElement = null;
     }
 
-    handleDragStart(e) {
-        e.target.classList.add('dragging');
-        e.dataTransfer.setData('text/plain', e.target.dataset.number);
-        e.dataTransfer.effectAllowed = 'move';
+    moveUp(index) {
+        if (index <= 0) return; // Can't move up if already at top
+        
+        // Swap with the item above
+        [this.currentNumbers[index], this.currentNumbers[index - 1]] = 
+        [this.currentNumbers[index - 1], this.currentNumbers[index]];
+        
+        // Re-render the numbers
+        this.renderNumbers();
     }
 
-    handleDragEnd(e) {
-        e.target.classList.remove('dragging');
-        // Remove drop-target class from all cards
-        document.querySelectorAll('.number-card').forEach(card => {
-            card.classList.remove('drop-target');
-        });
-        // Hide drop indicator
-        this.hideDropIndicator();
-    }
-
-    handleDragOver(e) {
-        e.preventDefault();
-        e.dataTransfer.dropEffect = 'move';
+    moveDown(index) {
+        if (index >= this.currentNumbers.length - 1) return; // Can't move down if already at bottom
         
-        const afterElement = this.getDragAfterElement(this.numbersContainer, e.clientX);
-        this.showDropIndicator(afterElement, e.clientX);
-    }
-
-    handleDrop(e) {
-        e.preventDefault();
-        const draggedNumber = e.dataTransfer.getData('text/plain');
-        const dragging = document.querySelector('.dragging');
+        // Swap with the item below
+        [this.currentNumbers[index], this.currentNumbers[index + 1]] = 
+        [this.currentNumbers[index + 1], this.currentNumbers[index]];
         
-        if (!dragging) return;
-        
-        const afterElement = this.getDragAfterElement(this.numbersContainer, e.clientX);
-        
-        if (afterElement == null) {
-            this.numbersContainer.appendChild(dragging);
-        } else {
-            this.numbersContainer.insertBefore(dragging, afterElement);
-        }
-        
-        // Hide drop indicator
-        this.hideDropIndicator();
-        
-        // Update currentNumbers array based on new order
-        this.updateCurrentOrder();
-    }
-
-    getDragAfterElement(container, x) {
-        const draggableElements = [...container.querySelectorAll('.number-card:not(.dragging)')];
-        
-        return draggableElements.reduce((closest, child) => {
-            const box = child.getBoundingClientRect();
-            const offset = x - box.left - box.width / 2;
-            
-            if (offset < 0 && offset > closest.offset) {
-                return { offset: offset, element: child };
-            } else {
-                return closest;
-            }
-        }, { offset: Number.NEGATIVE_INFINITY }).element;
+        // Re-render the numbers
+        this.renderNumbers();
     }
 
     updateCurrentOrder() {
-        const numberCards = this.numbersContainer.querySelectorAll('.number-card');
-        this.currentNumbers = Array.from(numberCards).map(card => parseInt(card.dataset.number));
-    }
-
-    // Touch event handlers for mobile/tablet support
-    handleTouchStart(e) {
-        e.preventDefault();
-        const touch = e.touches[0];
-        this.touchStartX = touch.clientX;
-        this.touchStartY = touch.clientY;
-        this.draggedElement = e.target;
-        this.isDragging = false;
-        
-        // Add visual feedback
-        e.target.classList.add('dragging');
-    }
-
-    handleTouchMove(e) {
-        e.preventDefault();
-        if (!this.draggedElement) return;
-        
-        const touch = e.touches[0];
-        const deltaX = Math.abs(touch.clientX - this.touchStartX);
-        const deltaY = Math.abs(touch.clientY - this.touchStartY);
-        
-        // Start dragging if moved enough
-        if (!this.isDragging && (deltaX > 10 || deltaY > 10)) {
-            this.isDragging = true;
-        }
-        
-        if (this.isDragging) {
-            // Move the element visually
-            this.draggedElement.style.position = 'fixed';
-            this.draggedElement.style.zIndex = '1000';
-            this.draggedElement.style.left = (touch.clientX - 40) + 'px';
-            this.draggedElement.style.top = (touch.clientY - 30) + 'px';
-            this.draggedElement.style.transform = 'rotate(5deg)';
-            this.draggedElement.style.opacity = '0.8';
-            this.draggedElement.style.pointerEvents = 'none';
-            
-            // Show drop indicator
-            const afterElement = this.getTouchDropPosition(touch.clientX, touch.clientY);
-            this.showDropIndicator(afterElement, touch.clientX);
-        }
-    }
-
-    handleTouchEnd(e) {
-        e.preventDefault();
-        if (!this.draggedElement) return;
-        
-        // Reset visual state
-        this.draggedElement.style.position = '';
-        this.draggedElement.style.zIndex = '';
-        this.draggedElement.style.left = '';
-        this.draggedElement.style.top = '';
-        this.draggedElement.style.transform = '';
-        this.draggedElement.style.opacity = '';
-        this.draggedElement.style.pointerEvents = '';
-        this.draggedElement.classList.remove('dragging');
-        
-        // Hide drop indicator
-        this.hideDropIndicator();
-        
-        if (this.isDragging) {
-            // Find where to drop using the same logic as desktop drag & drop
-            const touch = e.changedTouches[0];
-            const afterElement = this.getTouchDropPosition(touch.clientX, touch.clientY);
-            
-            if (afterElement == null) {
-                // Drop at the end
-                this.numbersContainer.appendChild(this.draggedElement);
-            } else {
-                // Drop before the target element
-                this.numbersContainer.insertBefore(this.draggedElement, afterElement);
-            }
-            
-            this.updateCurrentOrder();
-        }
-        
-        // Reset touch tracking
-        this.draggedElement = null;
-        this.isDragging = false;
-        this.touchStartX = 0;
-        this.touchStartY = 0;
-    }
-
-    getTouchDropPosition(x, y) {
-        // Get all number cards except the one being dragged
-        const draggableElements = [...this.numbersContainer.querySelectorAll('.number-card:not(.dragging)')];
-        
-        return draggableElements.reduce((closest, child) => {
-            const box = child.getBoundingClientRect();
-            const offset = x - box.left - box.width / 2;
-            
-            if (offset < 0 && offset > closest.offset) {
-                return { offset: offset, element: child };
-            } else {
-                return closest;
-            }
-        }, { offset: Number.NEGATIVE_INFINITY }).element;
-    }
-
-    showDropIndicator(afterElement, x) {
-        // Instead of just showing an indicator, show a live preview of the layout
-        this.showDropPreview(afterElement);
-    }
-
-    showDropPreview(afterElement) {
-        const dragging = document.querySelector('.dragging');
-        if (!dragging) return;
-        
-        // Create a temporary clone for preview
-        const draggedClone = dragging.cloneNode(true);
-        draggedClone.classList.remove('dragging');
-        draggedClone.classList.add('drop-preview');
-        draggedClone.style.opacity = '0.5';
-        draggedClone.style.transform = 'scale(0.95)';
-        draggedClone.style.border = '2px dashed #4CAF50';
-        
-        // Remove any existing preview
-        const existingPreview = document.querySelector('.drop-preview');
-        if (existingPreview) {
-            existingPreview.remove();
-        }
-        
-        // Insert the preview at the target position
-        if (afterElement == null) {
-            this.numbersContainer.appendChild(draggedClone);
-        } else {
-            this.numbersContainer.insertBefore(draggedClone, afterElement);
-        }
-    }
-
-    hideDropIndicator() {
-        const indicator = document.getElementById('drop-indicator');
-        if (indicator) {
-            indicator.remove();
-        }
-        // Also remove any drop preview
-        const preview = document.querySelector('.drop-preview');
-        if (preview) {
-            preview.remove();
-        }
+        // Numbers are already in the correct order in this.currentNumbers
+        // This method is kept for compatibility but doesn't need to do anything
     }
 
     checkAnswer() {
-        this.updateCurrentOrder();
-        
         const isCorrect = this.arraysEqual(this.currentNumbers, this.correctOrder);
         
         if (isCorrect) {
