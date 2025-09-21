@@ -45,7 +45,7 @@ class NumeracyGame {
         this.playBtn.addEventListener('click', () => this.startGame());
         this.backBtn.addEventListener('click', () => this.showSettingsScreen());
         this.checkBtn.addEventListener('click', () => this.checkAnswer());
-        this.tryAgainBtn.addEventListener('click', () => this.startGame());
+        this.tryAgainBtn.addEventListener('click', () => this.tryAgain());
         this.newGameBtn.addEventListener('click', () => this.showSettingsScreen());
     }
 
@@ -229,6 +229,12 @@ class NumeracyGame {
         this.generateNumbers();
         this.renderNumbers();
         this.updateInstruction();
+        this.showGameScreen();
+    }
+
+    tryAgain() {
+        // Keep the exact same order from the previous attempt
+        this.renderNumbers();
         this.showGameScreen();
     }
 
