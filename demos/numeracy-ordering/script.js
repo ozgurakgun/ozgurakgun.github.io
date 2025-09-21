@@ -250,16 +250,27 @@ class NumeracyGame {
             numberCard.dataset.number = number;
             numberCard.dataset.originalIndex = index;
             
-            // Add drag event listeners
+            // Add drag event listeners (for desktop)
             numberCard.addEventListener('dragstart', this.handleDragStart.bind(this));
             numberCard.addEventListener('dragend', this.handleDragEnd.bind(this));
+            
+            // Add touch event listeners (for mobile/tablet)
+            numberCard.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
+            numberCard.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
+            numberCard.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: false });
             
             this.numbersContainer.appendChild(numberCard);
         });
         
-        // Add drop event listeners to container
+        // Add drop event listeners to container (for desktop)
         this.numbersContainer.addEventListener('dragover', this.handleDragOver.bind(this));
         this.numbersContainer.addEventListener('drop', this.handleDrop.bind(this));
+        
+        // Initialize touch tracking variables
+        this.touchStartX = 0;
+        this.touchStartY = 0;
+        this.isDragging = false;
+        this.draggedElement = null;
     }
 
     handleDragStart(e) {
@@ -336,6 +347,97 @@ class NumeracyGame {
     updateCurrentOrder() {
         const numberCards = this.numbersContainer.querySelectorAll('.number-card');
         this.currentNumbers = Array.from(numberCards).map(card => parseInt(card.dataset.number));
+    }
+
+    // Touch event handlers for mobile/tablet support
+    handleTouchStart(e) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        this.touchStartX = touch.clientX;
+        this.touchStartY = touch.clientY;
+        this.draggedElement = e.target;
+        this.isDragging = false;
+        
+        // Add visual feedback
+        e.target.classList.add('dragging');
+    }
+
+    handleTouchMove(e) {
+        e.preventDefault();
+        if (!this.draggedElement) return;
+        
+        const touch = e.touches[0];
+        const deltaX = Math.abs(touch.clientX - this.touchStartX);
+        const deltaY = Math.abs(touch.clientY - this.touchStartY);
+        
+        // Start dragging if moved enough
+        if (!this.isDragging && (deltaX > 10 || deltaY > 10)) {
+            this.isDragging = true;
+        }
+        
+        if (this.isDragging) {
+            // Move the element visually
+            this.draggedElement.style.position = 'fixed';
+            this.draggedElement.style.zIndex = '1000';
+            this.draggedElement.style.left = (touch.clientX - 40) + 'px';
+            this.draggedElement.style.top = (touch.clientY - 30) + 'px';
+            this.draggedElement.style.transform = 'rotate(5deg)';
+            this.draggedElement.style.opacity = '0.8';
+            
+            // Find element under touch point
+            const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+            
+            // Remove previous drop-target highlights
+            document.querySelectorAll('.number-card').forEach(card => {
+                card.classList.remove('drop-target');
+            });
+            
+            // Highlight drop target
+            if (elementBelow && elementBelow.classList.contains('number-card') && elementBelow !== this.draggedElement) {
+                elementBelow.classList.add('drop-target');
+            }
+        }
+    }
+
+    handleTouchEnd(e) {
+        e.preventDefault();
+        if (!this.draggedElement) return;
+        
+        // Reset visual state
+        this.draggedElement.style.position = '';
+        this.draggedElement.style.zIndex = '';
+        this.draggedElement.style.left = '';
+        this.draggedElement.style.top = '';
+        this.draggedElement.style.transform = '';
+        this.draggedElement.style.opacity = '';
+        this.draggedElement.classList.remove('dragging');
+        
+        // Remove drop-target highlights
+        document.querySelectorAll('.number-card').forEach(card => {
+            card.classList.remove('drop-target');
+        });
+        
+        if (this.isDragging) {
+            // Find where to drop
+            const touch = e.changedTouches[0];
+            const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+            
+            if (elementBelow && elementBelow.classList.contains('number-card') && elementBelow !== this.draggedElement) {
+                // Insert before the target element
+                this.numbersContainer.insertBefore(this.draggedElement, elementBelow);
+                this.updateCurrentOrder();
+            } else if (elementBelow === this.numbersContainer || this.numbersContainer.contains(elementBelow)) {
+                // Dropped in container but not on a specific card - append to end
+                this.numbersContainer.appendChild(this.draggedElement);
+                this.updateCurrentOrder();
+            }
+        }
+        
+        // Reset touch tracking
+        this.draggedElement = null;
+        this.isDragging = false;
+        this.touchStartX = 0;
+        this.touchStartY = 0;
     }
 
     checkAnswer() {
