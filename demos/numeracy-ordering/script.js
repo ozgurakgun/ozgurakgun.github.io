@@ -505,9 +505,10 @@ class NumeracyGame {
     }
 
     showSuccess() {
-        this.resultMessage.textContent = '🎉 Well done! Do you want to try again?';
+        this.resultMessage.textContent = '🎉 Well done! Great job!';
         this.resultMessage.className = 'result-message success';
         this.mistakesContainer.classList.add('hidden');
+        this.tryAgainBtn.classList.add('hidden');
     }
 
     showMistakes() {
@@ -516,6 +517,7 @@ class NumeracyGame {
         this.resultMessage.className = 'result-message error';
         
         this.mistakesContainer.classList.remove('hidden');
+        this.tryAgainBtn.classList.remove('hidden');
         this.mistakesList.innerHTML = '';
         
         // Show the correct order
