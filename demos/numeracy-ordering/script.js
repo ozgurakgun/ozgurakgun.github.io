@@ -444,41 +444,45 @@ class NumeracyGame {
     }
 
     showDropIndicator(afterElement, x) {
-        // Remove existing indicator
-        this.hideDropIndicator();
+        // Instead of just showing an indicator, show a live preview of the layout
+        this.showDropPreview(afterElement);
+    }
+
+    showDropPreview(afterElement) {
+        const dragging = document.querySelector('.dragging');
+        if (!dragging) return;
         
-        // Create new indicator
-        const indicator = document.createElement('div');
-        indicator.className = 'drop-indicator';
-        indicator.id = 'drop-indicator';
+        // Create a temporary clone for preview
+        const draggedClone = dragging.cloneNode(true);
+        draggedClone.classList.remove('dragging');
+        draggedClone.classList.add('drop-preview');
+        draggedClone.style.opacity = '0.5';
+        draggedClone.style.transform = 'scale(0.95)';
+        draggedClone.style.border = '2px dashed #4CAF50';
         
-        // Position the indicator
-        const containerRect = this.numbersContainer.getBoundingClientRect();
-        
-        if (afterElement == null) {
-            // Position at the end
-            const cards = [...this.numbersContainer.querySelectorAll('.number-card:not(.dragging)')];
-            if (cards.length > 0) {
-                const lastCard = cards[cards.length - 1];
-                const lastCardRect = lastCard.getBoundingClientRect();
-                indicator.style.left = (lastCardRect.right - containerRect.left + 8) + 'px';
-            } else {
-                indicator.style.left = '20px';
-            }
-        } else {
-            // Position before the target element
-            const targetRect = afterElement.getBoundingClientRect();
-            indicator.style.left = (targetRect.left - containerRect.left - 8) + 'px';
+        // Remove any existing preview
+        const existingPreview = document.querySelector('.drop-preview');
+        if (existingPreview) {
+            existingPreview.remove();
         }
         
-        indicator.style.top = '20px';
-        this.numbersContainer.appendChild(indicator);
+        // Insert the preview at the target position
+        if (afterElement == null) {
+            this.numbersContainer.appendChild(draggedClone);
+        } else {
+            this.numbersContainer.insertBefore(draggedClone, afterElement);
+        }
     }
 
     hideDropIndicator() {
         const indicator = document.getElementById('drop-indicator');
         if (indicator) {
             indicator.remove();
+        }
+        // Also remove any drop preview
+        const preview = document.querySelector('.drop-preview');
+        if (preview) {
+            preview.remove();
         }
     }
 
