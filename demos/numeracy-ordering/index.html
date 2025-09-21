@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numeracy - Ascending/Descending Order</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔢 Numeracy Challenge</h1>
+            <p>Put the numbers in order!</p>
+        </header>
+
+        <!-- Settings Screen -->
+        <div id="settings-screen" class="screen">
+            <div class="settings-card">
+                <h2>⚙️ Game Settings</h2>
+                
+                <div class="setting-group">
+                    <label for="digits">How many digits?</label>
+                    <select id="digits">
+                        <option value="1">1 digit (1-9)</option>
+                        <option value="2" selected>2 digits (10-99)</option>
+                        <option value="3">3 digits (100-999)</option>
+                        <option value="4">4 digits (1000-9999)</option>
+                        <option value="5">5 digits (10000-99999)</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label for="difficulty">Difficulty:</label>
+                    <select id="difficulty">
+                        <option value="basic" selected>Basic</option>
+                        <option value="spicy">Spicy (Similar numbers)</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label for="count">How many numbers?</label>
+                    <select id="count">
+                        <option value="2">2 numbers</option>
+                        <option value="3">3 numbers</option>
+                        <option value="4">4 numbers</option>
+                        <option value="5" selected>5 numbers</option>
+                        <option value="6">6 numbers</option>
+                        <option value="7">7 numbers</option>
+                        <option value="8">8 numbers</option>
+                        <option value="9">9 numbers</option>
+                        <option value="10">10 numbers</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label for="order">Order:</label>
+                    <select id="order">
+                        <option value="ascending">Ascending (small to big)</option>
+                        <option value="descending">Descending (big to small)</option>
+                        <option value="random" selected>Random (surprise!)</option>
+                    </select>
+                </div>
+
+                <button id="play-btn" class="play-button">🎮 Let's Play!</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen hidden">
+            <div class="game-info">
+                <div id="instruction" class="instruction"></div>
+                <div class="game-controls">
+                    <button id="back-btn" class="secondary-button">⬅️ Back to Settings</button>
+                    <button id="check-btn" class="check-button">✅ Check Answer</button>
+                </div>
+            </div>
+            
+            <div id="numbers-container" class="numbers-container">
+                <!-- Numbers will be inserted here -->
+            </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" class="screen hidden">
+            <div class="result-card">
+                <div id="result-message" class="result-message"></div>
+                <div id="mistakes-container" class="mistakes-container hidden">
+                    <h3>Let's fix these:</h3>
+                    <div id="mistakes-list"></div>
+                </div>
+                <div class="result-buttons">
+                    <button id="try-again-btn" class="play-button">🔄 Try Again</button>
+                    <button id="new-game-btn" class="secondary-button">⚙️ New Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
