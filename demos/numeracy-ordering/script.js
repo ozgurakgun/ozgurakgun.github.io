@@ -383,18 +383,25 @@ class NumeracyGame {
             this.draggedElement.style.top = (touch.clientY - 30) + 'px';
             this.draggedElement.style.transform = 'rotate(5deg)';
             this.draggedElement.style.opacity = '0.8';
-            
-            // Find element under touch point
-            const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+            this.draggedElement.style.pointerEvents = 'none';
             
             // Remove previous drop-target highlights
             document.querySelectorAll('.number-card').forEach(card => {
                 card.classList.remove('drop-target');
             });
             
-            // Highlight drop target
-            if (elementBelow && elementBelow.classList.contains('number-card') && elementBelow !== this.draggedElement) {
-                elementBelow.classList.add('drop-target');
+            // Find the drop position and highlight accordingly
+            const afterElement = this.getTouchDropPosition(touch.clientX, touch.clientY);
+            
+            if (afterElement == null) {
+                // Would drop at the end - highlight the last card
+                const cards = [...this.numbersContainer.querySelectorAll('.number-card:not(.dragging)')];
+                if (cards.length > 0) {
+                    cards[cards.length - 1].classList.add('drop-target');
+                }
+            } else {
+                // Would drop before this element - highlight it
+                afterElement.classList.add('drop-target');
             }
         }
     }
@@ -410,6 +417,7 @@ class NumeracyGame {
         this.draggedElement.style.top = '';
         this.draggedElement.style.transform = '';
         this.draggedElement.style.opacity = '';
+        this.draggedElement.style.pointerEvents = '';
         this.draggedElement.classList.remove('dragging');
         
         // Remove drop-target highlights
@@ -418,19 +426,19 @@ class NumeracyGame {
         });
         
         if (this.isDragging) {
-            // Find where to drop
+            // Find where to drop using the same logic as desktop drag & drop
             const touch = e.changedTouches[0];
-            const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+            const afterElement = this.getTouchDropPosition(touch.clientX, touch.clientY);
             
-            if (elementBelow && elementBelow.classList.contains('number-card') && elementBelow !== this.draggedElement) {
-                // Insert before the target element
-                this.numbersContainer.insertBefore(this.draggedElement, elementBelow);
-                this.updateCurrentOrder();
-            } else if (elementBelow === this.numbersContainer || this.numbersContainer.contains(elementBelow)) {
-                // Dropped in container but not on a specific card - append to end
+            if (afterElement == null) {
+                // Drop at the end
                 this.numbersContainer.appendChild(this.draggedElement);
-                this.updateCurrentOrder();
+            } else {
+                // Drop before the target element
+                this.numbersContainer.insertBefore(this.draggedElement, afterElement);
             }
+            
+            this.updateCurrentOrder();
         }
         
         // Reset touch tracking
@@ -438,6 +446,22 @@ class NumeracyGame {
         this.isDragging = false;
         this.touchStartX = 0;
         this.touchStartY = 0;
+    }
+
+    getTouchDropPosition(x, y) {
+        // Get all number cards except the one being dragged
+        const draggableElements = [...this.numbersContainer.querySelectorAll('.number-card:not(.dragging)')];
+        
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = x - box.left - box.width / 2;
+            
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
     }
 
     checkAnswer() {
