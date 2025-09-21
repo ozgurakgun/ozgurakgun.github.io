@@ -198,10 +198,10 @@ class NumeracyGame {
         const newNum = parseInt(newDigits.join(''));
         
         if (min && max && (newNum < min || newNum > max)) {
-            return parseInt(digits.join(''));
+            return digits.slice(); // Return the original digits array
         }
         
-        return newNum;
+        return newDigits; // Return the modified digits array
     }
 
     reverseSubstring(digits) {
