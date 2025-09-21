@@ -38,6 +38,7 @@ class NumeracyGame {
         this.mistakesContainer = document.getElementById('mistakes-container');
         this.mistakesList = document.getElementById('mistakes-list');
         this.tryAgainBtn = document.getElementById('try-again-btn');
+        this.showAnswerBtn = document.getElementById('show-answer-btn');
         this.newGameBtn = document.getElementById('new-game-btn');
     }
 
@@ -46,6 +47,7 @@ class NumeracyGame {
         this.backBtn.addEventListener('click', () => this.showSettingsScreen());
         this.checkBtn.addEventListener('click', () => this.checkAnswer());
         this.tryAgainBtn.addEventListener('click', () => this.tryAgain());
+        this.showAnswerBtn.addEventListener('click', () => this.showMyAnswer());
         this.newGameBtn.addEventListener('click', () => this.showSettingsScreen());
     }
 
@@ -239,6 +241,11 @@ class NumeracyGame {
         this.showGameScreen();
     }
 
+    showMyAnswer() {
+        // Go back to the game screen with the user's answer
+        this.showGameScreen();
+    }
+
     updateInstruction() {
         const orderText = this.currentOrderType === 'ascending' 
             ? 'ascending (smallest to biggest)' 
@@ -344,15 +351,31 @@ class NumeracyGame {
         this.resultMessage.className = 'result-message success';
         this.mistakesContainer.classList.add('hidden');
         this.tryAgainBtn.classList.add('hidden');
+        this.showAnswerBtn.classList.remove('hidden');
     }
 
     showMistakes() {
         const orderText = this.currentOrderType === 'ascending' ? 'ascending' : 'descending';
-        this.resultMessage.textContent = `Not quite right! Let's see what needs fixing:`;
+        
+        // Check if user sorted correctly but in wrong direction
+        const wrongDirectionOrder = [...this.currentNumbers].sort((a, b) => {
+            return this.currentOrderType === 'ascending' ? b - a : a - b; // Opposite direction
+        });
+        
+        const isWrongDirection = this.arraysEqual(this.currentNumbers, wrongDirectionOrder);
+        
+        if (isWrongDirection) {
+            const wrongOrderText = this.currentOrderType === 'ascending' ? 'descending' : 'ascending';
+            this.resultMessage.textContent = `Almost! You sorted in ${wrongOrderText} order, but we asked for ${orderText} order.`;
+        } else {
+            this.resultMessage.textContent = `Not quite right! Let's see what needs fixing:`;
+        }
+        
         this.resultMessage.className = 'result-message error';
         
         this.mistakesContainer.classList.remove('hidden');
         this.tryAgainBtn.classList.remove('hidden');
+        this.showAnswerBtn.classList.add('hidden');
         this.mistakesList.innerHTML = '';
         
         // Show the correct order
