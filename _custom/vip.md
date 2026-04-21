@@ -39,6 +39,8 @@ Also consider that most students remain in the VIP for multiple semesters; this 
 
 **Notice:** If you are applying to join the VIP for the 2026-27 academic year, make sure you submit your application by the 11th of May deadline. This deadline is a lot earlier than previous years. This also meant we couldn't record a **2026 promo video** yet, but we probably will record one soon.
 
+**Notice 2:** 3rd year CS students will have the option to take the VIP instead of CS3099 next year. Please get in touch if you have any questions about this.
+
 Use the official method of application as detailed on the [University VIP web pages](https://www.st-andrews.ac.uk/education/vip/).
 
 In addition, I strongly encourage interested students to get in touch and have a conversation. Bonus points if you solve [the crystal maze puzzle](https://ozgurakgun.github.io/demos/maze) and tell me about your experience in your email :)
