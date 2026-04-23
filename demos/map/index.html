@@ -32,6 +32,18 @@
             display: block;
         }
 
+        #canvasContainer {
+            position: relative;
+            display: inline-block;
+        }
+
+        #debugCanvas {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            display: none;
+        }
+
         #loadingSpinner {
             display: none;
             margin-left: 10px;
@@ -59,24 +71,30 @@
         theorem to be proven using a computer, marking a milestone in mathematics. </p> -->
 
 
-    <div id="toolbar">
-        <button id="resetButton" class="btn btn-danger me-2 mb-2">Reset</button>
-        <button id="saveButton" class="btn btn-success me-2 mb-2">Save</button>
-        <input type="file" id="loadInput" accept=".json" style="display:none;">
-        <button id="loadButton" class="btn btn-info me-2 mb-2">Load</button>
+        <div id="toolbar">
+            <button id="resetButton" class="btn btn-danger me-2 mb-2">Reset</button>
+            <button id="saveButton" class="btn btn-success me-2 mb-2">Save</button>
+            <input type="file" id="loadInput" accept=".json" style="display:none;">
+            <button id="loadButton" class="btn btn-info me-2 mb-2">Load</button>
         <!-- Loading Spinner and Label -->
         <div id="loadingSpinner" class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
         <span id="loadingLabel" style="display: none; margin-left: 5px;"></span>
+        <button id="debugOverlayButton" class="btn btn-outline-secondary btn-sm ms-2 mb-2" style="display:none;">Show debug overlay</button>
     </div>
-    <canvas id="drawingCanvas"></canvas>
+    <div id="canvasContainer">
+        <canvas id="drawingCanvas"></canvas>
+        <canvas id="debugCanvas"></canvas>
+    </div>
     <!-- Include Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Set up canvas size
         const canvas = document.getElementById('drawingCanvas');
         const ctx = canvas.getContext('2d');
+        const debugCanvas = document.getElementById('debugCanvas');
+        const debugCtx = debugCanvas.getContext('2d');
 
         // Adjust canvas size
         function resizeCanvas() {
@@ -88,6 +106,8 @@
 
             canvas.width = window.innerWidth - horizontalMargin;
             canvas.height = window.innerHeight - toolbarHeight - headerHeight - paragraphHeight - verticalMargin;
+            debugCanvas.width = canvas.width;
+            debugCanvas.height = canvas.height;
         }
 
         resizeCanvas();
@@ -106,6 +126,7 @@
         const loadInput = document.getElementById('loadInput');
         const loadingSpinner = document.getElementById('loadingSpinner');
         const loadingLabel = document.getElementById('loadingLabel');
+        const debugOverlayButton = document.getElementById('debugOverlayButton');
 
         let drawing = false;
         let paths = []; // Array of paths drawn
@@ -115,7 +136,12 @@
         let regionCount = 0;
         let colouringResult = null; // To store the colouring result
         let regionPixels = {}; // Data structure to store pixels per region
+        let latestWallMask = null;
+        let debugOverlayEnabled = false;
         const lineThickness = 3; // Line thickness used in drawing
+        const wallDarknessThreshold = 200;
+        const wallExpansionRadius = Math.max(1, Math.floor(lineThickness / 2));
+        const adjacencyProbeDistance = lineThickness + 2;
 
         // Variables to store previous adjacency data
         let previousAdjacencyPairs = null;
@@ -164,6 +190,8 @@
             const pixels = imageData.data;
             const width = canvas.width;
             const height = canvas.height;
+            const wallMask = buildWallMask(pixels, width, height);
+            latestWallMask = wallMask;
 
             const visited = new Uint8Array(width * height);
             pixelRegionMap = new Uint16Array(width * height);
@@ -175,64 +203,15 @@
             for (let y = 0; y < height; y++) {
                 for (let x = 0; x < width; x++) {
                     const idx = y * width + x;
-                    if (!visited[idx] && !isBlack(pixels, x, y, width, height)) {
-                        floodFill(x, y, visited, pixels, width, height, pixelRegionMap, regionID);
+                    if (!visited[idx] && !isWall(wallMask, x, y, width, height)) {
+                        floodFill(x, y, visited, wallMask, width, height, pixelRegionMap, regionID);
                         regionID++;
                     }
                 }
             }
             regionCount = regionID - 1;
 
-            const adjacencyList = {};
-            for (let i = 1; i <= regionCount; i++) {
-                adjacencyList[i] = new Set();
-            }
-
-            // Morphological dilation to detect adjacency
-            const dilatedLabels = new Uint16Array(width * height);
-
-            // Create a structuring element for dilation
-            const structuringElement = createStructuringElement(lineThickness);
-
-            for (let regionID in regionPixels) {
-                const pixelIndices = regionPixels[regionID];
-                const regionMask = new Uint8Array(width * height);
-
-                // Create mask for the region
-                for (let idx of pixelIndices) {
-                    regionMask[idx] = 1;
-                }
-
-                // Dilate the region mask
-                const dilatedMask = dilate(regionMask, width, height, structuringElement);
-
-                // Assign labels and detect overlaps
-                for (let idx = 0; idx < dilatedMask.length; idx++) {
-                    if (dilatedMask[idx]) {
-                        if (dilatedLabels[idx] === 0) {
-                            dilatedLabels[idx] = parseInt(regionID);
-                        } else if (dilatedLabels[idx] !== parseInt(regionID)) {
-                            // Regions are adjacent
-                            const regionA = parseInt(regionID);
-                            const regionB = dilatedLabels[idx];
-                            adjacencyList[regionA].add(regionB);
-                            adjacencyList[regionB].add(regionA);
-                        }
-                    }
-                }
-            }
-
-            // Create list of adjacency pairs
-            const adjacencyPairs = [];
-            for (let region in adjacencyList) {
-                const neighbours = Array.from(adjacencyList[region]);
-                for (let neighbour of neighbours) {
-                    const pair = [parseInt(region) - 1, neighbour - 1].sort((a, b) => a - b);
-                    adjacencyPairs.push(pair);
-                }
-            }
-            // Remove duplicate pairs
-            const uniquePairs = Array.from(new Set(adjacencyPairs.map(JSON.stringify)), JSON.parse);
+            const uniquePairs = buildAdjacencyPairs(wallMask, width, height, pixelRegionMap, regionCount);
 
             // Output the results to the console
             console.log(`Number of regions: ${regionCount}`);
@@ -248,6 +227,7 @@
                 // Hide loading spinner and label
                 loadingSpinner.style.display = 'none';
                 loadingLabel.style.display = 'none';
+                renderDebugOverlay();
             } else {
                 // Update the previous adjacency data
                 previousRegionCount = regionCount;
@@ -258,20 +238,95 @@
             }
         }
 
-        function isBlack(pixels, x, y, width, height) {
-            // Treat canvas edges as black pixels
+        function getRegionDebugColour(regionID) {
+            const hue = (regionID * 57) % 360;
+            return `hsla(${hue}, 80%, 55%, 0.35)`;
+        }
+
+        function renderDebugOverlay() {
+            debugCtx.clearRect(0, 0, debugCanvas.width, debugCanvas.height);
+
+            if (!debugOverlayEnabled || !latestWallMask || !pixelRegionMap) {
+                debugCanvas.style.display = 'none';
+                return;
+            }
+
+            const width = canvas.width;
+            const height = canvas.height;
+
+            debugCanvas.style.display = 'block';
+
+            for (let idx = 0; idx < latestWallMask.length; idx++) {
+                const x = idx % width;
+                const y = Math.floor(idx / width);
+
+                if (latestWallMask[idx]) {
+                    debugCtx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+                    debugCtx.fillRect(x, y, 1, 1);
+                    continue;
+                }
+
+                const regionID = pixelRegionMap[idx];
+                if (regionID > 0) {
+                    debugCtx.fillStyle = getRegionDebugColour(regionID);
+                    debugCtx.fillRect(x, y, 1, 1);
+                }
+            }
+        }
+
+        function setDebugOverlayEnabled(enabled) {
+            debugOverlayEnabled = enabled;
+            debugOverlayButton.textContent = enabled ? 'Hide debug overlay' : 'Show debug overlay';
+            renderDebugOverlay();
+        }
+
+        function setDebugOverlayButtonVisible(visible) {
+            debugOverlayButton.style.display = visible ? 'inline-block' : 'none';
+            if (!visible) {
+                setDebugOverlayEnabled(false);
+            }
+        }
+
+        function isWall(mask, x, y, width, height) {
             if (x === 0 || x === width - 1 || y === 0 || y === height - 1) {
                 return true;
             }
-            const index = (y * width + x) * 4;
-            const r = pixels[index];
-            const g = pixels[index + 1];
-            const b = pixels[index + 2];
-            // Assuming black is (0, 0, 0)
-            return r === 0 && g === 0 && b === 0;
+            return mask[y * width + x] === 1;
         }
 
-        function floodFill(x, y, visited, pixels, width, height, pixelRegionMap, regionID) {
+        function buildWallMask(pixels, width, height) {
+            const wallMask = new Uint8Array(width * height);
+
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const idx = y * width + x;
+
+                    if (x === 0 || x === width - 1 || y === 0 || y === height - 1) {
+                        wallMask[idx] = 1;
+                        continue;
+                    }
+
+                    const pixelIdx = idx * 4;
+                    const alpha = pixels[pixelIdx + 3];
+                    const r = pixels[pixelIdx];
+                    const g = pixels[pixelIdx + 1];
+                    const b = pixels[pixelIdx + 2];
+                    const darkness = (r + g + b) / 3;
+
+                    if (alpha > 0 && darkness <= wallDarknessThreshold) {
+                        wallMask[idx] = 1;
+                    }
+                }
+            }
+
+            if (wallExpansionRadius > 0) {
+                return dilate(wallMask, width, height, createStructuringElement(wallExpansionRadius));
+            }
+
+            return wallMask;
+        }
+
+        function floodFill(x, y, visited, wallMask, width, height, pixelRegionMap, regionID) {
             const stack = [];
             stack.push({ x: x, y: y });
 
@@ -286,7 +341,7 @@
                 if (px < 0 || px >= width || py < 0 || py >= height) continue;
                 const idx = py * width + px;
                 if (visited[idx]) continue;
-                if (isBlack(pixels, px, py, width, height)) continue;
+                if (isWall(wallMask, px, py, width, height)) continue;
 
                 visited[idx] = 1;
                 pixelRegionMap[idx] = regionID;
@@ -297,6 +352,56 @@
                 stack.push({ x: px, y: py + 1 });
                 stack.push({ x: px, y: py - 1 });
             }
+        }
+
+        function findRegionAcrossWall(x, y, dx, dy, wallMask, width, height, pixelRegionMap) {
+            for (let step = 1; step <= adjacencyProbeDistance; step++) {
+                const nx = x + dx * step;
+                const ny = y + dy * step;
+
+                if (nx < 0 || nx >= width || ny < 0 || ny >= height) {
+                    return 0;
+                }
+
+                const idx = ny * width + nx;
+                if (!wallMask[idx]) {
+                    return pixelRegionMap[idx];
+                }
+            }
+
+            return 0;
+        }
+
+        function addAdjacencyPair(pairSet, regionA, regionB) {
+            if (!regionA || !regionB || regionA === regionB) {
+                return;
+            }
+
+            const pair = [regionA - 1, regionB - 1].sort((a, b) => a - b);
+            pairSet.add(JSON.stringify(pair));
+        }
+
+        function buildAdjacencyPairs(wallMask, width, height, pixelRegionMap, regionCount) {
+            const pairSet = new Set();
+
+            for (let y = 1; y < height - 1; y++) {
+                for (let x = 1; x < width - 1; x++) {
+                    const idx = y * width + x;
+                    if (!wallMask[idx]) {
+                        continue;
+                    }
+
+                    const left = findRegionAcrossWall(x, y, -1, 0, wallMask, width, height, pixelRegionMap);
+                    const right = findRegionAcrossWall(x, y, 1, 0, wallMask, width, height, pixelRegionMap);
+                    const up = findRegionAcrossWall(x, y, 0, -1, wallMask, width, height, pixelRegionMap);
+                    const down = findRegionAcrossWall(x, y, 0, 1, wallMask, width, height, pixelRegionMap);
+
+                    addAdjacencyPair(pairSet, left, right);
+                    addAdjacencyPair(pairSet, up, down);
+                }
+            }
+
+            return Array.from(pairSet, pair => JSON.parse(pair));
         }
 
         // Create a structuring element for dilation
@@ -405,12 +510,15 @@
                     highlight(parseInt(regionID), colour);
                 }
             }
+
+            renderDebugOverlay();
         }
 
-        function giveUp(message) {
+        function giveUp(message, allowDebugOverlay = false) {
             loadingSpinner.style.display = 'none';
             loadingLabel.textContent = message + " Feel free to reset and start again.";
             loadingLabel.style.display = 'inline';
+            setDebugOverlayButtonVisible(allowDebugOverlay);
         }
 
         // Add the colourRegions function
@@ -454,9 +562,11 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
                 console.log(result.solution);
                 if (result.solution && result.solution.length > 0) {
                     colouringResult = result.solution[0].colouring;
+                    setDebugOverlayButtonVisible(false);
                 } else {
                     colouringResult = {};
-                    giveUp("Something went wrong when detecting regions, sorry!");
+                    canvas.style.pointerEvents = 'auto';
+                    giveUp("Something went wrong when detecting regions, sorry!", true);
                     return;
                 }
                 canvas.style.pointerEvents = 'auto';
@@ -467,7 +577,8 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
                 loadingLabel.style.display = 'none';
             }).catch(error => {
                 console.error("Solver Error:", error);
-                giveUp("Something went wrong when colouring this map, sorry!");
+                canvas.style.pointerEvents = 'auto';
+                giveUp("Something went wrong when colouring this map, sorry!", true);
                 return;
             });
         }
@@ -497,6 +608,8 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
             // Redraw the regions if colouringResult exists
             if (colouringResult) {
                 drawRegions();
+            } else {
+                renderDebugOverlay();
             }
         }
 
@@ -512,10 +625,12 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
             pixelRegionMap = null;
             regionPixels = {};
             colouringResult = null;
+            latestWallMask = null;
             previousAdjacencyPairs = null;
             previousRegionCount = 0;
             loadingLabel.style.display = 'none';
             canvas.style.pointerEvents = 'auto';
+            setDebugOverlayButtonVisible(false);
         }
 
         function save() {
@@ -559,6 +674,7 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
         saveButton.addEventListener('click', save);
         loadButton.addEventListener('click', () => loadInput.click());
         loadInput.addEventListener('change', load);
+        debugOverlayButton.addEventListener('click', () => setDebugOverlayEnabled(!debugOverlayEnabled));
 
         canvas.addEventListener('mousedown', (event) => {
             startDrawing(event);
