@@ -205,6 +205,24 @@
             }
         }
 
+        @media (max-width: 576px) and (orientation: portrait) {
+            :root {
+                /* The board is four cells wide, so this fills almost all phone-width. */
+                --cell-size: 23vw;
+            }
+
+            #center-container {
+                gap: 1.5vmin;
+                padding-left: 0.25rem;
+                padding-right: 0.25rem;
+            }
+
+            #status,
+            #numbers {
+                width: 96vw;
+            }
+        }
+
         @media (max-width: 576px) {
             .modal-dialog {
                 max-width: 90vw;
