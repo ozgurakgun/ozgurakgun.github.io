@@ -233,8 +233,8 @@
 
         @media (max-width: 1024px) and (orientation: portrait) {
             :root {
-                /* Width-first, but shrink on short portrait screens so the bank stays visible. */
-                --cell-size: min(22.05vw, 10.5vh);
+                /* Leave room for multi-line feedback while keeping the bank visible. */
+                --cell-size: min(21vw, 9.4vh);
             }
 
             #center-container {
