@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Magic hexagon puzzle demo</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <script src="../maze/confetti.js"></script>
+
+    <!-- https://interactjs.io/ -->
+    <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.27/dist/interact.min.js"></script>
+
+    <link
+        href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII="
+        rel="icon" type="image/x-icon">
+
+    <style>
+        :root {
+            --cell-size: min(12.5vmin, 82px);
+            --cell-height: calc(var(--cell-size) * 0.8660254);
+            --cell-gap: min(1.15vmin, 8px);
+            --blue: rgb(0, 83, 155);
+            --dark: rgb(35, 31, 32);
+            --red: #ee312a;
+            --green: #108043;
+        }
+
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            touch-action: none;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background: #f7f9fc;
+        }
+
+        #instructionsLink {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 5;
+        }
+
+        #center-container {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2vmin;
+            padding: 5rem 1rem 1rem;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--dark);
+            font-size: clamp(1.6rem, 3vw, 2.6rem);
+            margin: 0;
+        }
+
+        #status {
+            min-height: 2.5rem;
+            width: min(92vw, 760px);
+            border-radius: 0.75rem;
+            padding: 0.55rem 1rem;
+            font-weight: 700;
+            white-space: pre-line;
+            opacity: 0;
+            transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+        }
+
+        #status.visible {
+            opacity: 1;
+        }
+
+        #status.good {
+            background: rgba(16, 128, 67, 0.12);
+            color: var(--green);
+        }
+
+        #status.bad {
+            background: rgba(238, 49, 42, 0.12);
+            color: var(--red);
+        }
+
+        #board {
+            position: relative;
+            width: calc(var(--cell-size) * 4);
+            height: calc(var(--cell-size) * 4.330127);
+        }
+
+        .cell,
+        .number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: var(--cell-size);
+            height: var(--cell-size);
+            font-size: calc(var(--cell-size) * 0.42);
+            font-weight: 800;
+        }
+
+        .cell {
+            position: absolute;
+            width: var(--cell-size);
+            height: var(--cell-height);
+            box-sizing: border-box;
+            clip-path: polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0 50%);
+            background: rgba(0, 83, 155, 0.08);
+            border: 2px dashed rgba(35, 31, 32, 0.6);
+        }
+
+        .cell.drop-target {
+            background: rgba(0, 83, 155, 0.22);
+        }
+
+        .cell.conflict {
+            background: rgba(238, 49, 42, 0.18);
+            border-color: var(--red);
+            border-style: solid;
+        }
+
+        .cell.agree {
+            background: rgba(16, 128, 67, 0.10);
+            border-color: rgba(16, 128, 67, 0.7);
+        }
+
+        .number {
+            position: relative;
+            z-index: 2;
+            width: calc(var(--cell-height) * 0.72);
+            height: calc(var(--cell-height) * 0.72);
+            font-size: calc(var(--cell-height) * 0.32);
+            border: solid 3px var(--dark);
+            border-radius: 50%;
+            cursor: move;
+            background: var(--blue);
+            color: white;
+            box-shadow: 0 0.35rem 0.8rem rgba(0, 0, 0, 0.16);
+        }
+
+        .number.dragging {
+            opacity: 0.85;
+            z-index: 10;
+        }
+
+        .number.selected {
+            border-color: var(--red);
+            box-shadow: 0 0 0 0.25rem rgba(238, 49, 42, 0.22), 0 0.35rem 0.8rem rgba(0, 0, 0, 0.16);
+        }
+
+        #numbers {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.65rem;
+            width: min(92vw, 900px);
+            min-height: calc(var(--cell-size) + 1.6rem);
+            padding: 0.8rem;
+            border-radius: 1rem;
+            background: rgba(0, 83, 155, 0.16);
+        }
+
+        #numbers .number {
+            width: min(8.4vmin, 56px);
+            height: min(8.4vmin, 56px);
+            font-size: min(3.4vmin, 1.45rem);
+        }
+
+        em {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 700px), (max-height: 760px) {
+            :root {
+                --cell-size: min(10.2vmin, 58px);
+                --cell-gap: min(0.8vmin, 5px);
+            }
+
+            #center-container {
+                gap: 1vmin;
+                padding-top: 4.5rem;
+            }
+
+            #numbers {
+                gap: 0.35rem;
+                padding: 0.5rem;
+            }
+
+            #numbers .number {
+                width: min(7vmin, 42px);
+                height: min(7vmin, 42px);
+                font-size: min(2.9vmin, 1.1rem);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .modal-dialog {
+                max-width: 90vw;
+                width: 90vw;
+                height: 90vh;
+                margin: 1rem auto;
+            }
+
+            .modal-content {
+                height: 100%;
+                overflow: auto;
+            }
+
+            .modal-body {
+                max-height: 65vh;
+                overflow-y: auto;
+            }
+        }
+    </style>
+
+    <script>
+        const radius = 2;
+        const cells = [];
+        const lines = [];
+        const wompWomp = new Audio("https://www.myinstants.com/media/sounds/downer_noise.mp3");
+        const clapping = new Audio("https://www.myinstants.com/media/sounds/aplausos_2.mp3");
+
+        let startTime;
+        let drags = 0;
+        let solved = false;
+        let selectedNumber = null;
+
+        for (let r = -radius; r <= radius; r++) {
+            const qMin = Math.max(-radius, -r - radius);
+            const qMax = Math.min(radius, -r + radius);
+            for (let q = qMin; q <= qMax; q++) {
+                cells.push({ q, r, id: cellId(q, r) });
+            }
+        }
+
+        for (const axis of ['q', 'r', 's']) {
+            for (let value = -radius; value <= radius; value++) {
+                lines.push(cells.filter((cell) => {
+                    if (axis === 'q') {
+                        return cell.q === value;
+                    }
+                    if (axis === 'r') {
+                        return cell.r === value;
+                    }
+                    return cell.q + cell.r === value;
+                }).map((cell) => cell.id));
+            }
+        }
+
+        window.onload = function () {
+            startTime = Date.now();
+            buildBoard();
+            buildNumbers();
+            setupDragAndDrop();
+            new bootstrap.Modal(document.getElementById('instructionsModal')).show();
+        }
+
+        function cellId(q, r) {
+            return `cell-${q + radius}-${r + radius}`;
+        }
+
+        function buildBoard() {
+            const board = document.getElementById('board');
+            for (const cell of cells) {
+                const target = document.createElement('div');
+                const position = hexPosition(cell);
+                target.id = cell.id;
+                target.className = 'cell';
+                target.dataset.q = cell.q;
+                target.dataset.r = cell.r;
+                target.style.left = `${position.left}%`;
+                target.style.top = `${position.top}%`;
+                target.setAttribute('role', 'gridcell');
+                target.setAttribute('aria-label', `Empty hexagon cell ${cell.id}`);
+                target.addEventListener('click', () => placeSelectedNumber(target));
+                board.appendChild(target);
+            }
+        }
+
+        function hexPosition(cell) {
+            const x = cell.q;
+            const y = cell.r;
+            const z = -cell.q - cell.r;
+            const horizontal = x;
+            const vertical = 2 * Math.sin(Math.PI / 3) * (y - z) / 3;
+
+            return {
+                left: ((1.5 + 0.75 * horizontal) / 4) * 100,
+                top: ((Math.sqrt(3) + 0.75 * vertical) / 4.330127) * 100
+            };
+        }
+
+        function buildNumbers() {
+            const numbers = document.getElementById('numbers');
+            for (let value = 1; value <= 19; value++) {
+                const number = document.createElement('div');
+                number.id = `n-${value}`;
+                number.className = 'number';
+                number.dataset.value = value;
+                number.textContent = value;
+                number.setAttribute('role', 'button');
+                number.setAttribute('aria-label', `Number ${value}`);
+                number.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    selectNumber(number);
+                });
+                numbers.appendChild(number);
+            }
+
+            numbers.addEventListener('click', (event) => {
+                if (event.target === numbers && selectedNumber) {
+                    document.getElementById('numbers').appendChild(selectedNumber);
+                    sortNumberBank();
+                    selectNumber(null);
+                    check();
+                }
+            });
+        }
+
+        function setupDragAndDrop() {
+            interact('.number').draggable({
+                listeners: {
+                    start(event) {
+                        selectNumber(null);
+                        event.target.classList.add('dragging');
+                    },
+                    move(event) {
+                        const target = event.target;
+                        const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+                        const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+                        target.style.transform = `translate(${x}px, ${y}px)`;
+                        target.setAttribute('data-x', x);
+                        target.setAttribute('data-y', y);
+                    },
+                    end(event) {
+                        const target = event.target;
+                        const originalParent = target.parentNode;
+
+                        target.style.display = 'none';
+                        const dropElement = document.elementFromPoint(event.clientX, event.clientY);
+                        target.style.display = '';
+
+                        const targetCell = dropElement ? dropElement.closest('.cell') : null;
+                        const targetBank = dropElement ? dropElement.closest('#numbers') : null;
+
+                        if (targetCell) {
+                            if (targetCell.childElementCount === 0) {
+                                targetCell.appendChild(target);
+                            } else {
+                                const existingElement = targetCell.firstElementChild;
+                                targetCell.appendChild(target);
+                                originalParent.appendChild(existingElement);
+                            }
+                        } else if (targetBank) {
+                            document.getElementById('numbers').appendChild(target);
+                        } else {
+                            originalParent.appendChild(target);
+                        }
+
+                        resetDraggedNumber(target);
+                        target.classList.remove('dragging');
+                        sortNumberBank();
+                        check();
+                    }
+                }
+            });
+
+            interact('.cell, #numbers').dropzone({
+                accept: '.number',
+                overlap: 0.5,
+                ondragenter: function (event) {
+                    event.target.classList.add('drop-target');
+                },
+                ondragleave: function (event) {
+                    event.target.classList.remove('drop-target');
+                },
+                ondrop: function (event) {
+                    event.target.classList.remove('drop-target');
+                },
+                ondropdeactivate: function (event) {
+                    event.target.classList.remove('drop-target');
+                }
+            });
+        }
+
+        function selectNumber(number) {
+            if (selectedNumber) {
+                selectedNumber.classList.remove('selected');
+            }
+            selectedNumber = number;
+            if (selectedNumber) {
+                selectedNumber.classList.add('selected');
+            }
+        }
+
+        function placeSelectedNumber(targetCell) {
+            if (!selectedNumber) {
+                return;
+            }
+
+            const target = selectedNumber;
+            const originalParent = target.parentNode;
+            if (targetCell.childElementCount === 0) {
+                targetCell.appendChild(target);
+            } else {
+                const existingElement = targetCell.firstElementChild;
+                targetCell.appendChild(target);
+                originalParent.appendChild(existingElement);
+            }
+
+            selectNumber(null);
+            sortNumberBank();
+            check();
+        }
+
+        function sortNumberBank() {
+            const numbers = document.getElementById('numbers');
+            const sortedNumbers = Array.from(numbers.querySelectorAll('.number')).sort((a, b) => {
+                return Number(a.dataset.value) - Number(b.dataset.value);
+            });
+            for (const number of sortedNumbers) {
+                numbers.appendChild(number);
+            }
+        }
+
+        function resetDraggedNumber(number) {
+            number.style.transform = 'translate(0px, 0px)';
+            number.removeAttribute('data-x');
+            number.removeAttribute('data-y');
+        }
+
+        function check() {
+            if (solved) {
+                return;
+            }
+
+            drags++;
+            updateCellLabels();
+            clearFeedback();
+
+            const completedLines = lines.map((line, index) => {
+                const values = line.map((id) => valueInCell(id));
+                return {
+                    index,
+                    line,
+                    values,
+                    complete: values.every((value) => value !== null),
+                    sum: values.reduce((total, value) => total + (value || 0), 0)
+                };
+            }).filter((line) => line.complete);
+
+            const distinctSums = new Set(completedLines.map((line) => line.sum));
+            const allFilled = cells.every((cell) => valueInCell(cell.id) !== null);
+
+            if (completedLines.length > 1 && distinctSums.size > 1) {
+                showStatus(formatDisagreeingSums(completedLines), 'bad');
+                for (const completedLine of completedLines) {
+                    markLine(completedLine.line, 'conflict');
+                }
+            } else if (completedLines.length > 1) {
+                showStatus('Completed lines agree so far.', 'good');
+                for (const completedLine of completedLines) {
+                    markLine(completedLine.line, 'agree');
+                }
+            }
+
+            if (allFilled && distinctSums.size === 1) {
+                solved = true;
+                finishGame();
+            } else if (allFilled) {
+                wompWomp.currentTime = 0;
+                wompWomp.play();
+            }
+        }
+
+        function formatDisagreeingSums(completedLines) {
+            const sums = new Set();
+            const examples = [];
+            for (const completedLine of completedLines) {
+                if (!sums.has(completedLine.sum)) {
+                    sums.add(completedLine.sum);
+                    examples.push(completedLine);
+                }
+            }
+
+            const calculations = examples.slice(0, 3).map((line) => {
+                const addends = line.values.join('+');
+                return `${addends} = ${line.sum}`;
+            }).join('\n');
+
+            return `${calculations}\nThey need to add up to the same number.`;
+        }
+
+        function valueInCell(id) {
+            const child = document.getElementById(id).firstElementChild;
+            return child ? Number(child.dataset.value) : null;
+        }
+
+        function updateCellLabels() {
+            for (const cell of cells) {
+                const target = document.getElementById(cell.id);
+                const value = valueInCell(cell.id);
+                target.setAttribute('aria-label', value === null ? `Empty hexagon cell ${cell.id}` : `Hexagon cell ${cell.id}, number ${value}`);
+            }
+        }
+
+        function clearFeedback() {
+            for (const cell of cells) {
+                document.getElementById(cell.id).classList.remove('conflict', 'agree');
+            }
+            const status = document.getElementById('status');
+            status.className = '';
+            status.textContent = '';
+        }
+
+        function markLine(line, className) {
+            for (const id of line) {
+                document.getElementById(id).classList.add(className);
+            }
+        }
+
+        function showStatus(message, className) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `visible ${className}`;
+        }
+
+        function finishGame() {
+            let delta = (Date.now() - startTime) / 1000;
+            const hours = Math.floor(delta / 3600);
+            delta = delta - hours * 3600;
+            const mins = Math.floor(delta / 60);
+            const seconds = Math.round(delta - mins * 60);
+
+            document.getElementById('time').innerHTML = '';
+            if (hours === 1) {
+                document.getElementById('time').innerHTML += '1 hour ';
+            } else if (hours > 0) {
+                document.getElementById('time').innerHTML += hours + ' hours ';
+            }
+            if (mins === 1) {
+                document.getElementById('time').innerHTML += '1 minute ';
+            } else if (mins > 1) {
+                document.getElementById('time').innerHTML += mins + ' minutes ';
+            }
+            if (seconds === 1) {
+                document.getElementById('time').innerHTML += '1 second ';
+            } else if (seconds > 0) {
+                document.getElementById('time').innerHTML += seconds + ' seconds ';
+            }
+
+            document.getElementById('drags').innerHTML = drags;
+            new bootstrap.Modal(document.querySelector('#welldone')).show();
+            startConfetti();
+            clapping.play();
+        }
+    </script>
+</head>
+
+<body>
+    <button id="instructionsLink" class="btn btn-link" data-bs-toggle="modal"
+        data-bs-target="#instructionsModal">Instructions</button>
+
+    <div id="instructionsModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Instructions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Place the numbers 1 to 19 in the hexagon such that:</p>
+                    <ul>
+                        <li>Each number appears exactly once.</li>
+                        <li>Every straight line across the hexagon has the same total.</li>
+                        <li>The straight lines run left-to-right and in the two diagonal directions.</li>
+                    </ul>
+                    <p>Drag and drop the numbers to solve the puzzle.
+                        Once two or more lines are complete, the puzzle will tell you whether those completed lines
+                        agree.</p>
+                    <p>You can drag numbers back to the deck at the bottom if needed.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="center-container">
+        <h1>Magic Hexagon</h1>
+        <div id="status" aria-live="polite"></div>
+        <div id="board" role="grid" aria-label="Magic hexagon board"></div>
+        <div id="numbers" aria-label="Available numbers"></div>
+    </div>
+
+    <div id="welldone" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Well done!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>You have solved the puzzle correctly!</p>
+                    <p>Some basic stats for your amusement:</p>
+                    <ul>
+                        <li>You have spent <span id="time"> </span> on this page until now.</li>
+                        <li>You have drag&dropped <span id="drags"> </span> times.</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M2ECXX0NL6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-M2ECXX0NL6');
+    </script>
+
+</body>
+
+</html>
