@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Magic square puzzle demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <script src="../maze/confetti.js"></script>
+
+    <!-- https://interactjs.io/ -->
+    <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.27/dist/interact.min.js"></script>
+
+    <link
+        href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII="
+        rel="icon" type="image/x-icon">
+
+    <style>
+        :root {
+            --board-size: min(78vmin, 620px);
+            --size: 3;
+            --blue: rgb(0, 83, 155);
+            --dark: rgb(35, 31, 32);
+            --red: #ee312a;
+            --green: #108043;
+        }
+
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            touch-action: none;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background: #f7f9fc;
+        }
+
+        #instructionsLink {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 5;
+        }
+
+        #center-container {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5vmin;
+            padding: 5rem 1rem 1rem;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--dark);
+            font-size: clamp(1.6rem, 3vw, 2.6rem);
+            margin: 0;
+        }
+
+        #title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        #title-separator {
+            color: var(--dark);
+            font-size: clamp(1.4rem, 2.6vw, 2.2rem);
+            font-weight: 700;
+        }
+
+        #short-instruction {
+            width: min(92vw, 780px);
+            margin: -0.5vmin 0 0;
+            color: rgba(35, 31, 32, 0.78);
+            font-size: clamp(0.95rem, 2vw, 1.15rem);
+            font-weight: 600;
+        }
+
+        #controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        #sizeSelect {
+            width: auto;
+            cursor: pointer;
+            touch-action: auto;
+        }
+
+        #status {
+            min-height: 2.5rem;
+            width: min(92vw, 780px);
+            border-radius: 0.75rem;
+            padding: 0.55rem 1rem;
+            font-weight: 700;
+            white-space: pre-line;
+            opacity: 0;
+            transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+        }
+
+        #status.visible {
+            opacity: 1;
+        }
+
+        #status.good {
+            background: rgba(16, 128, 67, 0.12);
+            color: var(--green);
+        }
+
+        #status.bad {
+            background: rgba(238, 49, 42, 0.12);
+            color: var(--red);
+        }
+
+        #game-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5vmin;
+            width: 100%;
+        }
+
+        #board-panel,
+        #bank-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(var(--size), 1fr);
+            grid-template-rows: repeat(var(--size), minmax(0, 1fr));
+            width: var(--board-size);
+            height: var(--board-size);
+            border: 3px solid rgba(35, 31, 32, 0.78);
+            background: white;
+        }
+
+        .cell,
+        .number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .cell {
+            min-width: 0;
+            min-height: 0;
+            overflow: hidden;
+            border: 1px dashed rgba(35, 31, 32, 0.45);
+            background: rgba(0, 83, 155, 0.06);
+        }
+
+        .cell.drop-target {
+            background: rgba(0, 83, 155, 0.18);
+        }
+
+        .cell.conflict {
+            background: rgba(238, 49, 42, 0.18);
+            border-color: var(--red);
+            border-style: solid;
+        }
+
+        .cell.agree {
+            background: rgba(16, 128, 67, 0.10);
+            border-color: rgba(16, 128, 67, 0.7);
+        }
+
+        .number {
+            position: relative;
+            z-index: 2;
+            width: min(calc(var(--board-size) / var(--size) * 0.72), 62px);
+            height: min(calc(var(--board-size) / var(--size) * 0.72), 62px);
+            border: solid 3px var(--dark);
+            border-radius: 50%;
+            cursor: move;
+            background: var(--blue);
+            color: white;
+            font-size: min(calc(var(--board-size) / var(--size) * 0.32), 1.45rem);
+            box-shadow: 0 0.35rem 0.8rem rgba(0, 0, 0, 0.16);
+        }
+
+        .number.dragging {
+            opacity: 0.85;
+            z-index: 10;
+        }
+
+        .number.selected {
+            border-color: var(--red);
+            box-shadow: 0 0 0 0.25rem rgba(238, 49, 42, 0.22), 0 0.35rem 0.8rem rgba(0, 0, 0, 0.16);
+        }
+
+        #numbers {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.45rem;
+            width: min(92vw, 900px);
+            min-height: 4.5rem;
+            max-height: 26vh;
+            padding: 0.75rem;
+            border-radius: 1rem;
+            overflow: auto;
+            background: rgba(0, 83, 155, 0.16);
+        }
+
+        #numbers .number {
+            width: min(8.4vmin, 48px);
+            height: min(8.4vmin, 48px);
+            font-size: min(3.2vmin, 1.25rem);
+        }
+
+        @media (max-width: 1024px) and (orientation: portrait) {
+            :root {
+                --board-size: min(94vw, 54vh);
+            }
+
+            #center-container {
+                gap: 1vmin;
+                padding: 3.75rem 0.25rem 0.5rem;
+            }
+
+            #status,
+            #short-instruction,
+            #numbers {
+                width: 96vw;
+            }
+
+            #numbers {
+                max-height: 25vh;
+                padding: 0.5rem;
+                gap: 0.35rem;
+            }
+        }
+
+        @media (min-width: 1025px) and (orientation: landscape) {
+            :root {
+                --board-size: min(62vw, 72vh);
+            }
+
+            #center-container {
+                width: 100vw;
+                height: 100vh;
+                padding: 4.5rem 2vw 2vw;
+                gap: 1.2vmin;
+            }
+
+            #short-instruction,
+            #status {
+                width: min(92vw, 1100px);
+            }
+
+            #game-layout {
+                display: grid;
+                grid-template-columns: 7fr 3fr;
+                flex: 1;
+                min-height: 0;
+                gap: 2vw;
+            }
+
+            #board-panel,
+            #bank-panel {
+                height: 100%;
+                min-width: 0;
+            }
+
+            #numbers {
+                align-content: flex-start;
+                width: 100%;
+                max-width: 26vw;
+                max-height: 100%;
+                min-height: auto;
+                padding: 1rem;
+                gap: 0.6rem;
+            }
+
+            #numbers .number {
+                width: min(4.4vw, 58px);
+                height: min(4.4vw, 58px);
+                font-size: min(1.65vw, 1.4rem);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .modal-dialog {
+                max-width: 90vw;
+                width: 90vw;
+                height: 90vh;
+                margin: 1rem auto;
+            }
+
+            .modal-content {
+                height: 100%;
+                overflow: auto;
+            }
+
+            .modal-body {
+                max-height: 65vh;
+                overflow-y: auto;
+            }
+        }
+    </style>
+
+    <script>
+        const wompWomp = new Audio("https://www.myinstants.com/media/sounds/downer_noise.mp3");
+        const clapping = new Audio("https://www.myinstants.com/media/sounds/aplausos_2.mp3");
+
+        let size = 3;
+        let lines = [];
+        let startTime;
+        let drags = 0;
+        let solved = false;
+        let selectedNumber = null;
+
+        window.onload = function () {
+            startTime = Date.now();
+            document.getElementById('sizeSelect').addEventListener('change', (event) => {
+                resetPuzzle(Number(event.target.value));
+            });
+            resetPuzzle(size);
+            setupDragAndDrop();
+            new bootstrap.Modal(document.getElementById('instructionsModal')).show();
+        }
+
+        function resetPuzzle(newSize) {
+            size = newSize;
+            lines = buildLines(size);
+            drags = 0;
+            solved = false;
+            selectedNumber = null;
+            startTime = Date.now();
+            document.documentElement.style.setProperty('--size', size);
+            clearFeedback();
+            removeConfetti();
+            buildBoard();
+            buildNumbers();
+        }
+
+        function buildLines(squareSize) {
+            const newLines = [];
+            for (let row = 0; row < squareSize; row++) {
+                newLines.push(Array.from({ length: squareSize }, (_, col) => cellId(row, col)));
+            }
+            for (let col = 0; col < squareSize; col++) {
+                newLines.push(Array.from({ length: squareSize }, (_, row) => cellId(row, col)));
+            }
+            newLines.push(Array.from({ length: squareSize }, (_, index) => cellId(index, index)));
+            newLines.push(Array.from({ length: squareSize }, (_, index) => cellId(index, squareSize - index - 1)));
+            return newLines;
+        }
+
+        function cellId(row, col) {
+            return `cell-${row}-${col}`;
+        }
+
+        function buildBoard() {
+            const board = document.getElementById('board');
+            board.innerHTML = '';
+            for (let row = 0; row < size; row++) {
+                for (let col = 0; col < size; col++) {
+                    const target = document.createElement('div');
+                    target.id = cellId(row, col);
+                    target.className = 'cell';
+                    target.dataset.row = row;
+                    target.dataset.col = col;
+                    target.setAttribute('role', 'gridcell');
+                    target.setAttribute('aria-label', `Empty square cell row ${row + 1}, column ${col + 1}`);
+                    target.addEventListener('click', () => placeSelectedNumber(target));
+                    board.appendChild(target);
+                }
+            }
+        }
+
+        function buildNumbers() {
+            const numbers = document.getElementById('numbers');
+            numbers.innerHTML = '';
+            for (let value = 1; value <= size * size; value++) {
+                const number = document.createElement('div');
+                number.id = `n-${value}`;
+                number.className = 'number';
+                number.dataset.value = value;
+                number.textContent = value;
+                number.setAttribute('role', 'button');
+                number.setAttribute('aria-label', `Number ${value}`);
+                number.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    selectNumber(number);
+                });
+                numbers.appendChild(number);
+            }
+
+            numbers.onclick = (event) => {
+                if (event.target === numbers && selectedNumber) {
+                    numbers.appendChild(selectedNumber);
+                    sortNumberBank();
+                    selectNumber(null);
+                    check();
+                }
+            };
+        }
+
+        function setupDragAndDrop() {
+            interact('.number').draggable({
+                listeners: {
+                    start(event) {
+                        selectNumber(null);
+                        event.target.classList.add('dragging');
+                    },
+                    move(event) {
+                        const target = event.target;
+                        const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+                        const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+                        target.style.transform = `translate(${x}px, ${y}px)`;
+                        target.setAttribute('data-x', x);
+                        target.setAttribute('data-y', y);
+                    },
+                    end(event) {
+                        const target = event.target;
+                        const originalParent = target.parentNode;
+
+                        target.style.display = 'none';
+                        const dropElement = document.elementFromPoint(event.clientX, event.clientY);
+                        target.style.display = '';
+
+                        const targetCell = dropElement ? dropElement.closest('.cell') : null;
+                        const targetBank = dropElement ? dropElement.closest('#numbers') : null;
+
+                        if (targetCell) {
+                            if (targetCell.childElementCount === 0) {
+                                targetCell.appendChild(target);
+                            } else {
+                                const existingElement = targetCell.firstElementChild;
+                                targetCell.appendChild(target);
+                                originalParent.appendChild(existingElement);
+                            }
+                        } else if (targetBank) {
+                            document.getElementById('numbers').appendChild(target);
+                        } else {
+                            originalParent.appendChild(target);
+                        }
+
+                        resetDraggedNumber(target);
+                        target.classList.remove('dragging');
+                        sortNumberBank();
+                        check();
+                    }
+                }
+            });
+
+            interact('.cell, #numbers').dropzone({
+                accept: '.number',
+                overlap: 0.5,
+                ondragenter: function (event) {
+                    event.target.classList.add('drop-target');
+                },
+                ondragleave: function (event) {
+                    event.target.classList.remove('drop-target');
+                },
+                ondrop: function (event) {
+                    event.target.classList.remove('drop-target');
+                },
+                ondropdeactivate: function (event) {
+                    event.target.classList.remove('drop-target');
+                }
+            });
+        }
+
+        function selectNumber(number) {
+            if (selectedNumber) {
+                selectedNumber.classList.remove('selected');
+            }
+            selectedNumber = number;
+            if (selectedNumber) {
+                selectedNumber.classList.add('selected');
+            }
+        }
+
+        function placeSelectedNumber(targetCell) {
+            if (!selectedNumber) {
+                return;
+            }
+
+            const target = selectedNumber;
+            const originalParent = target.parentNode;
+            if (targetCell.childElementCount === 0) {
+                targetCell.appendChild(target);
+            } else {
+                const existingElement = targetCell.firstElementChild;
+                targetCell.appendChild(target);
+                originalParent.appendChild(existingElement);
+            }
+
+            selectNumber(null);
+            sortNumberBank();
+            check();
+        }
+
+        function sortNumberBank() {
+            const numbers = document.getElementById('numbers');
+            const sortedNumbers = Array.from(numbers.querySelectorAll('.number')).sort((a, b) => {
+                return Number(a.dataset.value) - Number(b.dataset.value);
+            });
+            for (const number of sortedNumbers) {
+                numbers.appendChild(number);
+            }
+        }
+
+        function resetDraggedNumber(number) {
+            number.style.transform = 'translate(0px, 0px)';
+            number.removeAttribute('data-x');
+            number.removeAttribute('data-y');
+        }
+
+        function check() {
+            if (solved) {
+                return;
+            }
+
+            drags++;
+            updateCellLabels();
+            clearFeedback();
+
+            const completedLines = lines.map((line, index) => {
+                const values = line.map((id) => valueInCell(id));
+                return {
+                    index,
+                    line,
+                    values,
+                    complete: values.every((value) => value !== null),
+                    sum: values.reduce((total, value) => total + (value || 0), 0)
+                };
+            }).filter((line) => line.complete);
+
+            const distinctSums = new Set(completedLines.map((line) => line.sum));
+            const allFilled = Array.from(document.querySelectorAll('.cell')).every((cell) => cell.firstElementChild);
+
+            if (completedLines.length > 1 && distinctSums.size > 1) {
+                showStatus(formatDisagreeingSums(completedLines), 'bad');
+                for (const completedLine of completedLines) {
+                    markLine(completedLine.line, 'conflict');
+                }
+            } else if (completedLines.length > 1) {
+                showStatus('Completed lines agree so far.', 'good');
+                for (const completedLine of completedLines) {
+                    markLine(completedLine.line, 'agree');
+                }
+            }
+
+            if (allFilled && distinctSums.size === 1) {
+                solved = true;
+                finishGame();
+            } else if (allFilled) {
+                wompWomp.currentTime = 0;
+                wompWomp.play();
+            }
+        }
+
+        function formatDisagreeingSums(completedLines) {
+            const sums = new Set();
+            const examples = [];
+            for (const completedLine of completedLines) {
+                if (!sums.has(completedLine.sum)) {
+                    sums.add(completedLine.sum);
+                    examples.push(completedLine);
+                }
+            }
+
+            const calculations = examples.slice(0, 3).map((line) => {
+                const addends = line.values.join('+');
+                return `${addends} = ${line.sum}`;
+            }).join('\n');
+
+            return `${calculations}\nThey need to add up to the same number.`;
+        }
+
+        function valueInCell(id) {
+            const child = document.getElementById(id).firstElementChild;
+            return child ? Number(child.dataset.value) : null;
+        }
+
+        function updateCellLabels() {
+            for (let row = 0; row < size; row++) {
+                for (let col = 0; col < size; col++) {
+                    const target = document.getElementById(cellId(row, col));
+                    const value = valueInCell(target.id);
+                    target.setAttribute('aria-label', value === null ? `Empty square cell row ${row + 1}, column ${col + 1}` : `Square cell row ${row + 1}, column ${col + 1}, number ${value}`);
+                }
+            }
+        }
+
+        function clearFeedback() {
+            for (const cell of document.querySelectorAll('.cell')) {
+                cell.classList.remove('conflict', 'agree');
+            }
+            const status = document.getElementById('status');
+            status.className = '';
+            status.textContent = '';
+        }
+
+        function markLine(line, className) {
+            for (const id of line) {
+                document.getElementById(id).classList.add(className);
+            }
+        }
+
+        function showStatus(message, className) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `visible ${className}`;
+        }
+
+        function finishGame() {
+            let delta = (Date.now() - startTime) / 1000;
+            const hours = Math.floor(delta / 3600);
+            delta = delta - hours * 3600;
+            const mins = Math.floor(delta / 60);
+            const seconds = Math.round(delta - mins * 60);
+
+            document.getElementById('time').innerHTML = '';
+            if (hours === 1) {
+                document.getElementById('time').innerHTML += '1 hour ';
+            } else if (hours > 0) {
+                document.getElementById('time').innerHTML += hours + ' hours ';
+            }
+            if (mins === 1) {
+                document.getElementById('time').innerHTML += '1 minute ';
+            } else if (mins > 1) {
+                document.getElementById('time').innerHTML += mins + ' minutes ';
+            }
+            if (seconds === 1) {
+                document.getElementById('time').innerHTML += '1 second ';
+            } else if (seconds > 0) {
+                document.getElementById('time').innerHTML += seconds + ' seconds ';
+            }
+
+            document.getElementById('drags').innerHTML = drags;
+            new bootstrap.Modal(document.querySelector('#welldone')).show();
+            startConfetti();
+            clapping.play();
+        }
+    </script>
+</head>
+
+<body>
+    <button id="instructionsLink" class="btn btn-link" data-bs-toggle="modal"
+        data-bs-target="#instructionsModal">Instructions</button>
+
+    <div id="instructionsModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Instructions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Choose a square size, then place the numbers in the grid such that:</p>
+                    <ul>
+                        <li>Each number appears exactly once.</li>
+                        <li>Every row, column, and main diagonal has the same total.</li>
+                    </ul>
+                    <p>Drag and drop the numbers to solve the puzzle.
+                        Once two or more lines are complete, the puzzle will tell you whether those completed lines
+                        agree.</p>
+                    <p>You can drag numbers back to the deck if needed. Changing the square size starts a fresh puzzle.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="center-container">
+        <div id="title-row">
+            <h1>Magic Square</h1>
+            <span id="title-separator">-</span>
+            <div id="controls">
+                <label for="sizeSelect">Size</label>
+                <select id="sizeSelect" class="form-select form-select-sm" aria-label="Square size">
+                    <option value="3" selected>3 x 3</option>
+                    <option value="4">4 x 4</option>
+                    <option value="5">5 x 5</option>
+                    <option value="6">6 x 6</option>
+                    <option value="7">7 x 7</option>
+                    <option value="8">8 x 8</option>
+                    <option value="9">9 x 9</option>
+                </select>
+            </div>
+        </div>
+        <p id="short-instruction">Place each number once so every row, column, and main diagonal has the same total.</p>
+        <div id="status" aria-live="polite"></div>
+        <div id="game-layout">
+            <div id="board-panel">
+                <div id="board" role="grid" aria-label="Magic square board"></div>
+            </div>
+            <div id="bank-panel">
+                <div id="numbers" aria-label="Available numbers"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="welldone" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Well done!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>You have solved the puzzle correctly!</p>
+                    <p>Some basic stats for your amusement:</p>
+                    <ul>
+                        <li>You have spent <span id="time"> </span> on this page until now.</li>
+                        <li>You have drag&dropped <span id="drags"> </span> times.</li>
+                    </ul>
+                    <p>Is this the only solution, or can symmetries give you more? How many kinds of symmetry can you think of?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M2ECXX0NL6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-M2ECXX0NL6');
+    </script>
+
+</body>
+
+</html>
