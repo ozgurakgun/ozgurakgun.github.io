@@ -69,6 +69,14 @@
             margin: 0;
         }
 
+        #short-instruction {
+            width: min(92vw, 760px);
+            margin: -1vmin 0 0;
+            color: rgba(35, 31, 32, 0.78);
+            font-size: clamp(0.95rem, 2vw, 1.15rem);
+            font-weight: 600;
+        }
+
         #status {
             min-height: 2.5rem;
             width: min(92vw, 760px);
@@ -218,6 +226,7 @@
             }
 
             #status,
+            #short-instruction,
             #numbers {
                 width: 96vw;
             }
@@ -619,6 +628,7 @@
 
     <div id="center-container">
         <h1>Magic Hexagon</h1>
+        <p id="short-instruction">Place each number once so every straight line through the hexagon has the same total.</p>
         <div id="status" aria-live="polite"></div>
         <div id="board" role="grid" aria-label="Magic hexagon board"></div>
         <div id="numbers" aria-label="Available numbers"></div>
