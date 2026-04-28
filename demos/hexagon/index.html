@@ -233,12 +233,14 @@
 
         @media (max-width: 1024px) and (orientation: portrait) {
             :root {
-                /* The board is four cells wide, so this fills almost all phone-width. */
-                --cell-size: 22.05vw;
+                /* Width-first, but shrink on short portrait screens so the bank stays visible. */
+                --cell-size: min(22.05vw, 10.5vh);
             }
 
             #center-container {
-                gap: 1.5vmin;
+                gap: 1vmin;
+                padding-top: 3.75rem;
+                padding-bottom: 0.5rem;
                 padding-left: 0.25rem;
                 padding-right: 0.25rem;
             }
