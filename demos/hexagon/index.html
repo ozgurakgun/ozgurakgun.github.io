@@ -586,6 +586,7 @@
 
             if (allFilled && distinctSums.size === 1) {
                 solved = true;
+                showStatus('Completed!', 'good');
                 finishGame();
             } else if (allFilled) {
                 wompWomp.currentTime = 0;
