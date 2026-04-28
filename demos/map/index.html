@@ -164,6 +164,8 @@
             ctx.lineTo(event.offsetX, event.offsetY);
             ctx.strokeStyle = 'black';
             ctx.lineWidth = lineThickness;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
             ctx.stroke();
             paths[paths.length - 1].push({ x: event.offsetX, y: event.offsetY });
         }
@@ -190,8 +192,8 @@
             loadingLabel.textContent = 'Detecting regions';
             loadingLabel.style.display = 'inline';
 
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            savedImageData = ctx.getImageData(0, 0, canvas.width, canvas.height); // Save for unhighlighting
+            const imageData = createCleanMapImageData();
+            savedImageData = imageData; // Save the uncoloured map for unhighlighting/recolouring
             const pixels = imageData.data;
             const width = canvas.width;
             const height = canvas.height;
@@ -199,7 +201,7 @@
             latestWallMask = wallMask;
 
             const visited = new Uint8Array(width * height);
-            pixelRegionMap = new Uint16Array(width * height);
+            pixelRegionMap = new Uint32Array(width * height);
             regionPixels = {}; // Reset regionPixels
             regionCount = 0;
             let regionID = 1;
@@ -409,6 +411,40 @@
             return Array.from(pairSet, pair => JSON.parse(pair));
         }
 
+        function drawCleanMap(targetCtx) {
+            targetCtx.clearRect(0, 0, canvas.width, canvas.height);
+            targetCtx.fillStyle = 'white';
+            targetCtx.fillRect(0, 0, canvas.width, canvas.height);
+            targetCtx.lineWidth = lineThickness;
+            targetCtx.lineCap = 'round';
+            targetCtx.lineJoin = 'round';
+            targetCtx.strokeStyle = 'black';
+
+            for (const path of paths) {
+                if (path.length === 0) {
+                    continue;
+                }
+
+                targetCtx.beginPath();
+                targetCtx.moveTo(path[0].x, path[0].y);
+                for (let i = 1; i < path.length; i++) {
+                    targetCtx.lineTo(path[i].x, path[i].y);
+                }
+                targetCtx.stroke();
+                targetCtx.closePath();
+            }
+        }
+
+        function createCleanMapImageData() {
+            const cleanCanvas = document.createElement('canvas');
+            cleanCanvas.width = canvas.width;
+            cleanCanvas.height = canvas.height;
+
+            const cleanCtx = cleanCanvas.getContext('2d');
+            drawCleanMap(cleanCtx);
+            return cleanCtx.getImageData(0, 0, cleanCanvas.width, cleanCanvas.height);
+        }
+
         // Create a structuring element for dilation
         function createStructuringElement(radius) {
             const size = radius * 2 + 1;
@@ -496,6 +532,11 @@
                 console.error('No colouring result available.');
                 return;
             }
+
+            if (!savedImageData) {
+                savedImageData = createCleanMapImageData();
+            }
+            ctx.putImageData(savedImageData, 0, 0);
 
             // Use the specified colours
             const colours = ['#f5842b', '#7b439a', '#c60c46', '#ffdf00'];
@@ -589,26 +630,7 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
         }
 
         function redraw() {
-            // Clear canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            // Refill background
-            ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Redraw all paths
-            ctx.lineWidth = lineThickness;
-            ctx.strokeStyle = 'black';
-            for (const path of paths) {
-                if (path.length > 0) {
-                    ctx.beginPath();
-                    ctx.moveTo(path[0].x, path[0].y);
-                    for (let i = 1; i < path.length; i++) {
-                        ctx.lineTo(path[i].x, path[i].y);
-                    }
-                    ctx.stroke();
-                    ctx.closePath();
-                }
-            }
+            drawCleanMap(ctx);
 
             // Redraw the regions if colouringResult exists
             if (colouringResult) {
@@ -659,6 +681,13 @@ such that forAll (i,j) in edges . colouring(i) != colouring(j)
                     const loadedPaths = JSON.parse(e.target.result);
                     paths = loadedPaths["paths"];
                     segments = [];
+                    savedImageData = null;
+                    pixelRegionMap = null;
+                    regionPixels = {};
+                    colouringResult = null;
+                    latestWallMask = null;
+                    previousAdjacencyPairs = null;
+                    previousRegionCount = 0;
                     // Reconstruct segments from paths
                     for (const path of paths) {
                         for (let i = 0; i < path.length - 1; i++) {
