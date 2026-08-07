@@ -69,6 +69,8 @@ for bib in bibs do
                      .gsub("Akgun", "Akgün")
                      .gsub("{", "")
                      .gsub("}", "")
+                     .gsub("\\c s", "ş")
+                     .gsub("\\c{s}", "ş")
                      .gsub("Özgür Akgün", "<u>Özgür Akgün</u>")
                      .gsub("Peter William Nightingale", "Peter Nightingale")
                      .gsub("James Patrick Wetter", "James Wetter")
