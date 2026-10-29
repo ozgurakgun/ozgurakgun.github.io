@@ -50,45 +50,110 @@ Note that this VIP has a routine weekly meeting during semesters. Due to timetab
 **We are primarily interested in recruiting CS students at the moment, but we will consider motivated non-CS students as well. Please get in touch and explain your background and interests.**
 
 
-# Past students and promo videos
+# Previous years
 
-## 2025 VIP promo video
+<ul class="nav nav-tabs" role="tablist" aria-label="Previous years">
+  <li role="presentation" class="active"><a href="#vip-2025-2026" id="vip-tab-2025-2026" aria-controls="vip-2025-2026" role="tab" data-toggle="tab" aria-expanded="true">2025-2026</a></li>
+  <li role="presentation"><a href="#vip-2024-2025" id="vip-tab-2024-2025" aria-controls="vip-2024-2025" role="tab" data-toggle="tab" aria-expanded="false">2024-2025</a></li>
+  <li role="presentation"><a href="#vip-2023-2024" id="vip-tab-2023-2024" aria-controls="vip-2023-2024" role="tab" data-toggle="tab" aria-expanded="false">2023-2024</a></li>
+  <li role="presentation"><a href="#vip-launch" id="vip-tab-launch" aria-controls="vip-launch" role="tab" data-toggle="tab" aria-expanded="false">Launch</a></li>
+</ul>
 
-The 2025/26 academic year will be the third year we run this VIP. Here is this year's edition of the promo video.
+<div class="tab-content">
+<div role="tabpanel" class="tab-pane active" id="vip-2025-2026" aria-labelledby="vip-tab-2025-2026" markdown="1">
+
+## 2025-2026
+
+We got a little bit lazy in 2025-2026 and didn't record an end-of-year video. There are videos for previous years, feel free to take a look at those!
+
+Students:
+
+- Alex Faquet
+- Anastasia Martinson
+- Andrew Mullan
+- Arnav Bista
+- Ben Stockil
+- Calum Cooke
+- Edward Lowe
+- Felix Leitner-mittersinker
+- Georgii Skorokhod
+- Hanaa Khan
+- Hayden Brown
+- Henry Chandler
+- Jamie Melton
+- Ksenia Baatz
+- Leia Young
+- Liz Dempster
+- Liza Vasiljevic
+- Nadine Martin
+- Nicholas Davidson
+- Sebastian El Khoury Seoane
+- Shikhar Srivastava-roy Srivastava
+- Soph Morgulchik
+- Tudor Huica
+- Ty Swan
+- Vlad Tronciu
+- Will Lucas-evans
+- Yehor Boiar
+- Yi Xin Chong
+
+</div>
+<div role="tabpanel" class="tab-pane" id="vip-2024-2025" aria-labelledby="vip-tab-2024-2025" markdown="1">
+
+## 2024-2025
+
+Here is the VIP promo video recorded in 2025.
 
 <iframe width="560" height="315" style="display:block;margin:auto;" src="https://www.youtube.com/embed/JF67yRAEWew" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-## 2024 VIP promo video
+Students:
 
-The 2024/25 academic year was the second time we ran the VIP. Some of the existing VIP students and I recorded a video where we talked about the upsides and downsides of being involved in a project like this. Please watch this video if you are interested in applying.
+- Anastasia Martinson
+- Arnav Bista
+- Felix Leitner-mittersinker
+- Georgii Skorokhod
+- Henry Chandler
+- Leia Young
+- Lilian Contius
+- Liz Dempster
+- Nadine Martin
+- Nik Dewally
+- Owain Thorp
+- Shikhar Srivastava-roy Srivastava
+- Sofiia Morgulchik
+- Tudor Huica
+- Tyler Swan
+- Vincent Pickering
+- Yehor Boiar
+- Yi Xin Chong
+- Zayaan Ahmed
+
+</div>
+<div role="tabpanel" class="tab-pane" id="vip-2023-2024" aria-labelledby="vip-tab-2023-2024" markdown="1">
+
+## 2023-2024
+
+Some of the existing VIP students and I recorded a promo video in 2024 where we talked about the upsides and downsides of being involved in a project like this. Please watch this video if you are interested in applying.
 
 <iframe width="560" height="315" style="display:block;margin:auto;" src="https://www.youtube.com/embed/PgnxbnGh3oo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 Students:
-Anastasia Martinson,
-Arnav Bista,
-Devansh Chopra,
-Eworitse Wilbert,
-Felix Leitner-Mittersinker,
-Georgii Skorokhod,
-Henry Chandler,
-Leia Young,
-Lilian Contius,
-Liz Dempster,
-Nadine Martin,
-Nik Dewally,
-Owain Thorp,
-Shikhar Srivastava,
-Soph Morgulchik,
-Tudor Huica,
-Tyler Swan,
-Vincent Pickering,
-Yehor Boiar,
-Yi Xin Chong,
-Zayaan Ahmed
 
+- Carla Biermann
+- Felix Leitner-mittersinker
+- Georgii Skorokhod
+- Hannah Zeng
+- Kieran Fowlds
+- Nadine Martin
+- Nik Dewally
+- Pedro Gronda Garrigues
+- Samvit Nagpal
+- Stella Mortarotti
 
-## 2023 VIP promo video
+</div>
+<div role="tabpanel" class="tab-pane" id="vip-launch" aria-labelledby="vip-tab-launch" markdown="1">
+
+## Launch
 
 Less useful than the 2024 video, but: 2023 was the first year we ran the VIP. At the time I recorded a short video of myself explaining the project for interested students. Here it is, in case you want to check it out!
 
@@ -96,16 +161,5 @@ Note from the future (2025): You are welcome to watch this video, but I must war
 
 <iframe width="560" height="315" style="display:block;margin:auto;" src="https://www.youtube.com/embed/bK_QmJ4Mlos" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-Students:
-Carla Biermann,
-Felix Leitner-Mittersinker,
-Georgii Skorokhod,
-Hannah Zeng,
-Kieran Fowlds,
-Nadine Martin,
-Nik Dewally,
-Pedro Gronda Garrigues,
-Samvit Nagpal,
-Stella Mortarotti
-
-
+</div>
+</div>
